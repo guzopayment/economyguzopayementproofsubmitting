@@ -18,13 +18,18 @@ export default function ThankYou() {
         <div className="text-lg text-gray-700 space-y-4">
           <p>
             <strong>✅ የቤተሰብ ጉዞው የክፍያ ማስረጃዎ በትክክል ደርሷል።</strong>
-            Your payment proof have been submitted successfully Please wait for
-            admin review and confirmation.
+            Your payment proof have been submitted successfully.{" "}
+            <small>
+              {" "}
+              &npsp;
+              <br /> እባክዎ ለአስተዳደር ግምገማና ማረጋገጫ ይጠብቁ። | Please wait for admin
+              review and confirmation.
+            </small>
           </p>
           <p className="text-sm text-purple-700 font-semibold">
-            ወደ መነሻ ገጽ ይመለሱና የተረጋገጠልዎት ወይም ውድቅ የሆነብዎት መሆን አለመሆኑን ወደ ወደ መነሻ ገጽ
-            ይመለሱ የሚለውን በመንካት ይመልከቱ | Return to the booking home page later to
-            check the approval or rejection.
+            ወደ መነሻ ገጽ ይመለሱና የተረጋገጠልዎት ወይም ውድቅ የሆነብዎት መሆን አለመሆኑን ወደ መነሻ ገጽ ይመለሱ
+            የሚለውን በመንካት ይመልከቱ | Return to the booking home page later to check
+            the approval or rejection.
           </p>
         </div>
 
