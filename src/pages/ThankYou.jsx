@@ -29,6 +29,9 @@ export default function ThankYou() {
         </div>
 
         <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-2xl p-5 text-left">
+          <p>
+            <strong>✅ የቤተሰብ ጉዞው የክፍያ ማስረጃዎ በትክክል ደርሷል።</strong>
+          </p>
           <h3 className="font-extrabold text-yellow-800 text-lg mb-3">
             <img
               src={buyMeCoffee}
