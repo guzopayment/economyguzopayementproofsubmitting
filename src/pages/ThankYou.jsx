@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import buyMeCoffee from "../assets/buyMeCoffee.gif";
 const DEVELOPER_BANK = "CBE";
 const DEVELOPER_ACCOUNT_NUMBER = "1000254897837";
 const TELEBIRR_PHONE_NUMBER = "0955168453";
@@ -30,6 +30,12 @@ export default function ThankYou() {
 
         <div className="mt-8 bg-yellow-50 border border-yellow-200 rounded-2xl p-5 text-left">
           <h3 className="font-extrabold text-yellow-800 text-lg mb-3">
+            <img
+              src={buyMeCoffee}
+              alt="Click On "
+              srcset=""
+              className="w-24 h-18 mx-6 rounded-full"
+            />
             ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | By a Coffee for the Developer
           </h3>
           <p className="text-gray-700 leading-relaxed">
