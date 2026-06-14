@@ -20,17 +20,30 @@ function StatusBadge({ status }) {
         ? "bg-red-100 text-red-700"
         : "bg-yellow-100 text-yellow-700";
 
-  return <span className={`px-3 py-1 rounded-full text-xs font-bold ${cls}`}>{status || "Pending"}</span>;
+  return (
+    <span className={`px-3 py-1 rounded-full text-xs font-bold ${cls}`}>
+      {status || "Pending"}
+    </span>
+  );
 }
 
 export default function Home() {
   const navigate = useNavigate();
-  const [lookup, setLookup] = useState({ name: "", phone: "", organization: "" });
+  const [lookup, setLookup] = useState({
+    name: "",
+    phone: "",
+    organization: "",
+  });
   const [tooltip, setTooltip] = useState("");
   const [recentUpdates, setRecentUpdates] = useState([]);
   const [lookupResults, setLookupResults] = useState([]);
   const [checking, setChecking] = useState(false);
-  const [modal, setModal] = useState({ open: false, title: "", message: "", type: "info" });
+  const [modal, setModal] = useState({
+    open: false,
+    title: "",
+    message: "",
+    type: "info",
+  });
   const scrollRef = useRef(null);
 
   const showModal = (title, message, type = "info") =>
@@ -38,11 +51,16 @@ export default function Home() {
 
   const fetchRecentUpdates = async () => {
     try {
-      const res = await api.get("/bookings/public/recent", { params: { limit: 16 } });
+      const res = await api.get("/bookings/public/recent", {
+        params: { limit: 16 },
+      });
       const data = Array.isArray(res.data) ? res.data : [];
       setRecentUpdates(data);
     } catch (error) {
-      console.error("Recent updates error:", error.response?.data || error.message);
+      console.error(
+        "Recent updates error:",
+        error.response?.data || error.message,
+      );
       setRecentUpdates([]);
     }
   };
@@ -91,13 +109,22 @@ export default function Home() {
 
   const handlePhoneChange = (value) => {
     const sanitized = sanitizePhoneInput(value);
-    if (value !== sanitized) setTooltip("ስልክ ቁጥር ቁጥሮችን ብቻ ይቀበላል፤ ከ10 ዲጂት መብለጥ አይችልም።");
+    if (value !== sanitized)
+      setTooltip("ስልክ ቁጥር ቁጥሮችን ብቻ ይቀበላል፤ ከ10 ዲጂት መብለጥ አይችልም።");
     setLookup((prev) => ({ ...prev, phone: sanitized }));
   };
 
   const checkStatus = async () => {
-    if (!lookup.name.trim() && !lookup.phone.trim() && !lookup.organization.trim()) {
-      showModal("ማስጠንቀቂያ", "የሁኔታ ምርመራ ለማድረግ እባክዎ ስም፣ ስልክ ወይም ድርጅት ያስገቡ።", "error");
+    if (
+      !lookup.name.trim() &&
+      !lookup.phone.trim() &&
+      !lookup.organization.trim()
+    ) {
+      showModal(
+        "ማስጠንቀቂያ",
+        "የሁኔታ ምርመራ ለማድረግ እባክዎ ስም፣ ስልክ ወይም ድርጅት ያስገቡ።",
+        "error",
+      );
       return;
     }
 
@@ -135,10 +162,11 @@ export default function Home() {
         <div className="w-full max-w-5xl mx-auto text-center">
           <div className="backdrop-blur-xl shadow-xl py-5 px-3 md:px-5 mb-7 rounded-3xl bg-white/50">
             <h1 className="text-xl md:text-3xl font-bold text-purple-700 tracking-wide leading-tight">
-              የቅኔ ኢኮኖሚ ቤተሰብ የቤተሰብ ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!!
+              የዝክረ ቅዱሳን ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!!
             </h1>
             <p className="mt-4 text-lg md:text-2xl text-purple-700 font-semibold">
-              Qine Economy Family Traveling To Menagesha Garaw Medhanealem Unity Monastery!
+              Qine Economy Family Traveling To Menagesha Garaw Medhanealem Unity
+              Monastery!
             </p>
           </div>
 
@@ -149,7 +177,11 @@ export default function Home() {
               </h2>
               <h5 className="text-green-700 font-bold place-items-center mb-4">
                 ከታች የክፍያ ደረሰኝ ያስገቡ / Submit Payment የሚለውን ይንኩ
-                <img src={clickOn} alt="Click On" className="w-20 h-20 md:w-24 md:h-24 mx-auto" />
+                <img
+                  src={clickOn}
+                  alt="Click On"
+                  className="w-20 h-20 md:w-24 md:h-24 mx-auto"
+                />
               </h5>
               <button
                 onClick={() => navigate("/submit")}
@@ -162,11 +194,17 @@ export default function Home() {
 
           <div className="w-full max-w-4xl mx-auto bg-white/80 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-              <h3 className="text-2xl font-bold text-purple-700">Find submission status</h3>
-              <p className="text-sm text-gray-500">Search by full name, phone number, or organization.</p>
+              <h3 className="text-2xl font-bold text-purple-700">
+                Find submission status
+              </h3>
+              <p className="text-sm text-gray-500">
+                Search by full name, phone number, or organization.
+              </p>
             </div>
 
-            {tooltip ? <p className="mb-3 text-sm text-red-500 font-medium">{tooltip}</p> : null}
+            {tooltip ? (
+              <p className="mb-3 text-sm text-red-500 font-medium">{tooltip}</p>
+            ) : null}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-4">
               <input
@@ -184,7 +222,12 @@ export default function Home() {
               />
               <select
                 value={lookup.organization}
-                onChange={(e) => setLookup((prev) => ({ ...prev, organization: e.target.value }))}
+                onChange={(e) =>
+                  setLookup((prev) => ({
+                    ...prev,
+                    organization: e.target.value,
+                  }))
+                }
                 className="w-full bg-white rounded-2xl px-4 py-3 shadow border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300"
               >
                 <option value="">Organization / ድርጅት</option>
@@ -218,21 +261,33 @@ export default function Home() {
 
           {lookupResults.length > 0 && (
             <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
-              <h3 className="text-2xl font-bold text-purple-700 mb-4">Status result</h3>
+              <h3 className="text-2xl font-bold text-purple-700 mb-4">
+                Status result
+              </h3>
               <div className="space-y-4">
                 {lookupResults.map((item) => (
-                  <div key={item._id} className="rounded-2xl border border-purple-100 bg-white p-4 md:p-5 shadow-sm">
+                  <div
+                    key={item._id}
+                    className="rounded-2xl border border-purple-100 bg-white p-4 md:p-5 shadow-sm"
+                  >
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
                       <div>
-                        <h4 className="text-lg font-bold text-purple-700">{item.name}</h4>
+                        <h4 className="text-lg font-bold text-purple-700">
+                          {item.name}
+                        </h4>
                         <p className="text-sm text-gray-500">
-                          {item.organization} • {item.phone} • {item.subCity || "—"}
+                          {item.organization} • {item.phone} •{" "}
+                          {item.subCity || "—"}
                         </p>
                       </div>
                       <StatusBadge status={item.status} />
                     </div>
-                    <p className="text-gray-700 leading-relaxed">{item.message || buildStatusMessage(item.status)}</p>
-                    <p className="text-xs text-gray-400 mt-2">Updated: {new Date(item.updatedAt).toLocaleString()}</p>
+                    <p className="text-gray-700 leading-relaxed">
+                      {item.message || buildStatusMessage(item.status)}
+                    </p>
+                    <p className="text-xs text-gray-400 mt-2">
+                      Updated: {new Date(item.updatedAt).toLocaleString()}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -240,7 +295,9 @@ export default function Home() {
           )}
 
           <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 text-left">
-            <h3 className="text-2xl font-bold text-purple-700 mb-4">Recently submitted updates</h3>
+            <h3 className="text-2xl font-bold text-purple-700 mb-4">
+              Recently submitted updates
+            </h3>
             <div
               ref={scrollRef}
               className="h-[280px] overflow-hidden relative rounded-2xl"
@@ -254,15 +311,22 @@ export default function Home() {
                     >
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
                         <div>
-                          <h4 className="text-lg font-bold text-purple-700">{item.name}</h4>
+                          <h4 className="text-lg font-bold text-purple-700">
+                            {item.name}
+                          </h4>
                           <p className="text-sm text-gray-500">
-                            {item.organization} • {item.phone} • {item.subCity || "—"}
+                            {item.organization} • {item.phone} •{" "}
+                            {item.subCity || "—"}
                           </p>
                         </div>
                         <StatusBadge status={item.status} />
                       </div>
-                      <p className="text-gray-700">{item.message || buildStatusMessage(item.status)}</p>
-                      <p className="text-xs text-gray-400 mt-2">Updated: {new Date(item.updatedAt).toLocaleString()}</p>
+                      <p className="text-gray-700">
+                        {item.message || buildStatusMessage(item.status)}
+                      </p>
+                      <p className="text-xs text-gray-400 mt-2">
+                        Updated: {new Date(item.updatedAt).toLocaleString()}
+                      </p>
                     </div>
                   ))
                 ) : (
