@@ -195,10 +195,11 @@ export default function Home() {
           <div className="w-full max-w-4xl mx-auto bg-white/80 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
               <h3 className="text-2xl font-bold text-purple-700">
-                Find submission status
+                ያስገቡት የክፍያ ማስረጃ ሁኔታ ይፈትሹ | Check Your Booking Payment Status
               </h3>
               <p className="text-sm text-gray-500">
-                Search by full name, phone number, or organization.
+                ስም፣ ስልክ ወይም ድርጅት በመጠቀም የክፍያ ማስረጃዎት ሁኔታ ይፈትሹ። | Search by full
+                name, phone number, or organization.
               </p>
             </div>
 
