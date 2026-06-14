@@ -297,7 +297,7 @@ export default function Home() {
 
           <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 text-left">
             <h3 className="text-2xl font-bold text-purple-700 mb-4">
-              Recently submitted updates
+              በቅርብ ግዜ የተሰጡ የክፍያ ማስረጃ ሁኔታዎች | Recent Booking Payment Updates
             </h3>
             <div
               ref={scrollRef}
