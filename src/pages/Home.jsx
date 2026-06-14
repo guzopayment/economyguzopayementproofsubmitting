@@ -165,7 +165,7 @@ export default function Home() {
               የዝክረ ቅዱሳን ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!!
             </h1>
             <p className="mt-4 text-lg md:text-2xl text-purple-700 font-semibold">
-              Qine Economy Family Traveling To Menagesha Garaw Medhanealem Unity
+              Zikre Kidusan Traveling To Menagesha Garaw Medhanealem Unity
               Monastery!
             </p>
           </div>
