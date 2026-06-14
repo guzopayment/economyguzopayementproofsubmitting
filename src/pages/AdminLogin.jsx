@@ -76,7 +76,7 @@ export default function AdminLogin() {
         className="bg-white p-5 md:p-8 rounded-2xl shadow-lg w-full max-w-sm"
       >
         <h2 className="text-2xl mb-3 text-center font-bold">
-          ወደ ቦኪንግ አስተዳድር ሥርዓት መግቢያ | Booking Admin Login.
+          ወደ የክፍያ ማስረጃ አስተዳድር ሥርዓት መግቢያ | Booking Admin Login.
         </h2>
 
         {sessionExpired && (
