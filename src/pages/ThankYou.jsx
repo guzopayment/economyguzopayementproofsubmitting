@@ -27,7 +27,7 @@ export default function ThankYou() {
             </small>
           </p>
           <p className="text-sm text-purple-700 font-semibold">
-            ወደ መነሻ ገጽ ይመለሱና የተረጋገጠልዎት ወይም ውድቅ የሆነብዎት መሆን አለመሆኑን ወደ መነሻ ገጽ ይመለሱ
+            ያስገቡት የክፍያ ማስረጃ የጸደቀልዎት ወይም ውድቅ የሆነብዎት መሆን አለመሆኑን ወደ መነሻ ገጽ ይመለሱ
             የሚለውን በመንካት ይመልከቱ | Return to the booking home page later to check
             the approval or rejection.
           </p>
