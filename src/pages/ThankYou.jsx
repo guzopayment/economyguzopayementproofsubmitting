@@ -20,8 +20,6 @@ export default function ThankYou() {
             <strong>✅ የቤተሰብ ጉዞው የክፍያ ማስረጃዎ በትክክል ደርሷል።</strong>
             Your payment proof have been submitted successfully.{" "}
             <small>
-              {" "}
-              &npsp;
               <br /> እባክዎ ለአስተዳደር ግምገማና ማረጋገጫ ይጠብቁ። | Please wait for admin
               review and confirmation.
             </small>
