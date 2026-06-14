@@ -313,19 +313,19 @@ export default function AdminDashboard() {
 
     showModal(
       "ማረጋገጫ",
-      "ይህን የቦታ ቦኪንግ መረጃ ለመሰረዝ እርግጠኛ ነዎት?",
+      "ይህን የመረጃ ለመሰረዝ እርግጠኛ ነዎት?",
       "error",
       async () => {
         closeModal();
         try {
           await api.delete(`/admin/bookings/${booking._id}`);
           await refreshAll();
-          showModal("ተሳክቷል", "የቦታ ቦኪንግ መረጃው በተሳካ ሁኔታ ተሰርዟል።", "success");
+          showModal("ተሳክቷል", "የክፍያ መረጃው በተሳካ ሁኔታ ተሰርዟል።", "success");
         } catch (err) {
           console.error(err.response?.data || err.message);
           showModal(
             "ስህተት",
-            err.response?.data?.message || "የቦታ ቦኪንግ መረጃውን መሰረዝ አልተቻለም።",
+            err.response?.data?.message || "የክፍያ መረጃውን መሰረዝ አልተቻለም።",
             "error",
           );
         }
