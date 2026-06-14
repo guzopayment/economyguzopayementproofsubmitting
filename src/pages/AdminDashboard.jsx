@@ -313,7 +313,7 @@ export default function AdminDashboard() {
 
     showModal(
       "ማረጋገጫ",
-      "ይህን የመረጃ ለመሰረዝ እርግጠኛ ነዎት?",
+      "ይህን የክፍያ መረጃ ለመሰረዝ እርግጠኛ ነዎት?",
       "error",
       async () => {
         closeModal();
