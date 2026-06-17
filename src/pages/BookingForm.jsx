@@ -130,13 +130,14 @@ export default function BookingForm() {
   };
 
   const validate = () => {
-    if (!isAlphabeticText(form.name)) return "ሙሉ ስም በትክክል ያስገቡ።";
-    if (!normalizeSpaces(form.organization)) return "የቤተሰብ ስም (ድርጅት) ይምረጡ።";
+    if (!isAlphabeticText(form.name)) return "እባክዎ ሙሉ ስምዎትን ያስገቡ።";
+    if (!normalizeSpaces(form.organization))
+      return "እባክዎ የቤተሰብ ስም (ድርጅት)ን ያስገቡ።";
     if (!PHONE_REGEX.test(normalizeSpaces(form.phone))) {
-      return "ስልክ ቁጥር በ09 የሚጀምር 10 ዲጂት መሆን አለበት።";
+      return "እባክዎ ስልክ ቁጥርን በ09 የሚጀምር 10 ዲጂት መሆን አለበት።";
     }
-    if (!normalizeSpaces(form.sex)) return "ፆታ ይምረጡ።";
-    if (!normalizeSpaces(form.subCity)) return "ክ/ከተማ ይምረጡ።";
+    if (!normalizeSpaces(form.sex)) return "እባክዎ ፆታን ያስገቡ።";
+    if (!normalizeSpaces(form.subCity)) return "እባክዎ ክ/ከተማን ያስገቡ።";
     if (!form.participants || Number(form.participants) <= 0) {
       return "ተሳታፊ ብዛት ከ 0 በላይ ያስገቡ።";
     }
@@ -145,13 +146,14 @@ export default function BookingForm() {
     for (let i = 0; i < additionalParticipants.length; i += 1) {
       const participant = additionalParticipants[i];
       if (!isAlphabeticText(participant.name))
-        return `የተሳታፊ ${i + 2} ስም በትክክል ያስገቡ።`;
+        return `እባክዎ የተሳታፊ ${i + 2} ስምዎትን ያስገቡ።`;
       if (!PHONE_REGEX.test(normalizeSpaces(participant.phone))) {
-        return `የተሳታፊ ${i + 2} ስልክ ቁጥር በ09 የሚጀምር 10 ዲጂት መሆን አለበት።`;
+        return `እባክዎ የተሳታፊ ${i + 2} ስልክ ቁጥርን በ09 የሚጀምር 10 ዲጂት መሆን አለበት።`;
       }
       if (!normalizeSpaces(participant.organization))
-        return `የተሳታፊ ${i + 2} ድርጅት ይምረጡ።`;
-      if (!normalizeSpaces(participant.sex)) return `የተሳታፊ ${i + 2} ፆታ ይምረጡ።`;
+        return `እባክዎ የተሳታፊ ${i + 2} ድርጅትን ያስገቡ።`;
+      if (!normalizeSpaces(participant.sex))
+        return `እባክዎ የተሳታፊ ${i + 2} ፆታን ያስገቡ።`;
     }
 
     return "";
@@ -177,7 +179,6 @@ export default function BookingForm() {
       data.append("sex", normalizeSpaces(form.sex));
       data.append("subCity", normalizeSpaces(form.subCity));
       data.append("participants", String(form.participants).trim());
-      showModal("ተሳክቷል", "የክፍያ ማስረጃዎ በተሳካ ሁኔታ ተልኳል።", "success");
 
       data.append(
         "participantDetails",
@@ -198,6 +199,7 @@ export default function BookingForm() {
       const res = await api.post("/bookings", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      showModal("ተሳክቷል", "የክፍያ ማስረጃዎ በተሳካ ሁኔታ ተልኳል።", "success");
 
       const booking = res.data?.booking || res.data;
       upsertTrackedBooking({
@@ -404,12 +406,13 @@ export default function BookingForm() {
             disabled={submitting}
             className="bg-purple-500 text-white w-full py-3 rounded-xl font-bold hover:bg-purple-600 transition disabled:opacity-60"
           >
-            {submitting ? "በመላክ ላይ..." : "ያስገቡ / Submit"}
+            {submitting ? "ይጠብቁ በመላክ ላይ ነው..." : "ያስገቡ / Submit"}
           </button>
 
           <div className="text-sm text-gray-500 mt-4">
             * እባክዎ የሞሉት እና ያስገቡት የክፍያ ማስረጃ ትክክለኛ መሆኑን ያረጋግጡ። ትክክለኛ ካልሆነ በአስተዳድሩ
-            ውድቅ ሊደረግ ይችላል።
+            ውድቅ ሊደረግ ይችላል። በተጨማሪም የምስጋና ገጹ እስኪመጣ ይታገሱ፣ የኢንተርኔት ወይም የሰርቨር መቋረጥ
+            ከተከሰተ የማስጠንቀቂያ መልእክት ይታያል። ስለዚይ የክፍያ ማስረጃዎትን እንደገና ለመላክ ይሞክሩ።
           </div>
         </form>
       </div>
