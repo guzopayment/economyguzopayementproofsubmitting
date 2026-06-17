@@ -11,6 +11,11 @@ import {
   sanitizePhoneInput,
   buildStatusMessage,
 } from "../utils/bookingValidation";
+// Bacnk Account Information for Guzo payment
+// const DEVELOPER_BANK = "CBE";
+// const DEVELOPER_ACCOUNT_NUMBER = "1000254897837";
+// const TELEBIRR_PHONE_NUMBER = "0955168453";
+// const DEVELOPER_ACCOUNT_NAME = "Semahegn Tilahun Demelashe";
 
 function StatusBadge({ status }) {
   const cls =
@@ -173,8 +178,36 @@ export default function Home() {
           <div className="flex justify-center items-center mb-8">
             <div className="w-full max-w-3xl">
               <h2 className="text-purple-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
-                ውድ ቤተሰባችን እንኳን ደኅና መጡ፤ የጉዞ ትኬት የክፍያ ማስረጃ ማስገቢያ ቅጽን ለመሙላት ፥
+                ውድ ቤተሰባችን እንኳን ደኅና መጡ፤{" "}
+                <strong>
+                  {" "}
+                  <em>የአንድ ሰው የጉዞ ቲኬት ዋጋ 800 ብር ነው።</em>
+                </strong>{" "}
+                ስለሆነም፦
               </h2>
+              <div
+                className="text-yellow-700 text-lg md:text-xl px-3 py-4 rounded-[30px] font-semibold"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+              >
+                <h4>
+                  መጀመሪያ እባክዎ በእነዚህ የባንክ ቁጥሮች ውስጥ በአንዱ (እርሶ በተመቸዎት) ክፍያዎን ያከናውኑ።
+                </h4>{" "}
+                <li>
+                  CBE: <strong>1000771353607</strong>
+                </li>
+                <li>
+                  Ahadu Bank: <strong>0096408711801</strong>{" "}
+                </li>
+                <li>
+                  BoA: <strong>1009368317</strong>
+                </li>
+                All Account Holder Name:{" "}
+                <strong>Tewodros Sahile and Elsa Fantahun</strong>
+              </div>
+              <h2 className="text-purple-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
+                በመቀጠልም የጉዞ ትኬት የክፍያ ማስረጃ ማስገቢያ ቅጽን ለመሙላት ፥
+              </h2>
+
               <h5 className="text-green-700 font-bold place-items-center mb-4">
                 ከታች የክፍያ ደረሰኝ ያስገቡ / Submit Payment የሚለውን ይንኩ
                 <img
