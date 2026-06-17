@@ -132,12 +132,12 @@ export default function BookingForm() {
   const validate = () => {
     if (!isAlphabeticText(form.name)) return "እባክዎ ሙሉ ስምዎትን ያስገቡ።";
     if (!normalizeSpaces(form.organization))
-      return "እባክዎ የቤተሰብ ስም (ድርጅት)ን ያስገቡ።";
+      return "እባክዎ የቤተሰብ ስም (ድርጅት)ን ይምረጡ።";
     if (!PHONE_REGEX.test(normalizeSpaces(form.phone))) {
       return "እባክዎ ስልክ ቁጥርን በ09 የሚጀምር 10 ዲጂት መሆን አለበት።";
     }
-    if (!normalizeSpaces(form.sex)) return "እባክዎ ፆታን ያስገቡ።";
-    if (!normalizeSpaces(form.subCity)) return "እባክዎ ክ/ከተማን ያስገቡ።";
+    if (!normalizeSpaces(form.sex)) return "እባክዎ ፆታን ይምረጡ።";
+    if (!normalizeSpaces(form.subCity)) return "እባክዎ ክ/ከተማን ይምረጡ።";
     if (!form.participants || Number(form.participants) <= 0) {
       return "ተሳታፊ ብዛት ከ 0 በላይ ያስገቡ።";
     }
