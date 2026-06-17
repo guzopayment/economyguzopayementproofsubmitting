@@ -1,4 +1,3 @@
-
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
@@ -23,11 +22,15 @@ const ALPHABETIC_REGEX = /^[A-Za-z\u1200-\u137F\s]*$/;
 const PHONE_REGEX = /^09\d{8}$/;
 
 function normalizeSpaces(value) {
-  return String(value || "").replace(/\s+/g, " ").trim();
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function isAlphabeticText(value) {
-  return !!normalizeSpaces(value) && ALPHABETIC_REGEX.test(normalizeSpaces(value));
+  return (
+    !!normalizeSpaces(value) && ALPHABETIC_REGEX.test(normalizeSpaces(value))
+  );
 }
 
 export default function BookingForm() {
@@ -69,8 +72,10 @@ export default function BookingForm() {
       Array.from({ length: extraCount }, (_, idx) => ({
         ...(prev[idx] || emptyParticipant(form.organization, form.subCity)),
         organization:
-          normalizeSpaces(prev[idx]?.organization) || normalizeSpaces(form.organization),
-        subCity: normalizeSpaces(prev[idx]?.subCity) || normalizeSpaces(form.subCity),
+          normalizeSpaces(prev[idx]?.organization) ||
+          normalizeSpaces(form.organization),
+        subCity:
+          normalizeSpaces(prev[idx]?.subCity) || normalizeSpaces(form.subCity),
       })),
     );
   }, [participantCount, form.organization, form.subCity]);
@@ -81,18 +86,16 @@ export default function BookingForm() {
 
   const handleNameInput = (value, fieldLabel = "ሙሉ ስም") => {
     if (!ALPHABETIC_REGEX.test(value)) {
-      showModal(
-        "ማስጠንቀቂያ",
-        `${fieldLabel} ቁጥር ወይም ልዩ ምልክት መያዝ የለበትም።`,
-        "error",
-      );
+      showModal("ማስጠንቀቂያ", `${fieldLabel} ቁጥር ወይም ልዩ ምልክት መያዝ የለበትም።`, "error");
       return null;
     }
     return value;
   };
 
   const handlePhoneInput = (value, label = "ስልክ ቁጥር") => {
-    const digits = String(value || "").replace(/\D/g, "").slice(0, 10);
+    const digits = String(value || "")
+      .replace(/\D/g, "")
+      .slice(0, 10);
     if (String(value || "") !== digits) {
       showModal(
         "ማስጠንቀቂያ",
@@ -141,11 +144,13 @@ export default function BookingForm() {
 
     for (let i = 0; i < additionalParticipants.length; i += 1) {
       const participant = additionalParticipants[i];
-      if (!isAlphabeticText(participant.name)) return `የተሳታፊ ${i + 2} ስም በትክክል ያስገቡ።`;
+      if (!isAlphabeticText(participant.name))
+        return `የተሳታፊ ${i + 2} ስም በትክክል ያስገቡ።`;
       if (!PHONE_REGEX.test(normalizeSpaces(participant.phone))) {
         return `የተሳታፊ ${i + 2} ስልክ ቁጥር በ09 የሚጀምር 10 ዲጂት መሆን አለበት።`;
       }
-      if (!normalizeSpaces(participant.organization)) return `የተሳታፊ ${i + 2} ድርጅት ይምረጡ።`;
+      if (!normalizeSpaces(participant.organization))
+        return `የተሳታፊ ${i + 2} ድርጅት ይምረጡ።`;
       if (!normalizeSpaces(participant.sex)) return `የተሳታፊ ${i + 2} ፆታ ይምረጡ።`;
     }
 
@@ -172,6 +177,8 @@ export default function BookingForm() {
       data.append("sex", normalizeSpaces(form.sex));
       data.append("subCity", normalizeSpaces(form.subCity));
       data.append("participants", String(form.participants).trim());
+      showModal("ተሳክቷል", "የክፍያ ማስረጃዎ በተሳካ ሁኔታ ተልኳል።", "success");
+
       data.append(
         "participantDetails",
         JSON.stringify(
@@ -180,7 +187,9 @@ export default function BookingForm() {
             phone: normalizeSpaces(participant.phone),
             organization: normalizeSpaces(participant.organization),
             sex: normalizeSpaces(participant.sex),
-            subCity: normalizeSpaces(participant.subCity) || normalizeSpaces(form.subCity),
+            subCity:
+              normalizeSpaces(participant.subCity) ||
+              normalizeSpaces(form.subCity),
           })),
         ),
       );
@@ -195,8 +204,10 @@ export default function BookingForm() {
         bookingId: booking._id,
         name: booking.name,
         status: booking.status || "Pending",
-        message: "Your payment proof has been submitted. Waiting for admin review.",
-        updatedAt: booking.updatedAt || booking.createdAt || new Date().toISOString(),
+        message:
+          "Your payment proof has been submitted. Waiting for admin review.",
+        updatedAt:
+          booking.updatedAt || booking.createdAt || new Date().toISOString(),
         unread: false,
       });
 
@@ -206,7 +217,7 @@ export default function BookingForm() {
       showModal(
         "ማስጠንቀቂያ",
         submitError.response?.data?.message ||
-          "የተሳሳተ ነገር ተከስቷል። እባክዎ ደግመው ይሞክሩ።",
+          "የኢንተርኔት ወይም የሰርቨር መቋረጥ ተከስቷል። እባክዎ ደግመው ይሞክሩ።",
         "error",
       );
     } finally {
@@ -228,7 +239,10 @@ export default function BookingForm() {
           </button>
         </div>
 
-        <form onSubmit={submit} className="bg-white p-6 md:p-8 rounded-3xl shadow-xl">
+        <form
+          onSubmit={submit}
+          className="bg-white p-6 md:p-8 rounded-3xl shadow-xl"
+        >
           <h2 className="text-2xl md:text-3xl font-extrabold mb-4 text-center text-purple-700">
             የጉዞ ትኬት የክፍያ ማስረጃ ማስገቢያ
           </h2>
@@ -266,7 +280,9 @@ export default function BookingForm() {
               placeholder="ስልክ ቁጥር / Phone Number"
               className="border p-3 w-full rounded-xl"
               value={form.phone}
-              onChange={(e) => setFormField("phone", handlePhoneInput(e.target.value))}
+              onChange={(e) =>
+                setFormField("phone", handlePhoneInput(e.target.value))
+              }
             />
 
             <select
@@ -323,7 +339,9 @@ export default function BookingForm() {
                       placeholder="ሙሉ ስም / Full Name"
                       className="border p-3 mb-3 w-full rounded-xl"
                       value={participant.name}
-                      onChange={(e) => handleExtraChange(index, "name", e.target.value)}
+                      onChange={(e) =>
+                        handleExtraChange(index, "name", e.target.value)
+                      }
                     />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                       <input
@@ -331,12 +349,16 @@ export default function BookingForm() {
                         placeholder="ስልክ ቁጥር / Phone Number"
                         className="border p-3 w-full rounded-xl"
                         value={participant.phone}
-                        onChange={(e) => handleExtraChange(index, "phone", e.target.value)}
+                        onChange={(e) =>
+                          handleExtraChange(index, "phone", e.target.value)
+                        }
                       />
                       <select
                         className="border p-3 w-full rounded-xl bg-white"
                         value={participant.sex}
-                        onChange={(e) => handleExtraChange(index, "sex", e.target.value)}
+                        onChange={(e) =>
+                          handleExtraChange(index, "sex", e.target.value)
+                        }
                       >
                         <option value="">ፆታ / Sex</option>
                         {SEX_OPTIONS.map((option) => (
@@ -349,7 +371,9 @@ export default function BookingForm() {
                     <select
                       className="border p-3 w-full rounded-xl bg-white"
                       value={participant.organization}
-                      onChange={(e) => handleExtraChange(index, "organization", e.target.value)}
+                      onChange={(e) =>
+                        handleExtraChange(index, "organization", e.target.value)
+                      }
                     >
                       <option value="">ድርጅት ይምረጡ / Select Organization</option>
                       {ORGANIZATIONS.map((org) => (
@@ -384,7 +408,8 @@ export default function BookingForm() {
           </button>
 
           <div className="text-sm text-gray-500 mt-4">
-            * እባክዎ የሞሉት እና ያስገቡት የክፍያ ማስረጃ ትክክለኛ መሆኑን ያረጋግጡ። ትክክለኛ ካልሆነ በአስተዳድሩ ውድቅ ሊደረግ ይችላል።
+            * እባክዎ የሞሉት እና ያስገቡት የክፍያ ማስረጃ ትክክለኛ መሆኑን ያረጋግጡ። ትክክለኛ ካልሆነ በአስተዳድሩ
+            ውድቅ ሊደረግ ይችላል።
           </div>
         </form>
       </div>
