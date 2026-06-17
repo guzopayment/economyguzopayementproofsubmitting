@@ -137,7 +137,7 @@ export default function BookingForm() {
       return "እባክዎ ስልክ ቁጥርን በ09 የሚጀምር 10 ዲጂት መሆን አለበት።";
     }
     if (!normalizeSpaces(form.sex)) return "እባክዎ ፆታዎን ይምረጡ።";
-    if (!normalizeSpaces(form.subCity)) return "እባክዎ ክ/ከተማን ይምረጡ።";
+    if (!normalizeSpaces(form.subCity)) return "እባክዎ አሁን ያሉበትን ክ/ከተማ ይምረጡ።";
     if (!form.participants || Number(form.participants) <= 0) {
       return "ተሳታፊ ብዛት ከ 0 በላይ ያስገቡ።";
     }
@@ -146,7 +146,7 @@ export default function BookingForm() {
     for (let i = 0; i < additionalParticipants.length; i += 1) {
       const participant = additionalParticipants[i];
       if (!isAlphabeticText(participant.name))
-        return `እባክዎ የተሳታፊ ${i + 2} ስምዎትን ያስገቡ።`;
+        return `እባክዎ የተሳታፊ ${i + 2} ስምን ያስገቡ።`;
       if (!PHONE_REGEX.test(normalizeSpaces(participant.phone))) {
         return `እባክዎ የተሳታፊ ${i + 2} ስልክ ቁጥርን በ09 የሚጀምር 10 ዲጂት መሆን አለበት።`;
       }
