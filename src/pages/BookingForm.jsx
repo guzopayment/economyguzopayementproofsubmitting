@@ -136,7 +136,7 @@ export default function BookingForm() {
     if (!PHONE_REGEX.test(normalizeSpaces(form.phone))) {
       return "እባክዎ ስልክ ቁጥርን በ09 የሚጀምር 10 ዲጂት መሆን አለበት።";
     }
-    if (!normalizeSpaces(form.sex)) return "እባክዎ ፆታን ይምረጡ።";
+    if (!normalizeSpaces(form.sex)) return "እባክዎ ፆታዎን ይምረጡ።";
     if (!normalizeSpaces(form.subCity)) return "እባክዎ ክ/ከተማን ይምረጡ።";
     if (!form.participants || Number(form.participants) <= 0) {
       return "ተሳታፊ ብዛት ከ 0 በላይ ያስገቡ።";
