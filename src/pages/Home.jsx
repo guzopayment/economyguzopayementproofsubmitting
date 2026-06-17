@@ -190,17 +190,19 @@ export default function Home() {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
               >
                 <h4>
-                  መጀመሪያ እባክዎ በእነዚህ የባንክ ቁጥሮች ውስጥ በአንዱ (እርሶ በተመቸዎት) ክፍያዎን ያከናውኑ።
+                  መጀመሪያ እባክዎ በእነዚህ የባንክ ቁጥሮች ውስጥ በአንዱ (እርስዎ በተመቸዎት) ክፍያዎን ያከናውኑ።
                 </h4>{" "}
-                <li>
-                  CBE: <strong>1000771353607</strong>
-                </li>
-                <li>
-                  Ahadu Bank: <strong>0096408711801</strong>{" "}
-                </li>
-                <li>
-                  BoA: <strong>1009368317</strong>
-                </li>
+                <ol>
+                  <li>
+                    CBE: <strong>1000771353607</strong>
+                  </li>
+                  <li>
+                    Ahadu Bank: <strong>0096408711801</strong>{" "}
+                  </li>
+                  <li>
+                    Tsehay Bank: <strong>1009368317</strong>
+                  </li>
+                </ol>
                 All Account Holder Name:{" "}
                 <strong>Tewodros Sahile and Elsa Fantahun</strong>
               </div>
