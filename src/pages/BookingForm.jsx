@@ -179,6 +179,7 @@ export default function BookingForm() {
       data.append("sex", normalizeSpaces(form.sex));
       data.append("subCity", normalizeSpaces(form.subCity));
       data.append("participants", String(form.participants).trim());
+      showModal("ተሳክቷል", "የክፍያ ማስረጃዎ በተሳካ ሁኔታ ተልኳል።", "success");
 
       data.append(
         "participantDetails",
@@ -199,7 +200,6 @@ export default function BookingForm() {
       const res = await api.post("/bookings", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      showModal("ተሳክቷል", "የክፍያ ማስረጃዎ በተሳካ ሁኔታ ተልኳል።", "success");
 
       const booking = res.data?.booking || res.data;
       upsertTrackedBooking({
