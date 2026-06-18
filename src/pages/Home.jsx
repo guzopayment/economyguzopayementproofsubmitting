@@ -166,8 +166,8 @@ export default function Home() {
       <div className="min-h-screen bg-purple-50/90 backdrop-blur-sm p-4 md:p-6 flex items-center justify-center overflow-x-hidden">
         <div className="w-full max-w-5xl mx-auto text-center">
           <div className="backdrop-blur-xl shadow-xl py-5 px-3 md:px-5 mb-7 rounded-3xl bg-white/50">
-            <h1 className="text-xl md:text-3xl font-bold text-purple-700 tracking-wide leading-tight">
-              የዝክረ ቅዱሳን ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!!
+            <h1 className="text-xl md:text-4xl font-bold text-purple-700 tracking-wide leading-tight">
+              <strong> የዝክረ ቅዱሳን ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!!</strong>
             </h1>
             <p className="mt-4 text-lg md:text-2xl text-purple-700 font-semibold">
               Zikre Kidusan Traveling To Menagesha Garaw Medhanealem Unity
@@ -178,7 +178,7 @@ export default function Home() {
           <div className="flex justify-center items-center mb-8">
             <div className="w-full max-w-3xl">
               <h2 className="text-purple-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
-                ውድ ቤተሰባችን እንኳን ደኅና መጡ፤{" "}
+                ውድ ቤተሰባችን እንኳን ደኅና መጡ፤ &nbsp;
                 <strong>
                   {" "}
                   <em>የአንድ ሰው የጉዞ ቲኬት ዋጋ 800 ብር ነው።</em>
@@ -220,7 +220,7 @@ export default function Home() {
               </h5>
               <button
                 onClick={() => navigate("/submit")}
-                className="bg-purple-700 text-white text-xl md:text-3xl px-8 md:px-16 py-5 md:py-7 rounded-[30px] shadow-lg hover:scale-105 hover:bg-purple-800 transition duration-300 border border-white/30 w-full"
+                className="bg-purple-700 text-white text-lg md:text-3xl px-8 md:px-16 py-5 md:py-7 rounded-[30px] shadow-lg hover:scale-105 hover:bg-purple-800 transition duration-300 border border-white/30 w-full"
               >
                 የክፍያ ደረሰኝ ያስገቡ / Submit Payment
               </button>
@@ -229,11 +229,11 @@ export default function Home() {
 
           <div className="w-full max-w-4xl mx-auto bg-white/80 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-              <h3 className="text-2xl font-bold text-purple-700">
-                ያስገቡት የክፍያ ማስረጃ ሁኔታ ይፈትሹ | Check Your Booking Payment Status
+              <h3 className="text-xl font-bold text-purple-700">
+                ያስገቡትን የክፍያ ማስረጃ ሁኔታ ይፈትሹ | Check Your Booking Payment Status
               </h3>
               <p className="text-sm text-gray-500">
-                ስም፣ ስልክ ወይም ድርጅት በመጠቀም የክፍያ ማስረጃዎት ሁኔታ ይፈትሹ። | Search by full
+                ስም፣ ስልክ እና ድርጅት በመጠቀም የክፍያ ማስረጃዎት ሁኔታ ይፈትሹ። | Search by full
                 name, phone number, or organization.
               </p>
             </div>
@@ -281,7 +281,7 @@ export default function Home() {
                 disabled={checking}
                 className="bg-purple-700 text-white px-6 py-3 rounded-2xl font-bold hover:bg-purple-800 transition disabled:opacity-60"
               >
-                {checking ? "Checking..." : "Check Status"}
+                {checking ? "እባክዎ ይጠብቁ... Checking..." : "Check Status"}
               </button>
               <button
                 onClick={() => {
@@ -298,7 +298,7 @@ export default function Home() {
           {lookupResults.length > 0 && (
             <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
               <h3 className="text-2xl font-bold text-purple-700 mb-4">
-                Status result
+                የክፍያ ሁኔታ ውጤት | Status result
               </h3>
               <div className="space-y-4">
                 {lookupResults.map((item) => (
@@ -332,7 +332,7 @@ export default function Home() {
 
           <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 text-left">
             <h3 className="text-2xl font-bold text-purple-700 mb-4">
-              በቅርብ ግዜ የተሰጡ የክፍያ ማስረጃ ሁኔታዎች | Recent Booking Payment Updates
+              በቅርብ ግዜ የተሰጡ የክፍያ ማስረጃዎች ሁኔታ | Recent Booking Payment Updates
             </h3>
             <div
               ref={scrollRef}
@@ -367,7 +367,7 @@ export default function Home() {
                   ))
                 ) : (
                   <div className="rounded-2xl border border-purple-100 bg-white p-6 text-center text-gray-500 shadow-sm">
-                    No recent updates yet.
+                    ምንም አይነት የቅርብ ግዜ የክፍያ ማስረጃዎች የልሉም | No recent updates yet.
                   </div>
                 )}
               </div>

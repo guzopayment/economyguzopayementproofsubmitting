@@ -1,6 +1,7 @@
-
 export function normalizeText(value) {
-  return String(value || "").replace(/\s+/g, " ").trim();
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function mapSexToBucket(value) {
@@ -20,15 +21,15 @@ export function flattenConfirmedBookings(bookings = []) {
       bookingId: String(booking._id || ""),
       role: "main",
       name: normalizeText(booking.name) || "—",
-      organization: normalizeText(booking.organization) || "Unknown",
+      organization: normalizeText(booking.organization) || "ሌላ ያልተገለጸ",
       phone: normalizeText(booking.phone) || "—",
       sex: normalizeText(booking.sex) || "—",
-      subCity: normalizeText(booking.subCity) || "Unknown",
+      subCity: normalizeText(booking.subCity) || "ሌላ ያልተገለጸ",
       paymentProof: booking.paymentProof || "",
       submittedAt: booking.createdAt || booking.updatedAt || "",
       participantsCount: Number(booking.participants || 0),
       sourceBooking: booking,
-      participantLabel: "Main participant",
+      participantLabel: "ዋና ተሳታፊ",
     };
     rows.push(mainRow);
     runningIndex += 1;
@@ -42,22 +43,22 @@ export function flattenConfirmedBookings(bookings = []) {
         serial: runningIndex,
         bookingId: String(booking._id || ""),
         role: "sub",
-        name: normalizeText(participant?.name) || `Participant ${index + 2}`,
+        name: normalizeText(participant?.name) || `ተሳታፊ ${index + 2}`,
         organization:
           normalizeText(participant?.organization) ||
           normalizeText(booking.organization) ||
-          "Unknown",
+          "ሌላ ያልተገለጸ",
         phone: normalizeText(participant?.phone) || "—",
         sex: normalizeText(participant?.sex) || "—",
         subCity:
           normalizeText(participant?.subCity) ||
           normalizeText(booking.subCity) ||
-          "Unknown",
+          "ሌላ ያልተገለጸ",
         paymentProof: booking.paymentProof || "",
         submittedAt: booking.createdAt || booking.updatedAt || "",
         participantsCount: "Sub participant",
         sourceBooking: booking,
-        participantLabel: `Participant ${index + 2}`,
+        participantLabel: `ተሳታፊ ${index + 2}`,
       });
       runningIndex += 1;
     });
@@ -70,7 +71,7 @@ export function buildOrganizationSummary(flatRows = []) {
   const summary = new Map();
 
   flatRows.forEach((row) => {
-    const organization = normalizeText(row.organization) || "Unknown";
+    const organization = normalizeText(row.organization) || "ሌላ ያልተገለጸ";
     if (!summary.has(organization)) {
       summary.set(organization, {
         id: summary.size + 1,
@@ -87,7 +88,8 @@ export function buildOrganizationSummary(flatRows = []) {
     const bucket = mapSexToBucket(row.sex);
     if (bucket === "male") entry.men += 1;
     if (bucket === "female") entry.women += 1;
-    if (normalizeText(row.subCity)) entry.subCities.add(normalizeText(row.subCity));
+    if (normalizeText(row.subCity))
+      entry.subCities.add(normalizeText(row.subCity));
   });
 
   return Array.from(summary.values()).map((entry) => ({
@@ -104,7 +106,7 @@ export function groupParticipantRows(flatRows = [], keyName) {
   const grouped = new Map();
 
   flatRows.forEach((row) => {
-    const key = normalizeText(row[keyName]) || "Unknown";
+    const key = normalizeText(row[keyName]) || "ሌላ ያልተገለጸ";
     if (!grouped.has(key)) grouped.set(key, []);
     grouped.get(key).push(row);
   });
@@ -114,5 +116,7 @@ export function groupParticipantRows(flatRows = [], keyName) {
       key,
       rows,
     }))
-    .sort((a, b) => b.rows.length - a.rows.length || a.key.localeCompare(b.key));
+    .sort(
+      (a, b) => b.rows.length - a.rows.length || a.key.localeCompare(b.key),
+    );
 }

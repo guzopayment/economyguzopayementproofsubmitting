@@ -42,8 +42,8 @@ export default function ThankYou() {
             ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | By a Coffee for the Developer
           </h3>
           <p className="text-sm text-gray-700 leading-relaxed">
-            ፈቃደኛ ከሆኑ ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | If you are volunteer to
-            support this system developer, Buy a Coffee.
+            ፈቃደኛ ከሆኑ ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | If you are volunteer Buy a
+            Coffee for this system developer.
           </p>
 
           <div className="mt-4 space-y-2 text-sm md:text-base">

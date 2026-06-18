@@ -306,7 +306,7 @@ export default function BookingForm() {
             value={form.subCity}
             onChange={(e) => setFormField("subCity", e.target.value)}
           >
-            <option value="">ክ/ከተማ / Sub City</option>
+            <option value="">አሁን ያሉበት ክ/ከተማ / Sub City</option>
             {SUBCITY_OPTIONS.map((subCity) => (
               <option key={subCity} value={subCity}>
                 {subCity}
@@ -335,7 +335,7 @@ export default function BookingForm() {
                     className="rounded-2xl bg-white p-4 shadow-sm border border-purple-100"
                   >
                     <p className="font-semibold text-purple-700 mb-3">
-                      Participant {index + 2}
+                      ተሳታፊ {index + 2}
                     </p>
                     <input
                       placeholder="ሙሉ ስም / Full Name"

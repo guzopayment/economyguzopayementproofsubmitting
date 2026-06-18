@@ -7,6 +7,7 @@ import * as XLSX from "xlsx";
 import api from "../services/api";
 import socket from "../socket";
 import Pagination from "../components/Pagination";
+import MessageModal from "../components/MessageModal";
 import {
   buildOrganizationSummary,
   flattenConfirmedBookings,
@@ -55,19 +56,7 @@ function SexBreakdownCard({ men, women }) {
   );
 }
 
-function buildGroupRefsMap(rows, key) {
-  const refs = new Map();
-  rows.forEach((item) => {
-    refs.set(item[key], null);
-  });
-  return refs;
-}
-
-function ParticipantTable({
-  rows,
-  columns = [],
-  emptyMessage = "No data",
-}) {
+function ParticipantTable({ rows, columns = [], emptyMessage = "No data" }) {
   return (
     <div className="w-full max-w-full overflow-x-auto overflow-y-hidden pb-2 [scrollbar-gutter:stable]">
       <table className="min-w-[1100px] w-max bg-white rounded-xl shadow">
@@ -93,11 +82,14 @@ function ParticipantTable({
           ) : (
             rows.map((row, index) => (
               <tr
-                key={`${row.bookingId}-${row.role}-${index}-${row.name}`}
+                key={`${row.bookingId || row.organization || "row"}-${row.role || "main"}-${index}-${row.name || "name"}`}
                 className="border-b hover:bg-purple-50 transition"
               >
                 {columns.map((column) => (
-                  <td key={`${column.key}-${index}`} className="p-2 text-xs md:text-sm align-top">
+                  <td
+                    key={`${column.key}-${index}`}
+                    className="p-2 text-xs md:text-sm align-top"
+                  >
                     {column.render ? column.render(row, index) : row[column.key] ?? "—"}
                   </td>
                 ))}
@@ -110,63 +102,6 @@ function ParticipantTable({
   );
 }
 
-async function exportSectionToPdf(element, fileName, linkRows = []) {
-  if (!element) return;
-
-  const canvas = await html2canvas(element, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: "#ffffff",
-  });
-
-  const imgData = canvas.toDataURL("image/png");
-  const pdf = new jsPDF("p", "pt", "a4");
-  const pageWidth = pdf.internal.pageSize.getWidth();
-  const pageHeight = pdf.internal.pageSize.getHeight();
-
-  const imgWidth = pageWidth - 40;
-  const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-  let heightLeft = imgHeight;
-  let position = 20;
-
-  pdf.addImage(imgData, "PNG", 20, position, imgWidth, imgHeight);
-  heightLeft -= pageHeight - 40;
-
-  while (heightLeft > 0) {
-    position = heightLeft - imgHeight + 20;
-    pdf.addPage();
-    pdf.addImage(imgData, "PNG", 20, position, imgWidth, imgHeight);
-    heightLeft -= pageHeight - 40;
-  }
-
-  if (linkRows.length > 0) {
-    pdf.addPage();
-    pdf.setFontSize(16);
-    pdf.text("Payment proof links", 40, 50);
-    pdf.setFontSize(10);
-
-    let y = 80;
-    linkRows.forEach((row, index) => {
-      if (y > pageHeight - 50) {
-        pdf.addPage();
-        y = 50;
-      }
-      pdf.text(`${index + 1}. ${row.name} (${row.organization})`, 40, y);
-      if (row.paymentProof) {
-        pdf.textWithLink("View payment", 60, y + 18, { url: row.paymentProof });
-        pdf.text(row.paymentProof, 140, y + 18, { maxWidth: pageWidth - 180 });
-      } else {
-        pdf.text("No payment proof", 60, y + 18);
-      }
-      y += 42;
-    });
-  }
-
-  pdf.save(fileName);
-}
-
-
 function safeFilePart(value) {
   return normalizeText(value || "report").replace(/[\\/:*?"<>|]+/g, "_");
 }
@@ -176,9 +111,264 @@ function addHyperlinkCell(worksheet, cellAddress, url, label = "View payment") {
   if (!cell) return;
   cell.v = label;
   cell.l = { Target: url, Tooltip: "View payment proof" };
-  cell.s = {
-    font: { color: { rgb: "0000FF" }, underline: true },
+}
+
+function chunkArray(items = [], size = 15) {
+  if (!Array.isArray(items) || items.length === 0) return [];
+  const chunks = [];
+  for (let i = 0; i < items.length; i += size) {
+    chunks.push(items.slice(i, i + size));
+  }
+  return chunks;
+}
+
+function createSheetFromRows(title, headers, rows, generatedAt) {
+  const aoa = [
+    [title],
+    ["Generated", generatedAt],
+    [],
+    headers,
+    ...rows,
+  ];
+
+  const ws = XLSX.utils.aoa_to_sheet(aoa);
+  ws["!merges"] = [{ s: { r: 0, c: 0 }, e: { r: 0, c: headers.length - 1 } }];
+  ws["!rows"] = [{ hpt: 26 }, { hpt: 18 }, { hpt: 12 }, { hpt: 20 }];
+  ws["!autofilter"] = {
+    ref: XLSX.utils.encode_range({
+      s: { r: 3, c: 0 },
+      e: { r: Math.max(3, rows.length + 3), c: headers.length - 1 },
+    }),
   };
+  return ws;
+}
+
+function ExportPage({ page, pageIndex, totalPages, generatedAt }) {
+  return (
+    <div
+      className="w-[794px] h-[1123px] bg-white text-[#1f2937] px-10 py-8 box-border flex flex-col overflow-hidden"
+      style={{
+        fontFamily: "Arial, Helvetica, sans-serif",
+        pageBreakAfter: "always",
+      }}
+    >
+      <div className="rounded-[26px] bg-purple-600 text-white px-8 py-6">
+        <h1 className="text-[28px] font-bold leading-tight">{page.reportTitle}</h1>
+        <p className="text-[13px] mt-1 opacity-95">{page.reportSubtitle}</p>
+      </div>
+
+      <div className="mt-5 flex items-start justify-between gap-4 text-[12px] text-gray-600">
+        <div>
+          <p>
+            <span className="font-semibold">Generated:</span> {generatedAt}
+          </p>
+          <p className="mt-1">
+            <span className="font-semibold">Section:</span> {page.sectionTitle}
+          </p>
+        </div>
+        <div className="text-right">
+          <p>
+            <span className="font-semibold">Page:</span> {pageIndex + 1} / {totalPages}
+          </p>
+          <p className="mt-1">
+            <span className="font-semibold">Rows:</span> {page.rows.length}
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-4 rounded-2xl bg-purple-50 px-4 py-3">
+        <h2 className="text-[20px] font-bold text-purple-700">{page.sectionTitle}</h2>
+        {page.sectionSubtitle ? (
+          <p className="mt-1 text-[12px] text-gray-600">{page.sectionSubtitle}</p>
+        ) : null}
+      </div>
+
+      <div className="mt-4 flex-1 overflow-hidden">
+        <table className="w-full border-separate border-spacing-0">
+          <thead>
+            <tr className="bg-purple-100">
+              {page.columns.map((col) => (
+                <th
+                  key={col.key}
+                  className="border-b border-purple-200 px-2 py-2 text-left text-[12px] font-bold text-[#312e81]"
+                >
+                  {col.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {page.rows.map((row, index) => (
+              <tr key={`${page.sectionKey}-${index}`} className="align-top">
+                {page.columns.map((col) => {
+                  const isProof = col.key === "paymentProof";
+                  const text = col.renderText
+                    ? col.renderText(row, index)
+                    : row[col.key] ?? "—";
+                  return (
+                    <td
+                      key={`${col.key}-${index}`}
+                      className="border-b border-gray-200 px-2 py-2 text-[11px]"
+                    >
+                      {isProof && row.paymentProof ? (
+                        <a
+                          href={row.paymentProof}
+                          data-pdf-link="1"
+                          className="font-semibold text-purple-700 underline"
+                        >
+                          {text}
+                        </a>
+                      ) : (
+                        text
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-4 border-t border-gray-200 pt-3 text-[11px] text-gray-500 flex items-center justify-between">
+        <span>Qine Economy Family Travel Payment Report</span>
+        <span>Powered by MuluTilaCodeComp</span>
+      </div>
+    </div>
+  );
+}
+
+function buildPdfPages(flatRows, summaryRows, groupedByOrganization, groupedBySubCity) {
+  const detailCols = [
+    { key: "serial", label: "ID", renderText: (row) => String(row.serial) },
+    { key: "name", label: "Name" },
+    { key: "organization", label: "Organization" },
+    { key: "phone", label: "Phone" },
+    { key: "sex", label: "Sex" },
+    { key: "subCity", label: "Sub City" },
+    { key: "paymentProof", label: "Payment Proof", renderText: () => "View payment" },
+    {
+      key: "submittedAt",
+      label: "Submitted",
+      renderText: (row) =>
+        row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "—",
+    },
+  ];
+
+  const summaryCols = [
+    { key: "id", label: "ID" },
+    { key: "organization", label: "Organization" },
+    { key: "totalParticipants", label: "Participants" },
+    { key: "men", label: "Men" },
+    { key: "women", label: "Women" },
+    { key: "subCitiesCount", label: "Sub Cities" },
+  ];
+
+  const pages = [];
+
+  chunkArray(flatRows, 18).forEach((rows, index, arr) => {
+    pages.push({
+      reportTitle: "Confirmed Booking Report",
+      reportSubtitle: "Professional export in standard A4 layout",
+      sectionTitle: "All Confirmed Participants",
+      sectionSubtitle: `Participant records ${index + 1} of ${arr.length}`,
+      sectionKey: `confirmed-${index + 1}`,
+      columns: detailCols,
+      rows,
+    });
+  });
+
+  chunkArray(summaryRows, 22).forEach((rows, index, arr) => {
+    pages.push({
+      reportTitle: "Confirmed Booking Report",
+      reportSubtitle: "Professional export in standard A4 layout",
+      sectionTitle: "Organization Participant Summary",
+      sectionSubtitle: `Summary records ${index + 1} of ${arr.length}`,
+      sectionKey: `summary-${index + 1}`,
+      columns: summaryCols,
+      rows,
+    });
+  });
+
+  groupedByOrganization.forEach((group) => {
+    chunkArray(group.rows, 18).forEach((rows, index, arr) => {
+      pages.push({
+        reportTitle: "Confirmed Booking Report",
+        reportSubtitle: "Professional export in standard A4 layout",
+        sectionTitle: "Grouped by Organization",
+        sectionSubtitle: `${group.key} · page ${index + 1} of ${arr.length}`,
+        sectionKey: `org-${group.key}-${index + 1}`,
+        columns: detailCols,
+        rows,
+      });
+    });
+  });
+
+  groupedBySubCity.forEach((group) => {
+    chunkArray(group.rows, 18).forEach((rows, index, arr) => {
+      pages.push({
+        reportTitle: "Confirmed Booking Report",
+        reportSubtitle: "Professional export in standard A4 layout",
+        sectionTitle: "Grouped by Sub City",
+        sectionSubtitle: `${group.key} · page ${index + 1} of ${arr.length}`,
+        sectionKey: `sub-${group.key}-${index + 1}`,
+        columns: detailCols,
+        rows,
+      });
+    });
+  });
+
+  return pages;
+}
+
+async function exportPagesToPdf(pageNodes = [], fileName = "report.pdf") {
+  if (!pageNodes.length) {
+    throw new Error("No printable pages found.");
+  }
+
+  const pdf = new jsPDF("p", "pt", "a4");
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+
+  for (let i = 0; i < pageNodes.length; i += 1) {
+    const node = pageNodes[i];
+    if (!node) continue;
+
+    const canvas = await html2canvas(node, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      logging: false,
+      windowWidth: node.scrollWidth,
+      windowHeight: node.scrollHeight,
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+    if (i > 0) pdf.addPage();
+    pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
+
+    const nodeRect = node.getBoundingClientRect();
+    const links = Array.from(node.querySelectorAll("a[data-pdf-link='1']"));
+    links.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (!href) return;
+      const rect = link.getBoundingClientRect();
+      const x = ((rect.left - nodeRect.left) / nodeRect.width) * pageWidth;
+      const y = ((rect.top - nodeRect.top) / nodeRect.height) * pageHeight;
+      const w = (rect.width / nodeRect.width) * pageWidth;
+      const h = (rect.height / nodeRect.height) * pageHeight;
+      pdf.link(x, y, w, h, { url: href });
+    });
+  }
+
+  pdf.save(fileName);
+}
+
+
+function buildSheet(ws, widths) {
+  ws["!cols"] = widths.map((wch) => ({ wch }));
+  ws["!rows"] = [{ hpt: 24 }, { hpt: 18 }, { hpt: 10 }, { hpt: 20 }];
+  return ws;
 }
 
 export default function AdminReport() {
@@ -188,6 +378,15 @@ export default function AdminReport() {
   const [report, setReport] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifCount, setNotifCount] = useState(0);
+  const [modal, setModal] = useState({
+    open: false,
+    title: "",
+    message: "",
+    type: "info",
+    onConfirm: null,
+    confirmLabel: "እሺ",
+    cancelLabel: "አይ",
+  });
 
   const [search, setSearch] = useState("");
   const [orgFilter, setOrgFilter] = useState("All");
@@ -204,9 +403,8 @@ export default function AdminReport() {
   const summaryPerPage = 7;
   const groupPerPage = 7;
 
-  const exportAllRef = useRef(null);
-  const orgGroupRefs = useRef({});
-  const subCityGroupRefs = useRef({});
+  const exportPageRefs = useRef([]);
+  const groupPageRefs = useRef({});
 
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
@@ -222,6 +420,35 @@ export default function AdminReport() {
       document.body.style.overflow = prev;
     };
   }, [sidebarOpen]);
+
+  const showModal = (
+    title,
+    message,
+    type = "info",
+    onConfirm = null,
+    confirmLabel = "እሺ",
+    cancelLabel = "አይ",
+  ) =>
+    setModal({
+      open: true,
+      title,
+      message,
+      type,
+      onConfirm,
+      confirmLabel,
+      cancelLabel,
+    });
+
+  const closeModal = () =>
+    setModal({
+      open: false,
+      title: "",
+      message: "",
+      type: "info",
+      onConfirm: null,
+      confirmLabel: "እሺ",
+      cancelLabel: "አይ",
+    });
 
   const refreshStats = async () => {
     try {
@@ -381,6 +608,13 @@ export default function AdminReport() {
     [flatRows],
   );
 
+  const generatedAt = useMemo(() => new Date().toLocaleString(), [filteredBookings]);
+
+  const pdfPages = useMemo(
+    () => buildPdfPages(flatRows, summaryRows, groupedByOrganization, groupedBySubCity),
+    [flatRows, summaryRows, groupedByOrganization, groupedBySubCity],
+  );
+
   const mainTotalPages = Math.ceil(filteredBookings.length / mainPerPage) || 1;
   const summaryTotalPages = Math.ceil(summaryRows.length / summaryPerPage) || 1;
 
@@ -474,196 +708,304 @@ export default function AdminReport() {
   ];
 
   const exportRowsToExcel = (fileName, rows, sheetName = "Confirmed") => {
-    const worksheetRows = rows.map((row, index) => ({
-      ID: index + 1,
-      ParticipantName: row.name || "",
-      ParticipantType: row.role === "sub" ? row.participantLabel : "Main participant",
-      BookingName: row.sourceBooking?.name || "",
-      Organization: row.organization || "",
-      Phone: row.phone || "",
-      Sex: row.sex || "",
-      SubCity: row.subCity || "",
-      ParticipantsInBooking: row.sourceBooking?.participants || "",
-      Submitted: row.submittedAt
-        ? new Date(row.submittedAt).toLocaleString()
-        : "",
-      PaymentProof: row.paymentProof || "",
-      ViewPayment: row.paymentProof ? "View payment" : "",
-    }));
+    const generated = new Date().toLocaleString();
+    const dataRows = rows.map((row, index) => [
+      index + 1,
+      row.name || "",
+      row.role === "sub" ? row.participantLabel : "Main participant",
+      row.sourceBooking?.name || "",
+      row.organization || "",
+      row.phone || "",
+      row.sex || "",
+      row.subCity || "",
+      row.sourceBooking?.participants || "",
+      row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
+      row.paymentProof || "",
+      row.paymentProof ? "View payment" : "",
+    ]);
 
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(worksheetRows);
-    ws["!cols"] = [
-      { wch: 8 },
-      { wch: 28 },
-      { wch: 18 },
-      { wch: 28 },
-      { wch: 34 },
-      { wch: 18 },
-      { wch: 12 },
-      { wch: 24 },
-      { wch: 18 },
-      { wch: 24 },
-      { wch: 45 },
-      { wch: 18 },
-    ];
-
-    worksheetRows.forEach((row, index) => {
-      if (row.PaymentProof) {
-        addHyperlinkCell(ws, `L${index + 2}`, row.PaymentProof);
-      }
+    const ws = createSheetFromRows(
+      `${sheetName} Export`,
+      [
+        "ID",
+        "Participant Name",
+        "Participant Type",
+        "Booking Name",
+        "Organization",
+        "Phone",
+        "Sex",
+        "Sub City",
+        "Participants in Booking",
+        "Submitted",
+        "Payment Proof URL",
+        "Payment Proof",
+      ],
+      dataRows,
+      generated,
+    );
+    buildSheet(ws, [8, 28, 18, 28, 34, 18, 12, 22, 18, 24, 48, 18]);
+    dataRows.forEach((row, index) => {
+      if (row[10]) addHyperlinkCell(ws, `L${index + 5}`, row[10]);
     });
 
+    const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, sheetName);
     XLSX.writeFile(wb, fileName);
   };
 
-  const exportFullExcel = () => {
+  const exportFullExcelFile = () => {
     const wb = XLSX.utils.book_new();
+    const generated = new Date().toLocaleString();
 
-    const confirmedRows = flatRows.map((row, index) => ({
-      ID: index + 1,
-      ParticipantType: row.role === "sub" ? row.participantLabel : "Main participant",
-      Name: row.name || "",
-      BookingName: row.sourceBooking?.name || "",
-      Organization: row.organization || "",
-      Phone: row.phone || "",
-      Sex: row.sex || "",
-      SubCity: row.subCity || "",
-      Submitted: row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
-      PaymentProofUrl: row.paymentProof || "",
-      ViewPayment: row.paymentProof ? "View payment" : "",
-    }));
-    const confirmedWs = XLSX.utils.json_to_sheet(confirmedRows);
-    confirmedWs["!cols"] = [
-      { wch: 8 },
-      { wch: 18 },
-      { wch: 26 },
-      { wch: 26 },
-      { wch: 34 },
-      { wch: 18 },
-      { wch: 12 },
-      { wch: 24 },
-      { wch: 24 },
-      { wch: 48 },
-      { wch: 18 },
-    ];
+    const overviewWs = createSheetFromRows(
+      "Confirmed Booking Report",
+      ["Metric", "Value"],
+      [
+        ["Total Participants", summaryStats.totalParticipants],
+        ["Total Organizations", summaryStats.totalOrganizations],
+        ["Total Sub Cities", summaryStats.totalSubCities],
+        ["Men", summaryStats.totalMen],
+        ["Women", summaryStats.totalWomen],
+      ],
+      generated,
+    );
+    buildSheet(overviewWs, [28, 18]);
+    XLSX.utils.book_append_sheet(wb, overviewWs, "Overview");
+
+    const confirmedRows = flatRows.map((row) => [
+      row.serial,
+      row.role === "sub" ? row.participantLabel : "Main participant",
+      row.name || "",
+      row.sourceBooking?.name || "",
+      row.organization || "",
+      row.phone || "",
+      row.sex || "",
+      row.subCity || "",
+      row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
+      row.paymentProof || "",
+      row.paymentProof ? "View payment" : "",
+    ]);
+    const confirmedWs = createSheetFromRows(
+      "All Confirmed Participants",
+      [
+        "ID",
+        "Participant Type",
+        "Name",
+        "Booking Name",
+        "Organization",
+        "Phone",
+        "Sex",
+        "Sub City",
+        "Submitted",
+        "Payment Proof URL",
+        "Payment Proof",
+      ],
+      confirmedRows,
+      generated,
+    );
+    buildSheet(confirmedWs, [8, 18, 26, 26, 34, 18, 12, 22, 24, 48, 18]);
     confirmedRows.forEach((row, index) => {
-      if (row.PaymentProofUrl) addHyperlinkCell(confirmedWs, `K${index + 2}`, row.PaymentProofUrl);
+      if (row[9]) addHyperlinkCell(confirmedWs, `K${index + 5}`, row[9]);
     });
     XLSX.utils.book_append_sheet(wb, confirmedWs, "Confirmed Participants");
 
-    const summaryWs = XLSX.utils.json_to_sheet(
-      summaryRows.map((row) => ({
-        ID: row.id,
-        Organization: row.organization,
-        Participants: row.totalParticipants,
-        Men: row.men,
-        Women: row.women,
-        SubCities: row.subCitiesCount,
-      })),
+    const summaryDataRows = summaryRows.map((row) => [
+      row.id,
+      row.organization,
+      row.totalParticipants,
+      row.men,
+      row.women,
+      row.subCitiesCount,
+    ]);
+    const summaryWs = createSheetFromRows(
+      "Organization Participant Summary",
+      ["ID", "Organization", "Participants", "Men", "Women", "Sub Cities"],
+      summaryDataRows,
+      generated,
     );
-    summaryWs["!cols"] = [
-      { wch: 8 },
-      { wch: 36 },
-      { wch: 16 },
-      { wch: 12 },
-      { wch: 12 },
-      { wch: 16 },
-    ];
+    buildSheet(summaryWs, [8, 36, 16, 12, 12, 16]);
     XLSX.utils.book_append_sheet(wb, summaryWs, "Organization Summary");
 
     const byOrgRows = groupedByOrganization.flatMap((group) =>
-      group.rows.map((row, index) => ({
-        Group: group.key,
-        GroupRow: index + 1,
-        Name: row.name || "",
-        Organization: row.organization || "",
-        Phone: row.phone || "",
-        Sex: row.sex || "",
-        SubCity: row.subCity || "",
-        Submitted: row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
-        PaymentProofUrl: row.paymentProof || "",
-        ViewPayment: row.paymentProof ? "View payment" : "",
-      })),
+      group.rows.map((row, index) => [
+        group.key,
+        index + 1,
+        row.name || "",
+        row.organization || "",
+        row.phone || "",
+        row.sex || "",
+        row.subCity || "",
+        row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
+        row.paymentProof || "",
+        row.paymentProof ? "View payment" : "",
+      ]),
     );
-    const byOrgWs = XLSX.utils.json_to_sheet(byOrgRows);
-    byOrgWs["!cols"] = [
-      { wch: 36 },
-      { wch: 12 },
-      { wch: 24 },
-      { wch: 34 },
-      { wch: 18 },
-      { wch: 12 },
-      { wch: 24 },
-      { wch: 24 },
-      { wch: 48 },
-      { wch: 18 },
-    ];
+    const byOrgWs = createSheetFromRows(
+      "Grouped by Organization",
+      [
+        "Group",
+        "Group Row",
+        "Name",
+        "Organization",
+        "Phone",
+        "Sex",
+        "Sub City",
+        "Submitted",
+        "Payment Proof URL",
+        "Payment Proof",
+      ],
+      byOrgRows,
+      generated,
+    );
+    buildSheet(byOrgWs, [36, 12, 24, 34, 18, 12, 22, 24, 48, 18]);
     byOrgRows.forEach((row, index) => {
-      if (row.PaymentProofUrl) addHyperlinkCell(byOrgWs, `J${index + 2}`, row.PaymentProofUrl);
+      if (row[8]) addHyperlinkCell(byOrgWs, `J${index + 5}`, row[8]);
     });
     XLSX.utils.book_append_sheet(wb, byOrgWs, "Grouped by Organization");
 
     const bySubCityRows = groupedBySubCity.flatMap((group) =>
-      group.rows.map((row, index) => ({
-        Group: group.key,
-        GroupRow: index + 1,
-        Name: row.name || "",
-        Organization: row.organization || "",
-        Phone: row.phone || "",
-        Sex: row.sex || "",
-        SubCity: row.subCity || "",
-        Submitted: row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
-        PaymentProofUrl: row.paymentProof || "",
-        ViewPayment: row.paymentProof ? "View payment" : "",
-      })),
+      group.rows.map((row, index) => [
+        group.key,
+        index + 1,
+        row.name || "",
+        row.organization || "",
+        row.phone || "",
+        row.sex || "",
+        row.subCity || "",
+        row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
+        row.paymentProof || "",
+        row.paymentProof ? "View payment" : "",
+      ]),
     );
-    const bySubCityWs = XLSX.utils.json_to_sheet(bySubCityRows);
-    bySubCityWs["!cols"] = [
-      { wch: 30 },
-      { wch: 12 },
-      { wch: 24 },
-      { wch: 34 },
-      { wch: 18 },
-      { wch: 12 },
-      { wch: 24 },
-      { wch: 24 },
-      { wch: 48 },
-      { wch: 18 },
-    ];
+    const bySubCityWs = createSheetFromRows(
+      "Grouped by Sub City",
+      [
+        "Group",
+        "Group Row",
+        "Name",
+        "Organization",
+        "Phone",
+        "Sex",
+        "Sub City",
+        "Submitted",
+        "Payment Proof URL",
+        "Payment Proof",
+      ],
+      bySubCityRows,
+      generated,
+    );
+    buildSheet(bySubCityWs, [30, 12, 24, 34, 18, 12, 22, 24, 48, 18]);
     bySubCityRows.forEach((row, index) => {
-      if (row.PaymentProofUrl) addHyperlinkCell(bySubCityWs, `J${index + 2}`, row.PaymentProofUrl);
+      if (row[8]) addHyperlinkCell(bySubCityWs, `J${index + 5}`, row[8]);
     });
     XLSX.utils.book_append_sheet(wb, bySubCityWs, "Grouped by Sub City");
 
     XLSX.writeFile(wb, "confirmed-report.xlsx");
   };
 
-  const exportGroupExcel = (type, group) => {
-    exportRowsToExcel(
-      `${type}-${safeFilePart(group.key)}-confirmed.xlsx`,
-      group.rows,
-      type === "organization" ? "Organization Group" : "Sub City Group",
-    );
+  const exportAllExcel = async () => {
+    try {
+      exportFullExcelFile();
+      showModal("ተሳክቷል", "የኤክሴል ሪፖርቱ በተሳካ ሁኔታ ተዘጋጅቶ ተወርዷል።", "success");
+    } catch (error) {
+      console.error(error);
+      showModal("ስህተት", "የኤክሴል ሪፖርቱን መላክ አልተቻለም።", "error");
+    }
   };
 
-  const exportFullPdf = async () => {
-    await exportSectionToPdf(exportAllRef.current, "confirmed-report.pdf", flatRows);
+  const exportGroupExcel = async (type, group) => {
+    try {
+      exportRowsToExcel(
+        `${type}-${safeFilePart(group.key)}-confirmed.xlsx`,
+        group.rows,
+        type === "organization" ? "Organization Group" : "Sub City Group",
+      );
+      showModal("ተሳክቷል", "የኤክሴል ፋይሉ በተሳካ ሁኔታ ተዘጋጅቶ ተወርዷል።", "success");
+    } catch (error) {
+      console.error(error);
+      showModal("ስህተት", "የኤክሴል ፋይሉን መላክ አልተቻለም።", "error");
+    }
+  };
+
+  const exportAllPdf = async () => {
+    try {
+      const nodes = exportPageRefs.current.filter(Boolean);
+      await exportPagesToPdf(nodes, "confirmed-report.pdf");
+      showModal("ተሳክቷል", "የፒዲኤፍ ሪፖርቱ በተሳካ ሁኔታ ተዘጋጅቶ ተወርዷል።", "success");
+    } catch (error) {
+      console.error(error);
+      showModal("ስህተት", "የፒዲኤፍ ሪፖርቱን መላክ አልተቻለም።", "error");
+    }
   };
 
   const exportGroupPdf = async (type, group) => {
-    const element =
-      type === "organization"
-        ? orgGroupRefs.current[`org:${group.key}`]
-        : subCityGroupRefs.current[`sub:${group.key}`];
-
-    await exportSectionToPdf(
-      element,
-      `${type}-${safeFilePart(group.key)}-confirmed.pdf`,
-      group.rows,
-    );
+    try {
+      const key = `${type}:${group.key}`;
+      const nodes = (groupPageRefs.current[key] || []).filter(Boolean);
+      await exportPagesToPdf(
+        nodes,
+        `${type}-${safeFilePart(group.key)}-confirmed.pdf`,
+      );
+      showModal("ተሳክቷል", "የፒዲኤፍ ፋይሉ በተሳካ ሁኔታ ተዘጋጅቶ ተወርዷል።", "success");
+    } catch (error) {
+      console.error(error);
+      showModal("ስህተት", "የፒዲኤፍ ፋይሉን መላክ አልተቻለም።", "error");
+    }
   };
+
+  const groupPdfPagesByOrg = useMemo(() => {
+    const map = {};
+    groupedByOrganization.forEach((group) => {
+      map[`organization:${group.key}`] = chunkArray(group.rows, 18).map(
+        (rows, index, arr) => ({
+          reportTitle: "Confirmed Booking Report",
+          reportSubtitle: "Professional export in standard A4 layout",
+          sectionTitle: "Grouped by Organization",
+          sectionSubtitle: `${group.key} · page ${index + 1} of ${arr.length}`,
+          sectionKey: `organization:${group.key}:${index + 1}`,
+          columns: [
+            { key: "serial", label: "ID", renderText: (row) => String(row.serial) },
+            { key: "name", label: "Name" },
+            { key: "organization", label: "Organization" },
+            { key: "phone", label: "Phone" },
+            { key: "sex", label: "Sex" },
+            { key: "subCity", label: "Sub City" },
+            { key: "paymentProof", label: "Payment Proof", renderText: () => "View payment" },
+            { key: "submittedAt", label: "Submitted", renderText: (row) => row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "—" },
+          ],
+          rows,
+        }),
+      );
+    });
+    return map;
+  }, [groupedByOrganization]);
+
+  const groupPdfPagesBySubCity = useMemo(() => {
+    const map = {};
+    groupedBySubCity.forEach((group) => {
+      map[`subcity:${group.key}`] = chunkArray(group.rows, 18).map(
+        (rows, index, arr) => ({
+          reportTitle: "Confirmed Booking Report",
+          reportSubtitle: "Professional export in standard A4 layout",
+          sectionTitle: "Grouped by Sub City",
+          sectionSubtitle: `${group.key} · page ${index + 1} of ${arr.length}`,
+          sectionKey: `subcity:${group.key}:${index + 1}`,
+          columns: [
+            { key: "serial", label: "ID", renderText: (row) => String(row.serial) },
+            { key: "name", label: "Name" },
+            { key: "organization", label: "Organization" },
+            { key: "phone", label: "Phone" },
+            { key: "sex", label: "Sex" },
+            { key: "subCity", label: "Sub City" },
+            { key: "paymentProof", label: "Payment Proof", renderText: () => "View payment" },
+            { key: "submittedAt", label: "Submitted", renderText: (row) => row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "—" },
+          ],
+          rows,
+        }),
+      );
+    });
+    return map;
+  }, [groupedBySubCity]);
 
   return (
     <div className="flex min-h-screen bg-gray-200 min-w-0 overflow-x-hidden">
@@ -742,13 +1084,13 @@ export default function AdminReport() {
         <div className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between mb-6">
           <div className="flex gap-3 flex-wrap">
             <button
-              onClick={exportFullPdf}
+              onClick={exportAllPdf}
               className="bg-purple-600 text-white px-6 py-2 rounded-full shadow hover:bg-purple-700 transition hover:scale-105 disabled:opacity-40"
             >
               Export to PDF
             </button>
             <button
-              onClick={exportFullExcel}
+              onClick={exportAllExcel}
               className="bg-purple-600 text-white px-6 py-2 rounded-full shadow hover:bg-purple-700 transition hover:scale-105 disabled:opacity-40"
             >
               Export to Excel
@@ -767,10 +1109,7 @@ export default function AdminReport() {
           <StatCard num={summaryStats.totalParticipants} label="Total Participants" />
           <StatCard num={summaryStats.totalOrganizations} label="Total Organizations" />
           <StatCard num={summaryStats.totalSubCities} label="Total Sub Cities" />
-          <SexBreakdownCard
-            men={summaryStats.totalMen}
-            women={summaryStats.totalWomen}
-          />
+          <SexBreakdownCard men={summaryStats.totalMen} women={summaryStats.totalWomen} />
         </div>
 
         <div className="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between mb-4">
@@ -834,7 +1173,6 @@ export default function AdminReport() {
                 paginatedBookings.map((booking) => (
                   <Fragment key={booking._id}>
                     <tr
-                      key={booking._id}
                       className="text-center border-b hover:bg-purple-50 transition"
                     >
                       <td className="p-2 text-xs md:text-sm">
@@ -1072,93 +1410,72 @@ export default function AdminReport() {
           })}
         </div>
 
-        <div className="fixed -left-[20000px] top-0 z-[-1] w-[1180px] bg-white p-10" aria-hidden="true">
-          <div ref={exportAllRef}>
-            <div className="bg-purple-600 text-white text-center rounded-3xl px-6 py-8 mb-8">
-              <h1 className="text-4xl font-bold">Confirmed Booking Report</h1>
-              <p className="mt-2 text-lg">
-                Professional export grouped by organization and sub city
-              </p>
-            </div>
-
-            <div className="mb-6 text-base">
-              <p>Generated: {new Date().toLocaleString()}</p>
-              <p>Confirmed records: {filteredBookings.length}</p>
-            </div>
-
-            <div className="mb-10">
-              <h2 className="text-3xl font-bold text-purple-700 mb-4">
-                All Confirmed Participants
-              </h2>
-              <ParticipantTable rows={flatRows} columns={orgGroupColumns} />
-            </div>
-
-            <div className="mb-10">
-              <h2 className="text-3xl font-bold text-purple-700 mb-4">
-                Organization Participant Summary
-              </h2>
-              <ParticipantTable rows={summaryRows} columns={summaryColumns} />
-            </div>
-
-            <div className="space-y-8 mb-10">
-              <h2 className="text-3xl font-bold text-purple-700">Grouped by Organization</h2>
-              {groupedByOrganization.map((group) => (
-                <div key={`pdf-org-${group.key}`} className="mb-6">
-                  <div className="bg-purple-100 rounded-2xl p-3 mb-3">
-                    <p className="text-2xl font-bold text-purple-700">{group.key}</p>
-                    <p>Total Confirmed Records: {group.rows.length}</p>
-                  </div>
-                  <ParticipantTable rows={group.rows} columns={orgGroupColumns} />
-                </div>
-              ))}
-            </div>
-
-            <div className="space-y-8">
-              <h2 className="text-3xl font-bold text-purple-700">Grouped by Sub City</h2>
-              {groupedBySubCity.map((group) => (
-                <div key={`pdf-sub-${group.key}`} className="mb-6">
-                  <div className="bg-purple-100 rounded-2xl p-3 mb-3">
-                    <p className="text-2xl font-bold text-purple-700">{group.key}</p>
-                    <p>Total Confirmed Records: {group.rows.length}</p>
-                  </div>
-                  <ParticipantTable rows={group.rows} columns={orgGroupColumns} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {groupedByOrganization.map((group) => (
+        <div className="fixed -left-[20000px] top-0 z-[-1]">
+          {pdfPages.map((page, index) => (
             <div
-              key={`hidden-org-${group.key}`}
+              key={`pdf-page-${page.sectionKey}`}
               ref={(node) => {
-                orgGroupRefs.current[`org:${group.key}`] = node;
+                exportPageRefs.current[index] = node;
               }}
-              className="bg-white mt-10"
             >
-              <div className="bg-purple-600 text-white text-center rounded-3xl px-6 py-6 mb-6">
-                <h2 className="text-3xl font-bold">{group.key}</h2>
-                <p className="mt-2">Grouped by Organization</p>
-              </div>
-              <ParticipantTable rows={group.rows} columns={orgGroupColumns} />
+              <ExportPage
+                page={page}
+                pageIndex={index}
+                totalPages={pdfPages.length}
+                generatedAt={generatedAt}
+              />
             </div>
           ))}
 
-          {groupedBySubCity.map((group) => (
-            <div
-              key={`hidden-sub-${group.key}`}
-              ref={(node) => {
-                subCityGroupRefs.current[`sub:${group.key}`] = node;
-              }}
-              className="bg-white mt-10"
-            >
-              <div className="bg-purple-600 text-white text-center rounded-3xl px-6 py-6 mb-6">
-                <h2 className="text-3xl font-bold">{group.key}</h2>
-                <p className="mt-2">Grouped by Sub City</p>
+          {Object.entries(groupPdfPagesByOrg).map(([key, pages]) =>
+            pages.map((page, index) => (
+              <div
+                key={`hidden-${key}-${index}`}
+                ref={(node) => {
+                  if (!groupPageRefs.current[key]) groupPageRefs.current[key] = [];
+                  groupPageRefs.current[key][index] = node;
+                }}
+              >
+                <ExportPage
+                  page={page}
+                  pageIndex={index}
+                  totalPages={pages.length}
+                  generatedAt={generatedAt}
+                />
               </div>
-              <ParticipantTable rows={group.rows} columns={orgGroupColumns} />
-            </div>
-          ))}
+            )),
+          )}
+
+          {Object.entries(groupPdfPagesBySubCity).map(([key, pages]) =>
+            pages.map((page, index) => (
+              <div
+                key={`hidden-${key}-${index}`}
+                ref={(node) => {
+                  if (!groupPageRefs.current[key]) groupPageRefs.current[key] = [];
+                  groupPageRefs.current[key][index] = node;
+                }}
+              >
+                <ExportPage
+                  page={page}
+                  pageIndex={index}
+                  totalPages={pages.length}
+                  generatedAt={generatedAt}
+                />
+              </div>
+            )),
+          )}
         </div>
+
+        <MessageModal
+          open={modal.open}
+          title={modal.title}
+          message={modal.message}
+          type={modal.type}
+          onClose={closeModal}
+          onConfirm={modal.onConfirm}
+          confirmLabel={modal.confirmLabel}
+          cancelLabel={modal.cancelLabel}
+        />
       </main>
     </div>
   );
