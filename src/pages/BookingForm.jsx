@@ -179,7 +179,11 @@ export default function BookingForm() {
       data.append("sex", normalizeSpaces(form.sex));
       data.append("subCity", normalizeSpaces(form.subCity));
       data.append("participants", String(form.participants).trim());
-      showModal("ይጠብቁ", "የክፍያ ማስረጃዎ በተሳካ ሁኔታ ለመላክ ተዘጋጅቷል ", "success");
+      showModal(
+        "ይጠብቁ",
+        "የክፍያ ማስረጃዎ በተሳካ ሁኔታ ለመላክ ተዘጋጅቷል እሺ የሚለውን ይንኩ ",
+        "success",
+      );
 
       data.append(
         "participantDetails",
