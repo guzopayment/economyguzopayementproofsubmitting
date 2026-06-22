@@ -22,7 +22,7 @@ export const isValidPhone = (value) =>
 
 export const buildStatusMessage = (status) => {
   if (status === "Confirmed") {
-    return "ላስገቡት ትክክለኛ የክፍያ ማስረጃ እናመሰግናለን!ያስገቡት የክፍያ መረ ጸድቋል፣ ተቀብለነዋል። በእለቱም አስተባባሪ አባላት የሚያሳውቅዎት ይሆናል። | Thank you for your correct payment proof submission. Your payment has been approved and our team will contact you soon.";
+    return "ላስገቡት ትክክለኛ የክፍያ ማስረጃ እናመሰግናለን!ያስገቡት የክፍያ መረጃ ጸድቋል፣ ተቀብለነዋል። በእለቱም አስተባባሪ አባላት የሚያሳውቅዎት ይሆናል። | Thank you for your correct payment proof submission. Your payment has been approved and our team will contact you soon.";
   }
   if (status === "Rejected") {
     return "ያስገቡት የክፍያ ማስረጃ ውድቅ ሆኗል! እባክዎ እንደገና ትክክለኛ የሆነውን የክፍያ ማስረጃ ያስገቡ!! የአስተደድር ክፍሉ እንደገና የሚገመግመው ይሆናል። | Your payment proof was rejected. Please resubmit the correct payment proof so the admin team can review it again.";
