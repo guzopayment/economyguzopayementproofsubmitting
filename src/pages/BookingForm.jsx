@@ -396,7 +396,7 @@ export default function BookingForm() {
 
           <div className="mb-4">
             <label className="block font-semibold text-gray-700 mb-2">
-              የምዝገባ ድረሰኝ ምስል / Confirmation Image
+              የደረሰኝ Screenshot ምስል / Confirmation Image
             </label>
             <input
               type="file"
