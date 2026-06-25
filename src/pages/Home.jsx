@@ -234,8 +234,8 @@ export default function Home() {
               <div className="mt-6 text-center text-extra-bold">
                 {" "}
                 <p className="mt-4 text-bold md:text-base text-blue-900 leading-relaxed">
-                  <strong>ለበለጠ መረጃ </strong> 📞 0994181826 📞 0913446530 📞
-                  0911282341
+                  <strong>ለበለጠ መረጃ </strong> <br></br> 📞 0994181826 <br></br>{" "}
+                  📞 0913446530 <br></br> 📞 0911282341
                 </p>
               </div>
             </div>
