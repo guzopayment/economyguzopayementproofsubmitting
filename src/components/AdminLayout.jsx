@@ -7,7 +7,7 @@ export default function AdminLayout({ children }) {
 
   const linkClass = (path) =>
     `cursor-pointer p-2 rounded ${
-      location.pathname === path ? "bg-white text-purple-600" : "text-white"
+      location.pathname === path ? "bg-white text-emerald-700" : "text-white"
     }`;
   // const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ export default function AdminLayout({ children }) {
   return (
     <div className="flex min-h-screen bg-gray-200">
       {/* Sidebar */}
-      <div className="w-64 bg-purple-400 p-6 rounded-r-3xl">
+      <div className="w-64 bg-emerald-500 p-6 rounded-r-3xl">
         <h2 className="text-3xl text-white mb-8">Admin</h2>
 
         <ul className="space-y-6 text-xl">

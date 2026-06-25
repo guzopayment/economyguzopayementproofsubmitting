@@ -1,6 +1,6 @@
 // import "./TopTicker.css";
 
-// export default function TopTicker({ items = [], bgClass = "bg-purple-600", textClass = "text-white" }) {
+// export default function TopTicker({ items = [], bgClass = "bg-emerald-700", textClass = "text-white" }) {
 //   const safeItems = Array.isArray(items) ? items.flat().filter(Boolean) : [];
 //   const tickerText = safeItems.length ? safeItems.join("   •   ") : "Welcome";
 //   return (
@@ -18,7 +18,7 @@ import "./TopTicker.css";
 
 export default function TopTicker({
   items = [],
-  bgClass = "bg-purple-600",
+  bgClass = "bg-emerald-700",
   textClass = "text-white",
 }) {
   return (

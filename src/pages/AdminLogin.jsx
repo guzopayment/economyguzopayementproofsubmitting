@@ -1,7 +1,6 @@
 import { useState } from "react";
 import api from "../services/api";
 import { useNavigate, useLocation } from "react-router-dom";
-// import back from "../assets/home.png";
 import MessageModal from "../components/MessageModal";
 
 const SESSION_DURATION_MS = 2 * 60 * 60 * 1000; // 2 hours
@@ -76,7 +75,7 @@ export default function AdminLogin() {
         className="bg-white p-5 md:p-8 rounded-2xl shadow-lg w-full max-w-sm"
       >
         <h2 className="text-2xl mb-3 text-center font-bold">
-          ወደ የክፍያ ማስረጃ አስተዳድር ሥርዓት መግቢያ | Booking Admin Login.
+          ወደ የጉዞ ማረጋገጫ አስተዳደር መግቢያ | Booking Admin Login.
         </h2>
 
         {sessionExpired && (
@@ -105,7 +104,7 @@ export default function AdminLogin() {
         <button
           type="submit"
           disabled={loading}
-          className="bg-purple-500 text-white w-full py-3 rounded-lg hover:bg-purple-600 transition disabled:opacity-60"
+          className="bg-emerald-500 text-white w-full py-3 rounded-lg hover:bg-emerald-700 transition disabled:opacity-60"
         >
           {loading ? "በመግባት ላይ..." : "ግቡ | Login"}
         </button>

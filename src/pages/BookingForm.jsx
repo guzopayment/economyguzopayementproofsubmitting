@@ -141,7 +141,7 @@ export default function BookingForm() {
     if (!form.participants || Number(form.participants) <= 0) {
       return "ተሳታፊ ብዛት ከ 0 በላይ ያስገቡ።";
     }
-    if (!file) return "የክፍያ ማስረጃ ያስገቡ።";
+    if (!file) return "የማረጋገጫ ምስል ያስገቡ።";
 
     for (let i = 0; i < additionalParticipants.length; i += 1) {
       const participant = additionalParticipants[i];
@@ -181,7 +181,7 @@ export default function BookingForm() {
       data.append("participants", String(form.participants).trim());
       showModal(
         "ይጠብቁ",
-        "የክፍያ ማስረጃዎ በተሳካ ሁኔታ ለመላክ ተዘጋጅቷል እሺ የሚለውን ይንኩ ",
+        "የማረጋገጫ ምስልዎ በተሳካ ሁኔታ ለመላክ ተዘጋጅቷል። እሺ የሚለውን ይንኩ።",
         "success",
       );
 
@@ -211,7 +211,7 @@ export default function BookingForm() {
         name: booking.name,
         status: booking.status || "Pending",
         message:
-          "Your payment proof has been submitted. Waiting for admin review.",
+          "Your booking verification has been submitted. Waiting for admin review.",
         updatedAt:
           booking.updatedAt || booking.createdAt || new Date().toISOString(),
         unread: false,
@@ -237,7 +237,7 @@ export default function BookingForm() {
         <div className="text-left mb-4">
           <button
             type="button"
-            className="inline-flex items-center gap-2 bg-white text-purple-600 px-4 md:px-6 py-3 rounded-xl font-bold shadow hover:scale-105 transition max-w-full"
+            className="inline-flex items-center gap-2 bg-white text-emerald-700 px-4 md:px-6 py-3 rounded-xl font-bold shadow hover:scale-105 transition max-w-full"
             onClick={() => navigate("/")}
           >
             <img src={back} alt="back" className="w-5 h-5" />
@@ -249,12 +249,12 @@ export default function BookingForm() {
           onSubmit={submit}
           className="bg-white p-6 md:p-8 rounded-3xl shadow-xl"
         >
-          <h2 className="text-2xl md:text-3xl font-extrabold mb-4 text-center text-purple-700">
-            የጉዞ ትኬት የክፍያ ማስረጃ ማስገቢያ
+          <h2 className="text-2xl md:text-3xl font-extrabold mb-4 text-center text-emerald-700">
+            የጉዞ ትኬት ማረጋገጫ ማስገቢያ
           </h2>
 
           <p className="text-center text-gray-500 mb-6">
-            የክፍያ ማስረጃዎትን ከማስገባትዎት በፊት የሚከተሉትን መረጃዎች በትክክል ይሙሉ።
+            የማረጋገጫ መረጃዎትን ከማስገባትዎት በፊት የሚከተሉትን መረጃዎች በትክክል ይሙሉ።
           </p>
 
           <input
@@ -328,17 +328,17 @@ export default function BookingForm() {
           />
 
           {participantCount > 1 && (
-            <div className="mb-4 rounded-2xl border border-purple-100 bg-purple-50 p-4">
-              <h3 className="text-lg font-bold text-purple-700 mb-3">
+            <div className="mb-4 rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+              <h3 className="text-lg font-bold text-emerald-700 mb-3">
                 Additional participants / ተጨማሪ ተሳታፊዎች
               </h3>
               <div className="space-y-4">
                 {additionalParticipants.map((participant, index) => (
                   <div
                     key={`participant-${index + 2}`}
-                    className="rounded-2xl bg-white p-4 shadow-sm border border-purple-100"
+                    className="rounded-2xl bg-white p-4 shadow-sm border border-emerald-100"
                   >
-                    <p className="font-semibold text-purple-700 mb-3">
+                    <p className="font-semibold text-emerald-700 mb-3">
                       ተሳታፊ {index + 2}
                     </p>
                     <input
@@ -396,7 +396,7 @@ export default function BookingForm() {
 
           <div className="mb-4">
             <label className="block font-semibold text-gray-700 mb-2">
-              የክፍያ ማስረጃ / Payment Proof
+              የማረጋገጫ ምስል / Verification Image
             </label>
             <input
               type="file"
@@ -408,15 +408,13 @@ export default function BookingForm() {
 
           <button
             disabled={submitting}
-            className="bg-purple-500 text-white w-full py-3 rounded-xl font-bold hover:bg-purple-600 transition disabled:opacity-60"
+            className="bg-emerald-500 text-white w-full py-3 rounded-xl font-bold hover:bg-emerald-700 transition disabled:opacity-60"
           >
             {submitting ? "ይጠብቁ በመላክ ላይ ነው..." : "ያስገቡ / Submit"}
           </button>
 
           <div className="text-sm text-gray-500 mt-4">
-            * እባክዎ የሞሉት እና ያስገቡት የክፍያ ማስረጃ ትክክለኛ መሆኑን ያረጋግጡ። ትክክለኛ ካልሆነ በአስተዳድሩ
-            ውድቅ ሊደረግ ይችላል። በተጨማሪም የምስጋና ገጹ እስኪመጣ ይታገሱ፣ የኢንተርኔት ወይም የሰርቨር መቋረጥ
-            ከተከሰተ የማስጠንቀቂያ መልእክት ይታያል። ስለዚይ የክፍያ ማስረጃዎትን እንደገና ለመላክ ይሞክሩ።
+            * እባክዎ የሞሉት እና ያስገቡት የማረጋገጫ ምስል ትክክለኛ መሆኑን ያረጋግጡ። ትክክለኛ ካልሆነ በአስተዳድሩ ውድቅ ሊደረግ ይችላል። በተጨማሪም የምስጋና ገጹ እስኪመጣ ይታገሱ፣ የኢንተርኔት ወይም የሰርቨር መቋረጥ ከተከሰተ የማስጠንቀቂያ መልእክት ይታያል። ስለዚህ የማረጋገጫ ምስልዎትን እንደገና ለመላክ ይሞክሩ።
           </div>
         </form>
       </div>

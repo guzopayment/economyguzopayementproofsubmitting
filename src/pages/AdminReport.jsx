@@ -18,7 +18,7 @@ import {
 function StatCard({ num, label }) {
   return (
     <div className="bg-white rounded-2xl shadow-lg p-3 sm:p-6 text-center hover:shadow-2xl hover:-translate-y-1 transition">
-      <h2 className="text-xl sm:text-4xl font-bold text-purple-600 leading-tight">
+      <h2 className="text-xl sm:text-4xl font-bold text-emerald-700 leading-tight">
         {num}
       </h2>
       <p className="text-[11px] sm:text-base text-gray-600 mt-1 sm:mt-2 leading-tight">
@@ -33,7 +33,7 @@ function SexBreakdownCard({ men, women }) {
     <div className="bg-white rounded-2xl shadow-lg p-3 sm:p-6 text-center hover:shadow-2xl hover:-translate-y-1 transition">
       <div className="grid grid-cols-2 gap-3 items-center">
         <div>
-          <h2 className="text-xl sm:text-4xl font-bold text-purple-600 leading-tight">
+          <h2 className="text-xl sm:text-4xl font-bold text-emerald-700 leading-tight">
             {men}
           </h2>
           <p className="text-[11px] sm:text-base text-gray-600 mt-1 sm:mt-2 leading-tight">
@@ -41,7 +41,7 @@ function SexBreakdownCard({ men, women }) {
           </p>
         </div>
         <div>
-          <h2 className="text-xl sm:text-4xl font-bold text-purple-600 leading-tight">
+          <h2 className="text-xl sm:text-4xl font-bold text-emerald-700 leading-tight">
             {women}
           </h2>
           <p className="text-[11px] sm:text-base text-gray-600 mt-1 sm:mt-2 leading-tight">
@@ -60,7 +60,7 @@ function ParticipantTable({ rows, columns = [], emptyMessage = "No data" }) {
   return (
     <div className="w-full max-w-full overflow-x-auto overflow-y-hidden pb-2 [scrollbar-gutter:stable]">
       <table className="min-w-[1100px] w-max bg-white rounded-xl shadow">
-        <thead className="bg-purple-100">
+        <thead className="bg-emerald-100">
           <tr>
             {columns.map((column) => (
               <th key={column.key} className="p-2 text-left text-xs md:text-sm">
@@ -83,7 +83,7 @@ function ParticipantTable({ rows, columns = [], emptyMessage = "No data" }) {
             rows.map((row, index) => (
               <tr
                 key={`${row.bookingId || row.organization || "row"}-${row.role || "main"}-${index}-${row.name || "name"}`}
-                className="border-b hover:bg-purple-50 transition"
+                className="border-b hover:bg-emerald-50 transition"
               >
                 {columns.map((column) => (
                   <td
@@ -106,11 +106,11 @@ function safeFilePart(value) {
   return normalizeText(value || "report").replace(/[\\/:*?"<>|]+/g, "_");
 }
 
-function addHyperlinkCell(worksheet, cellAddress, url, label = "View payment") {
+function addHyperlinkCell(worksheet, cellAddress, url, label = "View image") {
   const cell = worksheet[cellAddress];
   if (!cell) return;
   cell.v = label;
-  cell.l = { Target: url, Tooltip: "View payment proof" };
+  cell.l = { Target: url, Tooltip: "View verification image" };
 }
 
 function chunkArray(items = [], size = 15) {
@@ -152,7 +152,7 @@ function ExportPage({ page, pageIndex, totalPages, generatedAt }) {
         pageBreakAfter: "always",
       }}
     >
-      <div className="rounded-[26px] bg-purple-600 text-white px-8 py-6">
+      <div className="rounded-[26px] bg-emerald-700 text-white px-8 py-6">
         <h1 className="text-[28px] font-bold leading-tight">{page.reportTitle}</h1>
         <p className="text-[13px] mt-1 opacity-95">{page.reportSubtitle}</p>
       </div>
@@ -176,8 +176,8 @@ function ExportPage({ page, pageIndex, totalPages, generatedAt }) {
         </div>
       </div>
 
-      <div className="mt-4 rounded-2xl bg-purple-50 px-4 py-3">
-        <h2 className="text-[20px] font-bold text-purple-700">{page.sectionTitle}</h2>
+      <div className="mt-4 rounded-2xl bg-emerald-50 px-4 py-3">
+        <h2 className="text-[20px] font-bold text-emerald-700">{page.sectionTitle}</h2>
         {page.sectionSubtitle ? (
           <p className="mt-1 text-[12px] text-gray-600">{page.sectionSubtitle}</p>
         ) : null}
@@ -186,11 +186,11 @@ function ExportPage({ page, pageIndex, totalPages, generatedAt }) {
       <div className="mt-4 flex-1 overflow-hidden">
         <table className="w-full border-separate border-spacing-0">
           <thead>
-            <tr className="bg-purple-100">
+            <tr className="bg-emerald-100">
               {page.columns.map((col) => (
                 <th
                   key={col.key}
-                  className="border-b border-purple-200 px-2 py-2 text-left text-[12px] font-bold text-[#312e81]"
+                  className="border-b border-emerald-200 px-2 py-2 text-left text-[12px] font-bold text-[#312e81]"
                 >
                   {col.label}
                 </th>
@@ -214,7 +214,7 @@ function ExportPage({ page, pageIndex, totalPages, generatedAt }) {
                         <a
                           href={row.paymentProof}
                           data-pdf-link="1"
-                          className="font-semibold text-purple-700 underline"
+                          className="font-semibold text-emerald-700 underline"
                         >
                           {text}
                         </a>
@@ -231,7 +231,7 @@ function ExportPage({ page, pageIndex, totalPages, generatedAt }) {
       </div>
 
       <div className="mt-4 border-t border-gray-200 pt-3 text-[11px] text-gray-500 flex items-center justify-between">
-        <span>Qine Economy Family Travel Payment Report</span>
+        <span>Qine Economy Family Travel Verification Report</span>
         <span>Powered by MuluTilaCodeComp</span>
       </div>
     </div>
@@ -246,7 +246,7 @@ function buildPdfPages(flatRows, summaryRows, groupedByOrganization, groupedBySu
     { key: "phone", label: "Phone" },
     { key: "sex", label: "Sex" },
     { key: "subCity", label: "Sub City" },
-    { key: "paymentProof", label: "Payment Proof", renderText: () => "View payment" },
+    { key: "paymentProof", label: "Verification Image", renderText: () => "View image" },
     {
       key: "submittedAt",
       label: "Submitted",
@@ -268,7 +268,7 @@ function buildPdfPages(flatRows, summaryRows, groupedByOrganization, groupedBySu
 
   chunkArray(flatRows, 18).forEach((rows, index, arr) => {
     pages.push({
-      reportTitle: "Confirmed Booking Report",
+      reportTitle: "Confirmed Booking Verification Report",
       reportSubtitle: "Professional export in standard A4 layout",
       sectionTitle: "All Confirmed Participants",
       sectionSubtitle: `Participant records ${index + 1} of ${arr.length}`,
@@ -280,7 +280,7 @@ function buildPdfPages(flatRows, summaryRows, groupedByOrganization, groupedBySu
 
   chunkArray(summaryRows, 22).forEach((rows, index, arr) => {
     pages.push({
-      reportTitle: "Confirmed Booking Report",
+      reportTitle: "Confirmed Booking Verification Report",
       reportSubtitle: "Professional export in standard A4 layout",
       sectionTitle: "Organization Participant Summary",
       sectionSubtitle: `Summary records ${index + 1} of ${arr.length}`,
@@ -293,7 +293,7 @@ function buildPdfPages(flatRows, summaryRows, groupedByOrganization, groupedBySu
   groupedByOrganization.forEach((group) => {
     chunkArray(group.rows, 18).forEach((rows, index, arr) => {
       pages.push({
-        reportTitle: "Confirmed Booking Report",
+        reportTitle: "Confirmed Booking Verification Report",
         reportSubtitle: "Professional export in standard A4 layout",
         sectionTitle: "Grouped by Organization",
         sectionSubtitle: `${group.key} · page ${index + 1} of ${arr.length}`,
@@ -307,7 +307,7 @@ function buildPdfPages(flatRows, summaryRows, groupedByOrganization, groupedBySu
   groupedBySubCity.forEach((group) => {
     chunkArray(group.rows, 18).forEach((rows, index, arr) => {
       pages.push({
-        reportTitle: "Confirmed Booking Report",
+        reportTitle: "Confirmed Booking Verification Report",
         reportSubtitle: "Professional export in standard A4 layout",
         sectionTitle: "Grouped by Sub City",
         sectionSubtitle: `${group.key} · page ${index + 1} of ${arr.length}`,
@@ -513,7 +513,7 @@ export default function AdminReport() {
 
   const menu = [
     { id: "dashboard", label: "Booking Overview", path: "/admin-dashboard" },
-    { id: "report", label: "Booking Report", path: "/admin-report" },
+    { id: "report", label: "Booking Verification Report", path: "/admin-report" },
     { id: "history", label: "History Log", path: "/admin-history" },
     { id: "logout", label: "LOGOUT", action: "logout" },
   ];
@@ -675,16 +675,16 @@ export default function AdminReport() {
     { key: "subCity", label: "Sub City" },
     {
       key: "paymentProof",
-      label: "Payment Proof",
+      label: "Verification Image",
       render: (row) =>
         row.paymentProof ? (
           <a
             href={row.paymentProof}
             target="_blank"
             rel="noreferrer"
-            className="text-purple-700 underline font-semibold"
+            className="text-emerald-700 underline font-semibold"
           >
-            View payment
+            View image
           </a>
         ) : (
           "—"
@@ -721,7 +721,7 @@ export default function AdminReport() {
       row.sourceBooking?.participants || "",
       row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
       row.paymentProof || "",
-      row.paymentProof ? "View payment" : "",
+      row.paymentProof ? "View image" : "",
     ]);
 
     const ws = createSheetFromRows(
@@ -737,8 +737,8 @@ export default function AdminReport() {
         "Sub City",
         "Participants in Booking",
         "Submitted",
-        "Payment Proof URL",
-        "Payment Proof",
+        "Verification Image URL",
+        "Verification Image",
       ],
       dataRows,
       generated,
@@ -758,7 +758,7 @@ export default function AdminReport() {
     const generated = new Date().toLocaleString();
 
     const overviewWs = createSheetFromRows(
-      "Confirmed Booking Report",
+      "Confirmed Booking Verification Report",
       ["Metric", "Value"],
       [
         ["Total Participants", summaryStats.totalParticipants],
@@ -783,7 +783,7 @@ export default function AdminReport() {
       row.subCity || "",
       row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
       row.paymentProof || "",
-      row.paymentProof ? "View payment" : "",
+      row.paymentProof ? "View image" : "",
     ]);
     const confirmedWs = createSheetFromRows(
       "All Confirmed Participants",
@@ -797,8 +797,8 @@ export default function AdminReport() {
         "Sex",
         "Sub City",
         "Submitted",
-        "Payment Proof URL",
-        "Payment Proof",
+        "Verification Image URL",
+        "Verification Image",
       ],
       confirmedRows,
       generated,
@@ -837,7 +837,7 @@ export default function AdminReport() {
         row.subCity || "",
         row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
         row.paymentProof || "",
-        row.paymentProof ? "View payment" : "",
+        row.paymentProof ? "View image" : "",
       ]),
     );
     const byOrgWs = createSheetFromRows(
@@ -851,8 +851,8 @@ export default function AdminReport() {
         "Sex",
         "Sub City",
         "Submitted",
-        "Payment Proof URL",
-        "Payment Proof",
+        "Verification Image URL",
+        "Verification Image",
       ],
       byOrgRows,
       generated,
@@ -874,7 +874,7 @@ export default function AdminReport() {
         row.subCity || "",
         row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "",
         row.paymentProof || "",
-        row.paymentProof ? "View payment" : "",
+        row.paymentProof ? "View image" : "",
       ]),
     );
     const bySubCityWs = createSheetFromRows(
@@ -888,8 +888,8 @@ export default function AdminReport() {
         "Sex",
         "Sub City",
         "Submitted",
-        "Payment Proof URL",
-        "Payment Proof",
+        "Verification Image URL",
+        "Verification Image",
       ],
       bySubCityRows,
       generated,
@@ -958,7 +958,7 @@ export default function AdminReport() {
     groupedByOrganization.forEach((group) => {
       map[`organization:${group.key}`] = chunkArray(group.rows, 18).map(
         (rows, index, arr) => ({
-          reportTitle: "Confirmed Booking Report",
+          reportTitle: "Confirmed Booking Verification Report",
           reportSubtitle: "Professional export in standard A4 layout",
           sectionTitle: "Grouped by Organization",
           sectionSubtitle: `${group.key} · page ${index + 1} of ${arr.length}`,
@@ -970,7 +970,7 @@ export default function AdminReport() {
             { key: "phone", label: "Phone" },
             { key: "sex", label: "Sex" },
             { key: "subCity", label: "Sub City" },
-            { key: "paymentProof", label: "Payment Proof", renderText: () => "View payment" },
+            { key: "paymentProof", label: "Verification Image", renderText: () => "View image" },
             { key: "submittedAt", label: "Submitted", renderText: (row) => row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "—" },
           ],
           rows,
@@ -985,7 +985,7 @@ export default function AdminReport() {
     groupedBySubCity.forEach((group) => {
       map[`subcity:${group.key}`] = chunkArray(group.rows, 18).map(
         (rows, index, arr) => ({
-          reportTitle: "Confirmed Booking Report",
+          reportTitle: "Confirmed Booking Verification Report",
           reportSubtitle: "Professional export in standard A4 layout",
           sectionTitle: "Grouped by Sub City",
           sectionSubtitle: `${group.key} · page ${index + 1} of ${arr.length}`,
@@ -997,7 +997,7 @@ export default function AdminReport() {
             { key: "phone", label: "Phone" },
             { key: "sex", label: "Sex" },
             { key: "subCity", label: "Sub City" },
-            { key: "paymentProof", label: "Payment Proof", renderText: () => "View payment" },
+            { key: "paymentProof", label: "Verification Image", renderText: () => "View image" },
             { key: "submittedAt", label: "Submitted", renderText: (row) => row.submittedAt ? new Date(row.submittedAt).toLocaleString() : "—" },
           ],
           rows,
@@ -1011,7 +1011,7 @@ export default function AdminReport() {
     <div className="flex min-h-screen bg-gray-200 min-w-0 overflow-x-hidden">
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="md:hidden fixed top-4 right-4 z-50 bg-purple-600 text-white w-11 h-11 rounded-xl shadow-lg flex items-center justify-center transition-all duration-300"
+        className="md:hidden fixed top-4 right-4 z-50 bg-emerald-700 text-white w-11 h-11 rounded-xl shadow-lg flex items-center justify-center transition-all duration-300"
         aria-label="Toggle menu"
       >
         <div className="relative w-6 h-6">
@@ -1041,7 +1041,7 @@ export default function AdminReport() {
       )}
 
       <aside
-        className={`fixed md:sticky md:top-0 self-start z-40 h-screen w-64 bg-purple-400 text-white pt-16 md:pt-6 p-6 shadow-xl transform transition-transform duration-300 ${
+        className={`fixed md:sticky md:top-0 self-start z-40 h-screen w-64 bg-emerald-500 text-white pt-16 md:pt-6 p-6 shadow-xl transform transition-transform duration-300 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >
@@ -1054,7 +1054,7 @@ export default function AdminReport() {
               onClick={() => handleMenu(item)}
               className={`cursor-pointer p-3 rounded-xl transition-all duration-300 ${
                 item.id === "report"
-                  ? "bg-white text-purple-600 font-bold shadow"
+                  ? "bg-white text-emerald-700 font-bold shadow"
                   : "hover:bg-white/20 hover:backdrop-blur hover:scale-105 hover:shadow-lg"
               }`}
             >
@@ -1066,12 +1066,12 @@ export default function AdminReport() {
 
       <main className="flex-1 min-w-0 p-4 md:p-8 pt-20 md:pt-8 overflow-x-hidden">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-6">
-          <h1 className="text-2xl md:text-4xl font-bold text-purple-600">
+          <h1 className="text-2xl md:text-4xl font-bold text-emerald-700">
             Report Overview
           </h1>
           <button
             onClick={() => setNotifCount(0)}
-            className="relative bg-white text-purple-700 px-4 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
+            className="relative bg-white text-emerald-700 px-4 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
             title="New bookings"
           >
             🔔
@@ -1085,13 +1085,13 @@ export default function AdminReport() {
           <div className="flex gap-3 flex-wrap">
             <button
               onClick={exportAllPdf}
-              className="bg-purple-600 text-white px-6 py-2 rounded-full shadow hover:bg-purple-700 transition hover:scale-105 disabled:opacity-40"
+              className="bg-emerald-700 text-white px-6 py-2 rounded-full shadow hover:bg-emerald-800 transition hover:scale-105 disabled:opacity-40"
             >
               Export to PDF
             </button>
             <button
               onClick={exportAllExcel}
-              className="bg-purple-600 text-white px-6 py-2 rounded-full shadow hover:bg-purple-700 transition hover:scale-105 disabled:opacity-40"
+              className="bg-emerald-700 text-white px-6 py-2 rounded-full shadow hover:bg-emerald-800 transition hover:scale-105 disabled:opacity-40"
             >
               Export to Excel
             </button>
@@ -1099,7 +1099,7 @@ export default function AdminReport() {
 
           <button
             onClick={fetchReport}
-            className="bg-white text-purple-700 px-6 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
+            className="bg-white text-emerald-700 px-6 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
           >
             Refresh
           </button>
@@ -1117,14 +1117,14 @@ export default function AdminReport() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search name / org / phone / sub city..."
-            className="w-full lg:w-[420px] bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-purple-300"
+            className="w-full lg:w-[420px] bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-emerald-300"
           />
 
           <div className="flex flex-col sm:flex-row gap-3">
             <select
               value={orgFilter}
               onChange={(e) => setOrgFilter(e.target.value)}
-              className="bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-emerald-300"
             >
               {orgOptions.map((option) => (
                 <option key={option} value={option}>
@@ -1136,7 +1136,7 @@ export default function AdminReport() {
             <select
               value={subCityFilter}
               onChange={(e) => setSubCityFilter(e.target.value)}
-              className="bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-emerald-300"
             >
               {subCityOptions.map((option) => (
                 <option key={option} value={option}>
@@ -1149,7 +1149,7 @@ export default function AdminReport() {
 
         <div className="w-full max-w-full overflow-x-auto overflow-y-hidden pb-2 [scrollbar-gutter:stable]">
           <table className="min-w-[1100px] w-max bg-white rounded-xl shadow">
-            <thead className="bg-purple-400 text-white">
+            <thead className="bg-emerald-500 text-white">
               <tr>
                 <th className="p-2">Name</th>
                 <th className="p-2">Organization</th>
@@ -1157,7 +1157,7 @@ export default function AdminReport() {
                 <th className="p-2">Sex</th>
                 <th className="p-2">Sub City</th>
                 <th className="p-2">Participants</th>
-                <th className="p-2">Payment Proof</th>
+                <th className="p-2">Verification Image</th>
                 <th className="p-2">Submitted</th>
               </tr>
             </thead>
@@ -1173,17 +1173,17 @@ export default function AdminReport() {
                 paginatedBookings.map((booking) => (
                   <Fragment key={booking._id}>
                     <tr
-                      className="text-center border-b hover:bg-purple-50 transition"
+                      className="text-center border-b hover:bg-emerald-50 transition"
                     >
                       <td className="p-2 text-xs md:text-sm">
                         <button
                           onClick={() => toggleExpanded(String(booking._id))}
-                          className="text-left text-purple-700 font-semibold hover:underline"
+                          className="text-left text-emerald-700 font-semibold hover:underline"
                         >
                           {booking.name || "—"}{" "}
                           {Array.isArray(booking.participantDetails) &&
                           booking.participantDetails.length > 0 ? (
-                            <span className="text-xs text-purple-500">
+                            <span className="text-xs text-emerald-600">
                               {expandedBookingIds[booking._id]
                                 ? "▲ Hide participants"
                                 : "▼ Show participants"}
@@ -1202,9 +1202,9 @@ export default function AdminReport() {
                             href={booking.paymentProof}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-purple-700 underline font-semibold"
+                            className="text-emerald-700 underline font-semibold"
                           >
-                            View payment
+                            View image
                           </a>
                         ) : (
                           "—"
@@ -1222,9 +1222,9 @@ export default function AdminReport() {
                       booking.participantDetails.map((participant, index) => (
                         <tr
                           key={`${booking._id}-sub-${index}`}
-                          className="bg-purple-50 text-center border-b"
+                          className="bg-emerald-50 text-center border-b"
                         >
-                          <td className="p-2 text-xs md:text-sm text-purple-700">
+                          <td className="p-2 text-xs md:text-sm text-emerald-700">
                             Participant {index + 2}: {participant.name || "—"}
                           </td>
                           <td className="p-2 text-xs md:text-sm">
@@ -1242,9 +1242,9 @@ export default function AdminReport() {
                                 href={booking.paymentProof}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="text-purple-700 underline font-semibold"
+                                className="text-emerald-700 underline font-semibold"
                               >
-                                View payment
+                                View image
                               </a>
                             ) : (
                               "—"
@@ -1271,7 +1271,7 @@ export default function AdminReport() {
         </div>
 
         <div className="mt-10 bg-white rounded-2xl shadow p-4 md:p-5">
-          <h2 className="text-lg md:text-2xl font-bold text-purple-700 mb-4">
+          <h2 className="text-lg md:text-2xl font-bold text-emerald-700 mb-4">
             Organization Participant Summary
           </h2>
           <ParticipantTable
@@ -1287,7 +1287,7 @@ export default function AdminReport() {
         </div>
 
         <div className="mt-10 space-y-8">
-          <h2 className="text-2xl md:text-4xl font-bold text-purple-600">
+          <h2 className="text-2xl md:text-4xl font-bold text-emerald-700">
             Grouped by Organization
           </h2>
 
@@ -1306,7 +1306,7 @@ export default function AdminReport() {
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
                   <div>
-                    <h3 className="text-base md:text-xl font-bold text-purple-700">
+                    <h3 className="text-base md:text-xl font-bold text-emerald-700">
                       {group.key}
                     </h3>
                     <p className="text-xs md:text-sm text-gray-500">
@@ -1349,7 +1349,7 @@ export default function AdminReport() {
         </div>
 
         <div className="mt-10 space-y-8">
-          <h2 className="text-2xl md:text-4xl font-bold text-purple-600">
+          <h2 className="text-2xl md:text-4xl font-bold text-emerald-700">
             Grouped by Sub City
           </h2>
 
@@ -1368,7 +1368,7 @@ export default function AdminReport() {
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
                   <div>
-                    <h3 className="text-base md:text-xl font-bold text-purple-700">
+                    <h3 className="text-base md:text-xl font-bold text-emerald-700">
                       {group.key}
                     </h3>
                     <p className="text-xs md:text-sm text-gray-500">

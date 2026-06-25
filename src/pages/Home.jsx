@@ -11,11 +11,6 @@ import {
   sanitizePhoneInput,
   buildStatusMessage,
 } from "../utils/bookingValidation";
-// Bacnk Account Information for Guzo payment
-// const DEVELOPER_BANK = "CBE";
-// const DEVELOPER_ACCOUNT_NUMBER = "1000254897837";
-// const TELEBIRR_PHONE_NUMBER = "0955168453";
-// const DEVELOPER_ACCOUNT_NAME = "Semahegn Tilahun Demelashe";
 
 function StatusBadge({ status }) {
   const cls =
@@ -163,13 +158,13 @@ export default function Home() {
       className="min-h-screen bg-cover bg-center flex flex-col justify-center overflow-x-hidden"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="min-h-screen bg-purple-50/90 backdrop-blur-sm p-4 md:p-6 flex items-center justify-center overflow-x-hidden">
+      <div className="min-h-screen bg-emerald-50/90 backdrop-blur-sm p-4 md:p-6 flex items-center justify-center overflow-x-hidden">
         <div className="w-full max-w-5xl mx-auto text-center">
           <div className="backdrop-blur-xl shadow-xl py-5 px-3 md:px-5 mb-7 rounded-3xl bg-white/50">
-            <h1 className="text-xl md:text-4xl font-bold text-purple-700 tracking-wide leading-tight">
+            <h1 className="text-xl md:text-4xl font-bold text-emerald-700 tracking-wide leading-tight">
               <strong> የዝክረ ቅዱሳን ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!!</strong>
             </h1>
-            <p className="mt-4 text-lg md:text-2xl text-purple-700 font-semibold">
+            <p className="mt-4 text-lg md:text-2xl text-emerald-700 font-semibold">
               Zikre Kidusan Traveling To Menagesha Garaw Medhanealem Unity
               Monastery!
             </p>
@@ -177,7 +172,7 @@ export default function Home() {
 
           <div className="flex justify-center items-center mb-8">
             <div className="w-full max-w-3xl">
-              <h2 className="text-purple-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
+              <h2 className="text-emerald-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
                 ውድ ቤተሰባችን እንኳን ደኅና መጡ፤ &nbsp;
                 <strong>
                   {" "}
@@ -190,7 +185,7 @@ export default function Home() {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
               >
                 <h4>
-                  መጀመሪያ እባክዎ ከእነዚህ የባንክ ቁጥሮች ውስጥ በአንዱ (እርስዎ በተመቸዎት) ክፍያዎን ያከናውኑ።
+                  መጀመሪያ እባክዎ ከእነዚህ ኦፊሴላዊ የማረጋገጫ መረጃዎች ውስጥ በአንዱ (እርስዎ በተመቸዎት) የምዝገባ ሂደቱን ያጠናቅቁ።
                 </h4>{" "}
                 <ol>
                   <li>
@@ -206,12 +201,12 @@ export default function Home() {
                 All Account Holder Name:{" "}
                 <strong>Tewodros Sahile and Elsa Fantahun</strong>
               </div>
-              <h2 className="text-purple-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
-                በመቀጠልም የጉዞ ትኬት የክፍያ ማስረጃ ማስገቢያ ቅጽን ለመሙላት ፥
+              <h2 className="text-emerald-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
+                በመቀጠልም የጉዞ ትኬት ማረጋገጫ መረጃ ማስገቢያ ቅጽን ለመሙላት ፥
               </h2>
 
               <h5 className="text-green-700 font-bold place-items-center mb-4">
-                ከታች የክፍያ ደረሰኝ ያስገቡ / Submit Payment የሚለውን ይንኩ
+                ከታች የጉዞ ማረጋገጫ ያስገቡ / Continue Booking የሚለውን ይንኩ
                 <img
                   src={clickOn}
                   alt="Click On"
@@ -220,20 +215,20 @@ export default function Home() {
               </h5>
               <button
                 onClick={() => navigate("/submit")}
-                className="bg-purple-700 text-white text-lg md:text-3xl px-8 md:px-16 py-5 md:py-7 rounded-[30px] shadow-lg hover:scale-105 hover:bg-purple-800 transition duration-300 border border-white/30 w-full"
+                className="bg-gradient-to-r from-emerald-700 to-green-600 text-white text-lg md:text-3xl px-8 md:px-16 py-5 md:py-7 rounded-[30px] shadow-lg hover:scale-105 hover:from-emerald-800 hover:to-green-700 transition duration-300 border border-white/30 w-full"
               >
-                የክፍያ ደረሰኝ ያስገቡ / Submit Payment
+                የጉዞ ማረጋገጫ ያስገቡ / Continue Booking
               </button>
             </div>
           </div>
 
           <div className="w-full max-w-4xl mx-auto bg-white/80 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-              <h3 className="text-xl font-bold text-purple-700">
-                ያስገቡትን የክፍያ ማስረጃ ሁኔታ ይፈትሹ | Check Your Booking Payment Status
+              <h3 className="text-xl font-bold text-emerald-700">
+                ያስገቡትን መረጃ ሁኔታ ይፈትሹ | Check Your Submission Status
               </h3>
               <p className="text-sm text-gray-500">
-                ስም፣ ስልክ እና ድርጅት በመጠቀም የክፍያ ማስረጃዎት ሁኔታ ይፈትሹ። | Search by full
+                ስም፣ ስልክ እና ድርጅት በመጠቀም ያስገቡትን መረጃ ሁኔታ ይፈትሹ። | Search by full
                 name, phone number, or organization.
               </p>
             </div>
@@ -247,14 +242,14 @@ export default function Home() {
                 value={lookup.name}
                 onChange={(e) => handleNameChange(e.target.value)}
                 placeholder="Full name / ሙሉ ስም"
-                className="w-full bg-white rounded-2xl px-4 py-3 shadow border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300"
+                className="w-full bg-white rounded-2xl px-4 py-3 shadow border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-300"
               />
               <input
                 value={lookup.phone}
                 onChange={(e) => handlePhoneChange(e.target.value)}
                 placeholder="Phone number / ስልክ ቁጥር"
                 inputMode="numeric"
-                className="w-full bg-white rounded-2xl px-4 py-3 shadow border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300"
+                className="w-full bg-white rounded-2xl px-4 py-3 shadow border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-300"
               />
               <select
                 value={lookup.organization}
@@ -264,7 +259,7 @@ export default function Home() {
                     organization: e.target.value,
                   }))
                 }
-                className="w-full bg-white rounded-2xl px-4 py-3 shadow border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300"
+                className="w-full bg-white rounded-2xl px-4 py-3 shadow border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-300"
               >
                 <option value="">Organization / ድርጅት</option>
                 {ORGANIZATIONS.map((org) => (
@@ -279,7 +274,7 @@ export default function Home() {
               <button
                 onClick={checkStatus}
                 disabled={checking}
-                className="bg-purple-700 text-white px-6 py-3 rounded-2xl font-bold hover:bg-purple-800 transition disabled:opacity-60"
+                className="bg-emerald-800 text-white px-6 py-3 rounded-2xl font-bold hover:bg-emerald-900 transition disabled:opacity-60"
               >
                 {checking ? "እባክዎ ይጠብቁ... Checking..." : "Check Status"}
               </button>
@@ -297,18 +292,18 @@ export default function Home() {
 
           {lookupResults.length > 0 && (
             <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
-              <h3 className="text-2xl font-bold text-purple-700 mb-4">
-                የክፍያ ሁኔታ ውጤት | Status result
+              <h3 className="text-2xl font-bold text-emerald-700 mb-4">
+                የማረጋገጫ ሁኔታ ውጤት | Status result
               </h3>
               <div className="space-y-4">
                 {lookupResults.map((item) => (
                   <div
                     key={item._id}
-                    className="rounded-2xl border border-purple-100 bg-white p-4 md:p-5 shadow-sm"
+                    className="rounded-2xl border border-emerald-100 bg-white p-4 md:p-5 shadow-sm"
                   >
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
                       <div>
-                        <h4 className="text-lg font-bold text-purple-700">
+                        <h4 className="text-lg font-bold text-emerald-700">
                           {item.name}
                         </h4>
                         <p className="text-sm text-gray-500">
@@ -331,8 +326,8 @@ export default function Home() {
           )}
 
           <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 text-left">
-            <h3 className="text-2xl font-bold text-purple-700 mb-4">
-              በቅርብ ግዜ የተሰጡ የክፍያ ማስረጃዎች ሁኔታ | Recent Booking Payment Updates
+            <h3 className="text-2xl font-bold text-emerald-700 mb-4">
+              በቅርብ ግዜ የተሰጡ የማረጋገጫ መረጃዎች ሁኔታ | Recent Submission Updates
             </h3>
             <div
               ref={scrollRef}
@@ -343,11 +338,11 @@ export default function Home() {
                   duplicatedUpdates.map((item, index) => (
                     <div
                       key={`${item._id}-${index}`}
-                      className="rounded-2xl border border-purple-100 bg-white p-4 md:p-5 shadow-sm"
+                      className="rounded-2xl border border-emerald-100 bg-white p-4 md:p-5 shadow-sm"
                     >
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
                         <div>
-                          <h4 className="text-lg font-bold text-purple-700">
+                          <h4 className="text-lg font-bold text-emerald-700">
                             {item.name}
                           </h4>
                           <p className="text-sm text-gray-500">
@@ -366,8 +361,8 @@ export default function Home() {
                     </div>
                   ))
                 ) : (
-                  <div className="rounded-2xl border border-purple-100 bg-white p-6 text-center text-gray-500 shadow-sm">
-                    ምንም አይነት የቅርብ ግዜ የክፍያ ማስረጃዎች የልሉም | No recent updates yet.
+                  <div className="rounded-2xl border border-emerald-100 bg-white p-6 text-center text-gray-500 shadow-sm">
+                    ምንም አይነት የቅርብ ግዜ ማረጋገጫ መረጃዎች የሉም | No recent updates yet.
                   </div>
                 )}
               </div>

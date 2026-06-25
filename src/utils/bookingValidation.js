@@ -22,10 +22,10 @@ export const isValidPhone = (value) =>
 
 export const buildStatusMessage = (status) => {
   if (status === "Confirmed") {
-    return "ላስገቡት ትክክለኛ የክፍያ ማስረጃ እናመሰግናለን!ያስገቡት የክፍያ መረጃ ጸድቋል፣ ተቀብለነዋል። በእለቱም አስተባባሪ አባላት የሚያሳውቅዎት ይሆናል። | Thank you for your correct payment proof submission. Your payment has been approved and our team will contact you soon.";
+    return "ላስገቡት ትክክለኛ የማረጋገጫ ምስል እናመሰግናለን!ያስገቡት የማረጋገጫ መረጃ ጸድቋል፣ ተቀብለነዋል። በእለቱም አስተባባሪ አባላት የሚያሳውቅዎት ይሆናል። | Thank you for your correct booking verification submission. Your booking verification has been approved and our team will contact you soon.";
   }
   if (status === "Rejected") {
-    return "ያስገቡት የክፍያ ማስረጃ ውድቅ ሆኗል! እባክዎ እንደገና ትክክለኛ የሆነውን የክፍያ ማስረጃ ያስገቡ!! የአስተደድር ክፍሉ እንደገና የሚገመግመው ይሆናል። | Your payment proof was rejected. Please resubmit the correct payment proof so the admin team can review it again.";
+    return "ያስገቡት የማረጋገጫ ምስል ውድቅ ሆኗል! እባክዎ እንደገና ትክክለኛ የሆነውን የማረጋገጫ ምስል ያስገቡ!! የአስተደድር ክፍሉ እንደገና የሚገመግመው ይሆናል። | Your verification image was rejected. Please resubmit the correct verification image so the admin team can review it again.";
   }
-  return "መልካም። ያስገቡት የክፍያ ማስረጃ በትክክል ደርሷል። የአስገዳድር ክፍሉ እስኪገመግመው ድረስ እባክዎ በትዕግስት ይጠብቁ! | Your payment proof has been submitted successfully. Please wait while the admin team reviews it.";
+  return "መልካም። ያስገቡት የማረጋገጫ ምስል በትክክል ደርሷል። የአስገዳድር ክፍሉ እስኪገመግመው ድረስ እባክዎ በትዕግስት ይጠብቁ! | Your verification image has been submitted successfully. Please wait while the admin team reviews it.";
 };

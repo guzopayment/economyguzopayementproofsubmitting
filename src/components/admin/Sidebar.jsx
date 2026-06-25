@@ -14,7 +14,7 @@
 //     <>
 //       {/* Mobile Top Bar */}
 //       <div
-//         className="md:hidden bg-purple-600 text-white p-4
+//         className="md:hidden bg-emerald-700 text-white p-4
 //       flex justify-between items-center"
 //       >
 //         <h1 className="font-semibold">Admin</h1>
@@ -36,7 +36,7 @@
 //       <aside
 //         className={`
 //         fixed md:static z-50 top-0 left-0 h-full w-64
-//         bg-purple-500 text-white p-6
+//         bg-emerald-500 text-white p-6
 //         transform transition duration-300
 //         ${open ? "translate-x-0" : "-translate-x-full"}
 //         md:translate-x-0
@@ -48,7 +48,7 @@
 //           <li className="hover:text-gray-200 cursor-pointer">Dashboard</li>
 //           <li className="hover:text-gray-200 cursor-pointer">Users</li>
 //           <li className="hover:text-gray-200 cursor-pointer">Reports</li>
-//           <li className="hover:text-gray-200 cursor-pointer">Payments</li>
+//           <li className="hover:text-gray-200 cursor-pointer">Verifications</li>
 //           <li className="hover:text-gray-200 cursor-pointer">Settings</li>
 //           <button
 //             onClick={handleLogout}
@@ -77,14 +77,14 @@ export default function Sidebar() {
   const linkBase =
     "block w-full rounded-xl px-4 py-3 font-semibold transition cursor-pointer";
   const linkInactive = "text-white hover:bg-white/15 hover:text-white";
-  const linkActive = "bg-white text-purple-700 shadow-md";
+  const linkActive = "bg-white text-emerald-700 shadow-md";
 
   const closeMobileMenu = () => setOpen(false);
 
   return (
     <>
       {/* Mobile Top Bar */}
-      <div className="md:hidden bg-purple-600 text-white p-4 flex justify-between items-center">
+      <div className="md:hidden bg-emerald-700 text-white p-4 flex justify-between items-center">
         <h1 className="font-semibold text-lg">Admin</h1>
 
         <button onClick={() => setOpen(!open)} className="text-2xl">
@@ -104,7 +104,7 @@ export default function Sidebar() {
       <aside
         className={`
           fixed md:static z-50 top-0 left-0 h-full w-64
-          bg-purple-500 text-white p-6
+          bg-emerald-500 text-white p-6
           transform transition duration-300
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0

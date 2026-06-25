@@ -9,7 +9,7 @@ html {
   width: 50%;
   overflow: hidden;
   background: inherit;
-  color: rgb(156, 2, 148);
+  color: rgb(4, 120, 87);
   padding: 10px 0;
   white-space: nowrap;
 }
@@ -45,7 +45,7 @@ html, body, #root {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(124, 58, 237, 0.45);
+  background: rgba(5, 150, 105, 0.45);
   border-radius: 9999px;
 }
 

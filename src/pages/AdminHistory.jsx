@@ -131,7 +131,7 @@ export default function AdminHistory() {
 
   const menu = [
     { id: "dashboard", label: "Booking Overview", path: "/admin-dashboard" },
-    { id: "report", label: "Booking Report", path: "/admin-report" },
+    { id: "report", label: "Booking Verification Report", path: "/admin-report" },
     { id: "history", label: "History Log", path: "/admin-history" },
     { id: "logout", label: "LOGOUT", action: "logout" },
   ];
@@ -150,7 +150,7 @@ export default function AdminHistory() {
     <div className="flex min-h-screen bg-gray-200 min-w-0 overflow-x-hidden">
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="md:hidden fixed top-4 right-4 z-50 bg-purple-600 text-white w-11 h-11 rounded-xl shadow-lg flex items-center justify-center transition-all duration-300"
+        className="md:hidden fixed top-4 right-4 z-50 bg-emerald-700 text-white w-11 h-11 rounded-xl shadow-lg flex items-center justify-center transition-all duration-300"
         aria-label="Toggle menu"
       >
         <div className="relative w-6 h-6">
@@ -180,7 +180,7 @@ export default function AdminHistory() {
       )}
 
       <aside
-        className={`fixed md:sticky md:top-0 self-start z-40 h-screen w-64 bg-purple-400 text-white p-6 shadow-xl
+        className={`fixed md:sticky md:top-0 self-start z-40 h-screen w-64 bg-emerald-500 text-white p-6 shadow-xl
         transform transition-transform duration-300
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
       >
@@ -193,7 +193,7 @@ export default function AdminHistory() {
               onClick={() => handleMenu(item)}
               className={`cursor-pointer p-3 rounded-xl transition-all duration-300 ${
                 item.id === "history"
-                  ? "bg-white text-purple-600 font-bold shadow"
+                  ? "bg-white text-emerald-700 font-bold shadow"
                   : "hover:bg-white/20 hover:backdrop-blur hover:scale-105 hover:shadow-lg"
               }`}
             >
@@ -205,14 +205,14 @@ export default function AdminHistory() {
 
       <main className="flex-1 min-w-0 p-4 md:p-8 pt-20 md:pt-8 overflow-x-hidden">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-6">
-          <h1 className="text-2xl md:text-4xl font-bold text-purple-600">
+          <h1 className="text-2xl md:text-4xl font-bold text-emerald-700">
             History Log
           </h1>
 
           <div className="flex flex-wrap gap-3">
             <button
               onClick={openNotifications}
-              className="relative bg-white text-purple-700 px-4 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
+              className="relative bg-white text-emerald-700 px-4 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
               title="Notifications"
             >
               🔔
@@ -223,7 +223,7 @@ export default function AdminHistory() {
 
             <button
               onClick={fetchHistory}
-              className="bg-white text-purple-700 px-6 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
+              className="bg-white text-emerald-700 px-6 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
             >
               Refresh
             </button>
@@ -238,7 +238,7 @@ export default function AdminHistory() {
               setPage(1);
             }}
             placeholder="Search title / message / actor / type..."
-            className="w-full md:w-[420px] bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-purple-300"
+            className="w-full md:w-[420px] bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-emerald-300"
           />
 
           <select
@@ -247,7 +247,7 @@ export default function AdminHistory() {
               setActorFilter(e.target.value);
               setPage(1);
             }}
-            className="bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-purple-300"
+            className="bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-emerald-300"
           >
             {actorOptions.map((item) => (
               <option key={item} value={item}>
@@ -262,7 +262,7 @@ export default function AdminHistory() {
               setTypeFilter(e.target.value);
               setPage(1);
             }}
-            className="bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-purple-300"
+            className="bg-white rounded-full px-5 py-2 shadow focus:outline-none focus:ring-2 focus:ring-emerald-300"
           >
             {typeOptions.map((item) => (
               <option key={item} value={item}>
@@ -284,7 +284,7 @@ export default function AdminHistory() {
                 className="bg-white p-4 rounded-2xl shadow hover:shadow-2xl hover:-translate-y-1 transition"
               >
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                  <h2 className="text-lg font-bold text-purple-700">
+                  <h2 className="text-lg font-bold text-emerald-700">
                     {item.title || "Activity"}
                   </h2>
                   <span className="text-sm text-gray-500">

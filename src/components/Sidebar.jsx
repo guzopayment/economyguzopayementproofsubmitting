@@ -15,7 +15,7 @@
 //       {/* Mobile Top Bar */}
 //       <div
 //         className="md:hidden flex items-center justify-between
-//       bg-purple-500 text-white p-4 h-screen"
+//       bg-emerald-500 text-white p-4 h-screen"
 //       >
 //         <h1 className="text-xl font-semibold">
 //           {admin ? "Admin Dashboard" : "Dashboard"}
@@ -39,7 +39,7 @@
 //         className={`
 //         fixed md:static z-50
 //         top-0 left-0 h-full w-72
-//         bg-purple-300 p-6
+//         bg-emerald-300 p-6
 //         transform transition-transform duration-300
 //         ${open ? "translate-x-0" : "-translate-x-full"}
 //         md:translate-x-0
@@ -87,11 +87,11 @@ export default function Sidebar({ admin }) {
   const linkBase =
     "block w-full rounded-xl px-4 py-3 font-semibold transition cursor-pointer";
   const linkInactive = "text-white hover:bg-white/15 hover:text-white";
-  const linkActive = "bg-white text-purple-700 shadow-md";
+  const linkActive = "bg-white text-emerald-700 shadow-md";
 
   return (
     <>
-      <div className="md:hidden flex items-center justify-between bg-purple-500 text-white p-4">
+      <div className="md:hidden flex items-center justify-between bg-emerald-500 text-white p-4">
         <h1 className="text-xl font-semibold">
           {admin ? "Admin Panel" : "Menu"}
         </h1>
@@ -112,7 +112,7 @@ export default function Sidebar({ admin }) {
         className={`
           fixed md:static z-50
           top-0 left-0 h-full w-72
-          bg-purple-300 p-6
+          bg-emerald-300 p-6
           transform transition-transform duration-300
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0

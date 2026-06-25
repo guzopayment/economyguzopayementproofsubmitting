@@ -9,7 +9,7 @@ function StatCard({ title, value, subtitle }) {
   return (
     <div className="bg-white rounded-2xl shadow-lg p-4 md:p-5 hover:shadow-2xl hover:-translate-y-1 transition">
       <p className="text-sm text-gray-500">{title}</p>
-      <h3 className="text-3xl font-extrabold text-purple-700 mt-2">{value}</h3>
+      <h3 className="text-3xl font-extrabold text-emerald-700 mt-2">{value}</h3>
       {subtitle ? (
         <p className="text-xs text-gray-400 mt-1">{subtitle}</p>
       ) : null}
@@ -174,7 +174,7 @@ export default function AdminDashboard() {
 
   const menu = [
     { id: "dashboard", label: "Booking Overview", path: "/admin-dashboard" },
-    { id: "report", label: "Booking Report", path: "/admin-report" },
+    { id: "report", label: "Booking Verification Report", path: "/admin-report" },
     { id: "history", label: "History Log", path: "/admin-history" },
     { id: "logout", label: "LOGOUT", action: "logout" },
   ];
@@ -369,7 +369,7 @@ export default function AdminDashboard() {
   return (
     <div className="flex min-h-screen bg-gray-200 min-w-0 overflow-x-hidden">
       <button
-        className="md:hidden fixed top-4 right-4 z-50 bg-purple-600 text-white w-11 h-11 rounded-xl shadow-lg flex items-center justify-center transition-all duration-300"
+        className="md:hidden fixed top-4 right-4 z-50 bg-emerald-700 text-white w-11 h-11 rounded-xl shadow-lg flex items-center justify-center transition-all duration-300"
         onClick={() => setSidebarOpen((v) => !v)}
         aria-label="Toggle menu"
       >
@@ -400,7 +400,7 @@ export default function AdminDashboard() {
       )}
 
       <aside
-        className={`fixed md:sticky md:top-0 self-start z-40 h-screen w-64 bg-purple-400 text-white pt-16 md:pt-6 p-6 shadow-xl transform transition-transform duration-300 ease-in-out ${
+        className={`fixed md:sticky md:top-0 self-start z-40 h-screen w-64 bg-emerald-500 text-white pt-16 md:pt-6 p-6 shadow-xl transform transition-transform duration-300 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
       >
@@ -412,7 +412,7 @@ export default function AdminDashboard() {
               onClick={() => handleMenu(item)}
               className={`cursor-pointer p-3 rounded-xl transition-all duration-300 ${
                 item.id === "dashboard"
-                  ? "bg-white text-purple-600 font-bold shadow"
+                  ? "bg-white text-emerald-700 font-bold shadow"
                   : "hover:bg-white/20 hover:backdrop-blur hover:scale-105 hover:shadow-lg"
               }`}
             >
@@ -425,18 +425,18 @@ export default function AdminDashboard() {
       <main className="flex-1 min-w-0 p-4 md:p-8 pt-20 md:pt-8 overflow-x-hidden">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 mb-6">
           <div>
-            <h1 className="text-2xl md:text-4xl font-bold text-purple-600">
-              Booking Payment Dashboard
+            <h1 className="text-2xl md:text-4xl font-bold text-emerald-700">
+              Booking Verification Dashboard
             </h1>
             <p className="text-gray-500 mt-2">
-              Review submissions, proof images, participant totals, and extra
+              Review submissions, verification images, participant totals, and extra
               participant details.
             </p>
           </div>
           <div className="flex gap-3">
             <button
               onClick={openNotifications}
-              className="relative bg-white text-purple-700 px-4 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
+              className="relative bg-white text-emerald-700 px-4 py-2 rounded-full shadow hover:shadow-xl hover:-translate-y-[1px] transition font-semibold"
               title="Notifications"
             >
               🔔
@@ -448,7 +448,7 @@ export default function AdminDashboard() {
             </button>
             <button
               onClick={refreshAll}
-              className="bg-white text-purple-700 px-5 py-2 rounded-full shadow font-semibold hover:shadow-xl hover:-translate-y-[1px] transition"
+              className="bg-white text-emerald-700 px-5 py-2 rounded-full shadow font-semibold hover:shadow-xl hover:-translate-y-[1px] transition"
             >
               Refresh
             </button>
@@ -463,7 +463,7 @@ export default function AdminDashboard() {
           <StatCard
             title="Confirmed Participants"
             value={summaryCards.totalParticipants}
-            subtitle="Participants from confirmed payments"
+            subtitle="Participants from confirmed submissions"
           />
           <StatCard title="Pending" value={summaryCards.pendingCount} />
           <StatCard title="Confirmed" value={summaryCards.confirmedCount} />
@@ -476,7 +476,7 @@ export default function AdminDashboard() {
               value={searchDraft}
               onChange={(e) => setSearchDraft(e.target.value)}
               placeholder="Search name / organization / phone / sub city..."
-              className="w-full md:w-[420px] bg-gray-50 rounded-full px-5 py-3 border focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="w-full md:w-[420px] bg-gray-50 rounded-full px-5 py-3 border focus:outline-none focus:ring-2 focus:ring-emerald-300"
             />
             <select
               value={statusFilter}
@@ -484,7 +484,7 @@ export default function AdminDashboard() {
                 setStatusFilter(e.target.value);
                 setPage(1);
               }}
-              className="bg-gray-50 rounded-full px-5 py-3 border focus:outline-none focus:ring-2 focus:ring-purple-300"
+              className="bg-gray-50 rounded-full px-5 py-3 border focus:outline-none focus:ring-2 focus:ring-emerald-300"
             >
               <option value="All">All Statuses</option>
               <option value="Pending">Pending</option>
@@ -493,7 +493,7 @@ export default function AdminDashboard() {
             </select>
             <button
               onClick={submitSearch}
-              className="bg-purple-600 text-white px-5 py-3 rounded-full font-bold hover:bg-purple-700 transition"
+              className="bg-emerald-700 text-white px-5 py-3 rounded-full font-bold hover:bg-emerald-800 transition"
             >
               Search
             </button>
@@ -520,7 +520,7 @@ export default function AdminDashboard() {
           ) : (
             <div className="w-full max-w-full overflow-x-auto overflow-y-hidden pb-3 [scrollbar-gutter:stable]">
               <table className="min-w-[1700px] w-max table-auto">
-                <thead className="bg-purple-700 text-white">
+                <thead className="bg-emerald-800 text-white">
                   <tr>
                     <th className="p-3 text-left text-sm whitespace-nowrap">
                       ID
@@ -547,7 +547,7 @@ export default function AdminDashboard() {
                       Status
                     </th>
                     <th className="p-3 text-left text-sm whitespace-nowrap">
-                      Payment Proof
+                      Verification Image
                     </th>
                     <th className="p-3 text-left text-sm whitespace-nowrap">
                       Submitted
@@ -561,7 +561,7 @@ export default function AdminDashboard() {
                 <tbody>
                   {bookings.map((item, index) => (
                     <Fragment key={item._id}>
-                      <tr className="border-b hover:bg-purple-50 transition align-top">
+                      <tr className="border-b hover:bg-emerald-50 transition align-top">
                         <td className="p-3 text-sm font-semibold text-gray-800 whitespace-nowrap">
                           {(meta.currentPage - 1) * perPage + index + 1}
                         </td>
@@ -597,7 +597,7 @@ export default function AdminDashboard() {
                               <button
                                 type="button"
                                 onClick={() => toggleExpanded(item._id)}
-                                className="text-purple-700 underline text-xs text-left"
+                                className="text-emerald-700 underline text-xs text-left"
                               >
                                 {expandedId === item._id
                                   ? "Hide extra participants"
@@ -621,11 +621,11 @@ export default function AdminDashboard() {
                             >
                               <img
                                 src={item.paymentProof}
-                                alt="payment proof"
+                                alt="verification image"
                                 className="w-16 h-16 rounded-xl object-cover border shrink-0"
                               />
-                              <span className="text-purple-700 font-semibold underline">
-                                View proof
+                              <span className="text-emerald-700 font-semibold underline">
+                                View image
                               </span>
                             </a>
                           ) : (
@@ -668,11 +668,11 @@ export default function AdminDashboard() {
                       {expandedId === item._id &&
                       Array.isArray(item.participantDetails) &&
                       item.participantDetails.length > 0 ? (
-                        <tr className="bg-purple-50/60">
+                        <tr className="bg-emerald-50/60">
                           <td colSpan="11" className="p-4">
                             <div className="w-full max-w-full overflow-x-auto overflow-y-hidden pb-3 [scrollbar-gutter:stable]">
                               <table className="min-w-[900px] w-max table-auto border rounded-xl overflow-hidden">
-                                <thead className="bg-purple-100">
+                                <thead className="bg-emerald-100">
                                   <tr>
                                     <th className="p-2 text-left text-xs whitespace-nowrap">
                                       #

@@ -48,14 +48,14 @@ export default function Pagination({
       <button
         disabled={page === 1}
         onClick={() => goTo(page - 1)}
-        className="bg-purple-600 text-white px-3 md:px-4 py-2 rounded-full shadow disabled:opacity-40 hover:bg-purple-700 transition text-sm"
+        className="bg-emerald-700 text-white px-3 md:px-4 py-2 rounded-full shadow disabled:opacity-40 hover:bg-emerald-800 transition text-sm"
       >
         Prev
       </button>
 
       {pages.map((item, index) =>
         item === "..." ? (
-          <span key={`ellipsis-${index}`} className="px-2 text-purple-700 font-semibold">
+          <span key={`ellipsis-${index}`} className="px-2 text-emerald-700 font-semibold">
             ...
           </span>
         ) : (
@@ -64,8 +64,8 @@ export default function Pagination({
             onClick={() => goTo(item)}
             className={`min-w-[38px] md:min-w-[42px] px-3 py-2 rounded-full shadow transition font-semibold text-sm ${
               item === page
-                ? "bg-purple-700 text-white"
-                : "bg-white text-purple-700 hover:bg-purple-100"
+                ? "bg-emerald-800 text-white"
+                : "bg-white text-emerald-700 hover:bg-emerald-100"
             }`}
           >
             {item}
@@ -76,7 +76,7 @@ export default function Pagination({
       <button
         disabled={page === totalPages}
         onClick={() => goTo(page + 1)}
-        className="bg-purple-600 text-white px-3 md:px-4 py-2 rounded-full shadow disabled:opacity-40 hover:bg-purple-700 transition text-sm"
+        className="bg-emerald-700 text-white px-3 md:px-4 py-2 rounded-full shadow disabled:opacity-40 hover:bg-emerald-800 transition text-sm"
       >
         Next
       </button>

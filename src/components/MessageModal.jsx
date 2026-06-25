@@ -17,7 +17,7 @@ export default function MessageModal({
         ? "bg-red-500"
         : type === "warning"
           ? "bg-amber-500"
-          : "bg-purple-500";
+          : "bg-emerald-500";
 
   const isConfirmMode = typeof onConfirm === "function";
 
@@ -45,7 +45,7 @@ export default function MessageModal({
               </button>
               <button
                 onClick={onConfirm}
-                className="bg-purple-600 text-white px-5 py-2 rounded-xl shadow hover:bg-purple-700 hover:scale-105 transition"
+                className="bg-gradient-to-r from-emerald-700 to-green-600 text-white px-5 py-2 rounded-xl shadow hover:from-emerald-800 hover:to-green-700 hover:scale-105 transition"
               >
                 {confirmLabel}
               </button>
@@ -53,7 +53,7 @@ export default function MessageModal({
           ) : (
             <button
               onClick={onClose}
-              className="bg-purple-600 text-white px-5 py-2 rounded-xl shadow hover:bg-purple-700 hover:scale-105 transition"
+              className="bg-gradient-to-r from-emerald-700 to-green-600 text-white px-5 py-2 rounded-xl shadow hover:from-emerald-800 hover:to-green-700 hover:scale-105 transition"
             >
               {confirmLabel}
             </button>
