@@ -254,7 +254,7 @@ export default function BookingForm() {
           </h2>
 
           <p className="text-center text-gray-500 mb-6">
-            እባክዎ የተሳታፊ መረጃዎትን በትክክል ይሙሉ እና የኦፊሴላዊ ማጣቀሻ ምስሉን ያስገቡ።
+            እባክዎ የተሳታፊ መረጃዎትን በትክክል ይሙሉ እና የኦፊሴላዊ የደረሰኝ ምስሉን ያስገቡ።
           </p>
 
           <input
@@ -396,7 +396,7 @@ export default function BookingForm() {
 
           <div className="mb-4">
             <label className="block font-semibold text-gray-700 mb-2">
-              የምዝገባ ማጣቀሻ ምስል / Confirmation Image
+              የምዝገባ ድረሰኝ ምስል / Confirmation Image
             </label>
             <input
               type="file"
@@ -414,7 +414,9 @@ export default function BookingForm() {
           </button>
 
           <div className="text-sm text-gray-500 mt-4">
-            * እባክዎ የሞሉት መረጃ እና ያስገቡት ምስል ትክክለኛ መሆኑን ያረጋግጡ። ይህ ገጽ የይለፍ ቃል፣ የካርድ ቁጥር ወይም የመተግበሪያ ማውረጃ አይጠይቅም። የሰርቨር ወይም የኢንተርኔት ችግኝ ከተፈጠረ የማስጠንቀቂያ መልእክት ይታያል።
+            * እባክዎ የሞሉት መረጃ እና ያስገቡት ምስል ትክክለኛ መሆኑን ያረጋግጡ። ይህ ገጽ የይለፍ ቃል፣ የካርድ
+            ቁጥር ወይም የመተግበሪያ ማውረጃ አይጠይቅም። የሰርቨር ወይም የኢንተርኔት ችግኝ ከተፈጠረ የማስጠንቀቂያ
+            መልእክት ይታያል።
           </div>
         </form>
       </div>
