@@ -162,54 +162,65 @@ export default function Home() {
         <div className="w-full max-w-5xl mx-auto text-center">
           <div className="backdrop-blur-xl shadow-xl py-5 px-3 md:px-5 mb-7 rounded-3xl bg-white/50">
             <h1 className="text-xl md:text-4xl font-bold text-emerald-700 tracking-wide leading-tight">
-              <strong> የዝክረ ቅዱሳን ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!!</strong>
+              <strong>
+                የዝክረ ቅዱሳን ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!! ኦፊሴላዊ የምዝገባ እና
+                የማረጋገጫ ገጽ
+              </strong>
             </h1>
             <p className="mt-4 text-lg md:text-2xl text-emerald-700 font-semibold">
-              Zikre Kidusan Traveling To Menagesha Garaw Medhanealem Unity
-              Monastery!
+              Official registration and confirmation page for the Zikre Kidusan
+              trip to Menagesha Garaw Medhanealem Unity Monastery.
+            </p>
+            <p className="mt-3 text-sm md:text-base text-gray-600 leading-relaxed">
+              ይህ ገጽ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!! ተሳታፊዎች የምዝገባ መረጃ ለማስገባትና ሁኔታ
+              ለመከታተል የተዘጋጀ ኦፊሴላዊ ገጽ ነው። This page is used only for official
+              participant registration details and status follow-up.
             </p>
           </div>
 
           <div className="flex justify-center items-center mb-8">
             <div className="w-full max-w-3xl">
               <h2 className="text-emerald-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
-                ውድ ቤተሰባችን እንኳን ደኅና መጡ፤ &nbsp;
-                <strong>
-                  {" "}
-                  <em>የአንድ ሰው የጉዞ ቲኬት ዋጋ 800 ብር ነው።</em>
-                </strong>{" "}
-                ስለሆነም፦
+                ውድ ቤተሰባችን እንኳን ደኅና መጡ፤ ይህ ገጽ ለኦፊሴላዊ ምዝገባ እና ማረጋገጫ ብቻ ይጠቅማል።
               </h2>
               <div
-                className="text-yellow-700 text-lg md:text-xl px-3 py-4 rounded-[30px] font-semibold"
-                style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+                className="text-yellow-800 text-base md:text-lg px-4 py-5 rounded-[30px] font-medium leading-relaxed border border-emerald-100"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.82)" }}
               >
-                <h4>
-                  መጀመሪያ እባክዎ ከእነዚህ ኦፊሴላዊ የማረጋገጫ መረጃዎች ውስጥ በአንዱ (እርስዎ በተመቸዎት) የምዝገባ ሂደቱን ያጠናቅቁ።
-                </h4>{" "}
-                <ol>
+                <p className="font-semibold mb-3">
+                  የጉዞ ተሳትፎ ዋጋ በአንድ ሰው 800 ብር ነው። በአስተባባሪዎች ከተነገራችሁ በኋላ ብቻ ከሚከተሉት
+                  ኦፊሴላዊ የምዝገባ ማጣቀሻ ሂሳቦች አንዱን ይጠቀሙ።
+                </p>
+                <ol className="space-y-1 list-decimal list-inside">
                   <li>
                     CBE: <strong>1000771353607</strong>
                   </li>
                   <li>
-                    Ahadu Bank: <strong>0096408711801</strong>{" "}
+                    Ahadu Bank: <strong>0096408711801</strong>
                   </li>
                   <li>
                     Tsehay Bank: <strong>1009368317</strong>
                   </li>
                 </ol>
-                All Account Holder Name:{" "}
-                <strong>Tewodros Sahile and Elsa Fantahun</strong>
+                <p className="mt-3">
+                  Official account holder name:{" "}
+                  <strong>Tewodros Sahile and Elsa Fantahun</strong>
+                </p>
+                <p className="mt-3 text-sm md:text-base text-gray-700">
+                  ይህ ገጽ የይለፍ ቃል፣ የካርድ ቁጥር፣ ፒን ወይም የመተግበሪያ ማውረጃ አይጠይቅም። This site
+                  never asks for passwords, card numbers, PIN codes, or software
+                  downloads.
+                </p>
               </div>
               <h2 className="text-emerald-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
-                በመቀጠልም የጉዞ ትኬት ማረጋገጫ መረጃ ማስገቢያ ቅጽን ለመሙላት ፥
+                ቀጣዩን የኦፊሴላዊ ምዝገባ ቅጽ ለመሙላት ከታች ያለውን አዝራር ይንኩ።
               </h2>
 
               <h5 className="text-green-700 font-bold place-items-center mb-4">
-                ከታች የጉዞ ማረጋገጫ ያስገቡ / Continue Booking የሚለውን ይንኩ
+                ከታች የምዝገባ ቅጽ ክፈት / Open Registration Form የሚለውን ይንኩ
                 <img
                   src={clickOn}
-                  alt="Click On"
+                  alt="Open registration form"
                   className="w-20 h-20 md:w-24 md:h-24 mx-auto"
                 />
               </h5>
@@ -217,7 +228,7 @@ export default function Home() {
                 onClick={() => navigate("/submit")}
                 className="bg-gradient-to-r from-emerald-700 to-green-600 text-white text-lg md:text-3xl px-8 md:px-16 py-5 md:py-7 rounded-[30px] shadow-lg hover:scale-105 hover:from-emerald-800 hover:to-green-700 transition duration-300 border border-white/30 w-full"
               >
-                የጉዞ ማረጋገጫ ያስገቡ / Continue Booking
+                የምዝገባ ቅጽ ክፈት / Open Registration Form
               </button>
             </div>
           </div>
@@ -225,11 +236,11 @@ export default function Home() {
           <div className="w-full max-w-4xl mx-auto bg-white/80 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
               <h3 className="text-xl font-bold text-emerald-700">
-                ያስገቡትን መረጃ ሁኔታ ይፈትሹ | Check Your Submission Status
+                የምዝገባ ሁኔታ ይፈትሹ | Check Registration Status
               </h3>
               <p className="text-sm text-gray-500">
-                ስም፣ ስልክ እና ድርጅት በመጠቀም ያስገቡትን መረጃ ሁኔታ ይፈትሹ። | Search by full
-                name, phone number, or organization.
+                ስም፣ ስልክ ወይም ድርጅት በመጠቀም የምዝገባዎን ሁኔታ ይፈትሹ። | Search by full name,
+                phone number, or organization.
               </p>
             </div>
 
@@ -293,7 +304,7 @@ export default function Home() {
           {lookupResults.length > 0 && (
             <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
               <h3 className="text-2xl font-bold text-emerald-700 mb-4">
-                የማረጋገጫ ሁኔታ ውጤት | Status result
+                የምዝገባ ሁኔታ ውጤት | Registration Status Result
               </h3>
               <div className="space-y-4">
                 {lookupResults.map((item) => (
@@ -327,7 +338,7 @@ export default function Home() {
 
           <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 text-left">
             <h3 className="text-2xl font-bold text-emerald-700 mb-4">
-              በቅርብ ግዜ የተሰጡ የማረጋገጫ መረጃዎች ሁኔታ | Recent Submission Updates
+              በቅርብ ጊዜ የተዘመኑ የምዝገባ ሁኔታዎች | Recent Registration Updates
             </h3>
             <div
               ref={scrollRef}
@@ -362,7 +373,8 @@ export default function Home() {
                   ))
                 ) : (
                   <div className="rounded-2xl border border-emerald-100 bg-white p-6 text-center text-gray-500 shadow-sm">
-                    ምንም አይነት የቅርብ ግዜ ማረጋገጫ መረጃዎች የሉም | No recent updates yet.
+                    ምንም አይነት የቅርብ ጊዜ የምዝገባ ዝመናዎች የሉም | No recent registration
+                    updates yet.
                   </div>
                 )}
               </div>

@@ -75,7 +75,7 @@ export default function AdminLogin() {
         className="bg-white p-5 md:p-8 rounded-2xl shadow-lg w-full max-w-sm"
       >
         <h2 className="text-2xl mb-3 text-center font-bold">
-          ወደ የጉዞ ማረጋገጫ አስተዳደር መግቢያ | Booking Admin Login.
+          ወደ ኦፊሴላዊ የምዝገባ አስተዳደር መግቢያ | Authorized Staff Portal
         </h2>
 
         {sessionExpired && (

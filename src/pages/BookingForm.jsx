@@ -211,7 +211,7 @@ export default function BookingForm() {
         name: booking.name,
         status: booking.status || "Pending",
         message:
-          "Your booking verification has been submitted. Waiting for admin review.",
+          "Your official registration details have been received. Waiting for coordinator review.",
         updatedAt:
           booking.updatedAt || booking.createdAt || new Date().toISOString(),
         unread: false,
@@ -250,11 +250,11 @@ export default function BookingForm() {
           className="bg-white p-6 md:p-8 rounded-3xl shadow-xl"
         >
           <h2 className="text-2xl md:text-3xl font-extrabold mb-4 text-center text-emerald-700">
-            የጉዞ ትኬት ማረጋገጫ ማስገቢያ
+            ኦፊሴላዊ የምዝገባ ማረጋገጫ ቅጽ
           </h2>
 
           <p className="text-center text-gray-500 mb-6">
-            የማረጋገጫ መረጃዎትን ከማስገባትዎት በፊት የሚከተሉትን መረጃዎች በትክክል ይሙሉ።
+            እባክዎ የተሳታፊ መረጃዎትን በትክክል ይሙሉ እና የኦፊሴላዊ ማጣቀሻ ምስሉን ያስገቡ።
           </p>
 
           <input
@@ -396,7 +396,7 @@ export default function BookingForm() {
 
           <div className="mb-4">
             <label className="block font-semibold text-gray-700 mb-2">
-              የማረጋገጫ ምስል / Verification Image
+              የምዝገባ ማጣቀሻ ምስል / Confirmation Image
             </label>
             <input
               type="file"
@@ -410,11 +410,11 @@ export default function BookingForm() {
             disabled={submitting}
             className="bg-emerald-500 text-white w-full py-3 rounded-xl font-bold hover:bg-emerald-700 transition disabled:opacity-60"
           >
-            {submitting ? "ይጠብቁ በመላክ ላይ ነው..." : "ያስገቡ / Submit"}
+            {submitting ? "ይጠብቁ በመላክ ላይ ነው..." : "መረጃ ያስገቡ / Submit"}
           </button>
 
           <div className="text-sm text-gray-500 mt-4">
-            * እባክዎ የሞሉት እና ያስገቡት የማረጋገጫ ምስል ትክክለኛ መሆኑን ያረጋግጡ። ትክክለኛ ካልሆነ በአስተዳድሩ ውድቅ ሊደረግ ይችላል። በተጨማሪም የምስጋና ገጹ እስኪመጣ ይታገሱ፣ የኢንተርኔት ወይም የሰርቨር መቋረጥ ከተከሰተ የማስጠንቀቂያ መልእክት ይታያል። ስለዚህ የማረጋገጫ ምስልዎትን እንደገና ለመላክ ይሞክሩ።
+            * እባክዎ የሞሉት መረጃ እና ያስገቡት ምስል ትክክለኛ መሆኑን ያረጋግጡ። ይህ ገጽ የይለፍ ቃል፣ የካርድ ቁጥር ወይም የመተግበሪያ ማውረጃ አይጠይቅም። የሰርቨር ወይም የኢንተርኔት ችግኝ ከተፈጠረ የማስጠንቀቂያ መልእክት ይታያል።
           </div>
         </form>
       </div>

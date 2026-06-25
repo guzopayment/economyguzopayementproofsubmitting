@@ -22,10 +22,10 @@ export const isValidPhone = (value) =>
 
 export const buildStatusMessage = (status) => {
   if (status === "Confirmed") {
-    return "ላስገቡት ትክክለኛ የማረጋገጫ ምስል እናመሰግናለን!ያስገቡት የማረጋገጫ መረጃ ጸድቋል፣ ተቀብለነዋል። በእለቱም አስተባባሪ አባላት የሚያሳውቅዎት ይሆናል። | Thank you for your correct booking verification submission. Your booking verification has been approved and our team will contact you soon.";
+    return "ላስገቡት ትክክለኛ የማረጋገጫ ምስል እናመሰግናለን!ያስገቡት የማረጋገጫ መረጃ ጸድቋል፣ ተቀብለነዋል። በእለቱም አስተባባሪ አባላት የሚያሳውቅዎት ይሆናል። | Thank you. Your registration details have been approved and the organizing team will contact you soon.";
   }
   if (status === "Rejected") {
-    return "ያስገቡት የማረጋገጫ ምስል ውድቅ ሆኗል! እባክዎ እንደገና ትክክለኛ የሆነውን የማረጋገጫ ምስል ያስገቡ!! የአስተደድር ክፍሉ እንደገና የሚገመግመው ይሆናል። | Your verification image was rejected. Please resubmit the correct verification image so the admin team can review it again.";
+    return "ያስገቡት የማረጋገጫ ምስል ውድቅ ሆኗል! እባክዎ እንደገና ትክክለኛ የሆነውን የማረጋገጫ ምስል ያስገቡ!! የአስተደድር ክፍሉ እንደገና የሚገመግመው ይሆናል። | Your registration details need correction. Please resubmit the correct confirmation image so the organizing team can review it again.";
   }
-  return "መልካም። ያስገቡት የማረጋገጫ ምስል በትክክል ደርሷል። የአስገዳድር ክፍሉ እስኪገመግመው ድረስ እባክዎ በትዕግስት ይጠብቁ! | Your verification image has been submitted successfully. Please wait while the admin team reviews it.";
+  return "መልካም። ያስገቡት የማረጋገጫ ምስል በትክክል ደርሷል። የአስገዳድር ክፍሉ እስኪገመግመው ድረስ እባክዎ በትዕግስት ይጠብቁ! | Your registration details have been submitted successfully. Please wait while the organizing team reviews them.";
 };
