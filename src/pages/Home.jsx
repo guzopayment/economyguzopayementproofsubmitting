@@ -187,11 +187,11 @@ export default function Home() {
                 className="text-yellow-800 text-base md:text-lg px-4 py-5 rounded-[30px] font-medium leading-relaxed border border-emerald-100"
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.82)" }}
               >
-                <p className="font-semibold mb-3">
-                  የጉዞ ተሳትፎ ዋጋ በአንድ ሰው 800 ብር ነው። በአስተባባሪዎች ከተነገራችሁ በኋላ ብቻ ከሚከተሉት
-                  ኦፊሴላዊ የምዝገባ ማጣቀሻ ሂሳቦች አንዱን ይጠቀሙ።
+                <p className="font-bold mb-3">
+                  የጉዞ ተሳትፎ ዋጋ በአንድ ሰው 800 ብር ነው። በአስተባባሪዎች ከተነገራችሁ ከሚከተሉት ኦፊሴላዊ
+                  የምዝገባ ማስረጃ ሂሳቦች አንዱን ይጠቀሙና ያከናውኑ። ከዚያም ፦
                 </p>
-                <ol className="space-y-1 list-decimal list-inside">
+                <ol className="font-bold space-y-1 list-decimal list-inside">
                   <li>
                     CBE: <strong>1000771353607</strong>
                   </li>
@@ -206,18 +206,18 @@ export default function Home() {
                   Official account holder name:{" "}
                   <strong>Tewodros Sahile and Elsa Fantahun</strong>
                 </p>
-                <p className="mt-3 text-sm md:text-base text-gray-700">
+                <p className="mt-3 text-extra-sm  md:text-base text-gray-700">
                   ይህ ገጽ የይለፍ ቃል፣ የካርድ ቁጥር፣ ፒን ወይም የመተግበሪያ ማውረጃ አይጠይቅም። This site
                   never asks for passwords, card numbers, PIN codes, or software
                   downloads.
                 </p>
               </div>
               <h2 className="text-emerald-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
-                ቀጣዩን የኦፊሴላዊ ምዝገባ ቅጽ ለመሙላት ከታች ያለውን አዝራር ይንኩ።
+                በመቀጠልም የጉዞ ምዝገባ ቅጽ ለመሙላት ከታች ያለውን
               </h2>
 
               <h5 className="text-green-700 font-bold place-items-center mb-4">
-                ከታች የምዝገባ ቅጽ ክፈት / Open Registration Form የሚለውን ይንኩ
+                የምዝገባ ቅጽ ይክፈቱ / Open Registration Form የሚለውን ይንኩ
                 <img
                   src={clickOn}
                   alt="Open registration form"
@@ -228,7 +228,7 @@ export default function Home() {
                 onClick={() => navigate("/submit")}
                 className="bg-gradient-to-r from-emerald-700 to-green-600 text-white text-lg md:text-3xl px-8 md:px-16 py-5 md:py-7 rounded-[30px] shadow-lg hover:scale-105 hover:from-emerald-800 hover:to-green-700 transition duration-300 border border-white/30 w-full"
               >
-                የምዝገባ ቅጽ ክፈት / Open Registration Form
+                የምዝገባ ቅጽ ይክፈቱ / Open Registration Form
               </button>
             </div>
           </div>
