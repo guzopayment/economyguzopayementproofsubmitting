@@ -36,12 +36,12 @@ export default function ThankYou() {
           <h3 className="font-extrabold text-emerald-800 text-lg mb-3">
             አስፈላጊ ማስታወሻ | Important Notice
           </h3>
-          <p className="text-extra-sm text-gray-700 leading-relaxed">
+          {/* <p className="text-extra-sm text-gray-700 leading-relaxed">
             ይህ ድረ-ገጽ የምዝገባ መረጃ ለመላክ እና ሁኔታ ለመከታተል ብቻ ነው። የይለፍ ቃል፣ የካርድ ቁጥር፣ ፒን
             ወይም የመተግበሪያ ማውረጃ አይጠይቅም። | This page is used only for official
             registration submission and status follow-up. It never asks for
             passwords, card numbers, PIN codes, or software downloads.
-          </p>
+          </p> */}
           <h3 className="font-extrabold text-yellow-800 text-lg mb-3">
             <img
               src={buyMeCoffee}
