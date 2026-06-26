@@ -34,7 +34,7 @@ export default function ThankYou() {
 
         <div className="mt-8 bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-left">
           <h3 className="font-extrabold text-emerald-800 text-lg mb-3">
-            አስፈላጊ ማስታወሻ | Important Notice
+            ቡና ይጋብዙ | Buy me a coffee
           </h3>
           {/* <p className="text-extra-sm text-gray-700 leading-relaxed">
             ይህ ድረ-ገጽ የምዝገባ መረጃ ለመላክ እና ሁኔታ ለመከታተል ብቻ ነው። የይለፍ ቃል፣ የካርድ ቁጥር፣ ፒን
