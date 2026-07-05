@@ -93,6 +93,12 @@
 // }
 import back from "../assets/home.png";
 import closedZK from "../assets/closedZK.jpg";
+import buyMeCoffee from "../assets/buyMeCoffee.gif";
+
+const DEVELOPER_ACCOUNT_NUMBER = "1000254897837";
+const TELEBIRR_PHONE_NUMBER = "0955168453";
+const DEVELOPER_ACCOUNT_NAME = "Semahegn Tilahun Demelashe";
+
 export default function NoEvent() {
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
@@ -114,15 +120,49 @@ export default function NoEvent() {
         <div className="text-lg text-gray-700 mb-4">
           <p>
             {" "}
-            ውድ የኢኮኖሚ ቤተሰብ ለጊዜው ምንም አይነት የክፍያ ደረሰኝ የሚጠይቅ ኩነት የልለም። Dear economy
-            family, there is no any verification image required event.
+            ውድ የኢኮኖሚ ቤተሰብ ለጊዜው ምንም አይነት የክፍያ ደረሰኝ የሚጠይቅ ኩነት የልለም።{" "}
+            <sm>
+              {" "}
+              Dear economy family, there is no any verification image required
+              event.
+            </sm>
           </p>
           <h2 className="text-lg text-red-700 mb-4">
             <strong>
               ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም የትኬት ሽያጭ አብቅቷል። ስለተሳተፍ እናመሰግናለን
             </strong>
           </h2>
+
+          <h3 className="font-extrabold text-yellow-800 text-lg mb-3">
+            <img
+              src={buyMeCoffee}
+              alt="Click On "
+              srcset=""
+              className="w-24 h-18 mx-6 rounded-full"
+            />
+            ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | By a Coffee for the Developer
+          </h3>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            ፈቃደኛ ከሆኑ ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | If you are volunteer Buy a
+            Coffee for this system developer.
+          </p>
+
+          <div className="mt-4 space-y-2 text-sm md:text-base">
+            <p>
+              <span className="font-bold">CBE Account Number:</span>{" "}
+              <strong>{DEVELOPER_ACCOUNT_NUMBER}</strong>
+            </p>
+            <p>
+              <span className="font-bold">Telebirr phone number:</span>{" "}
+              <strong>{TELEBIRR_PHONE_NUMBER}</strong>
+            </p>
+            <p>
+              <span className="font-bold">Account Name:</span>{" "}
+              {DEVELOPER_ACCOUNT_NAME}
+            </p>
+          </div>
         </div>
+
         <div>
           <button
             className="bg-emerald-500 text-white w-full py-3 rounded-lg mt-6"
