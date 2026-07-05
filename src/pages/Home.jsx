@@ -199,7 +199,7 @@ export default function Home() {
                     src={cautionImage}
                     alt="Click On "
                     srcset=""
-                    className="p-2 w-240 h-180 mx-6 rounded-s-md "
+                    className=" w-240 h-180 mx-6 rounded-s-md "
                   />
                   ቲኬት ሽያጭ አብቅቷል። ስለተሳተፍ እናመሰግናለን | Ticket sales are closed.
                   Thank you for your participation.
