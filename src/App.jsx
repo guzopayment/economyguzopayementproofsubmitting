@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import BookingForm from "./pages/BookingForm";
 import ThankYou from "./pages/ThankYou";
+import NoEvent from "./pages/NoEvent";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminReport from "./pages/AdminReport";
@@ -22,6 +23,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/submit" element={<BookingForm />} />
+            <Route path="/no-event" element={<NoEvent />} />
             <Route path="/thank-you" element={<ThankYou />} />
             <Route path="/admin-login" element={<AdminLogin />} />
 

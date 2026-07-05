@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import bgImage from "../assets/qineeSocialDeputs.jpg";
-import clickOn from "../assets/clickOn.gif";
+// import clickOn from "../assets/clickOn.gif";
+import handThank from "../assets/handThank.gif";
+import cautionImage from "../assets/caution.jpg";
 import api from "../services/api";
 import socket from "../socket";
 import MessageModal from "../components/MessageModal";
@@ -188,20 +190,20 @@ export default function Home() {
                 style={{ backgroundColor: "rgba(255, 255, 255, 0.82)" }}
               >
                 <p className="font-bold mb-3">
-                  የጉዞ ተሳትፎ ዋጋ በአንድ ሰው 800 ብር ነው። በአስተባባሪዎች ከተነገራችሁ ከሚከተሉት ኦፊሴላዊ
-                  የምዝገባ ማስረጃ ሂሳቦች አንዱን ይጠቀሙና ያከናውኑ። ከዚያም ፦
+                  {/* የጉዞ ተሳትፎ ዋጋ በአንድ ሰው 800 ብር ነው። በአስተባባሪዎች ከተነገራችሁ ከሚከተሉት ኦፊሴላዊ
+                  የምዝገባ ማስረጃ ሂሳቦች አንዱን ይጠቀሙና ያከናውኑ። ከዚያም ፦ */}
+                  ጉዞው ዛሬ ሰኔ ሃያ ስምንት እንደ እግዚአብሔር ፍቃድ ይከናወናል። ስለሆነም፦
                 </p>
-                <ol className="font-bold space-y-1 list-decimal list-inside">
-                  <li>
-                    CBE: <strong>1000771353607</strong>
-                  </li>
-                  <li>
-                    Ahadu Bank: <strong>0096408711801</strong>
-                  </li>
-                  <li>
-                    Tsehay Bank: <strong>1009368317</strong>
-                  </li>
-                </ol>
+                <h3 className="font-extrabold text-yellow-800 text-lg mb-3">
+                  <img
+                    src={cautionImage}
+                    alt="Click On "
+                    srcset=""
+                    className="p-2 w-240 h-180 mx-6 rounded-s-md "
+                  />
+                  ቲኬት ሽያጭ አብቅቷል። ስለተሳተፍ እናመሰግናለን | Ticket sales are closed.
+                  Thank you for your participation.
+                </h3>
                 <p className="mt-3">
                   Official account holder name:{" "}
                   <strong>Tewodros Sahile and Elsa Fantahun</strong>
@@ -213,22 +215,26 @@ export default function Home() {
                 </p>
               </div>
               <h2 className="text-emerald-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
-                በመቀጠልም የጉዞ ምዝገባ ቅጽ ለመሙላት ከታች ያለውን
+                {/* በመቀጠልም የጉዞ ምዝገባ ቅጽ ለመሙላት ከታች ያለውን */}
               </h2>
 
               <h5 className="text-green-700 font-bold place-items-center mb-4">
-                የምዝገባ ቅጽ ይክፈቱ / Open Registration Form የሚለውን ይንኩ
+                የምዝገባ ቅጽ መሙላት አብቅቷል። ስለተሳተፍ እናመሰግናለን / Registration Form
+                submission is closed. Thank you for your participation.
                 <img
-                  src={clickOn}
+                  // src={clickOn}
+                  src={handThank}
                   alt="Open registration form"
                   className="w-20 h-20 md:w-24 md:h-24 mx-auto"
                 />
               </h5>
               <button
-                onClick={() => navigate("/submit")}
+                // onClick={() => navigate("/submit")}
+                onClick={() => navigate("/thank-you ")}
+                // onClick={() => navigate("/no-event")}
                 className="bg-gradient-to-r from-emerald-700 to-green-600 text-white text-lg md:text-3xl px-8 md:px-16 py-5 md:py-7 rounded-[30px] shadow-lg hover:scale-105 hover:from-emerald-800 hover:to-green-700 transition duration-300 border border-white/30 w-full"
               >
-                የምዝገባ ቅጽ ይክፈቱ / Open Registration Form
+                የምዝገባ ቅጽ ዝግ ነው / Registration Form is Closed
               </button>
 
               <div className="mt-6 text-center text-extra-bold">
