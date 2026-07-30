@@ -7,15 +7,16 @@ import { upsertTrackedBooking } from "../utils/trackedBookings";
 import {
   ORGANIZATIONS,
   SEX_OPTIONS,
-  SUBCITY_OPTIONS,
+  // SUBCITY_OPTIONS,
 } from "../utils/bookingOptions";
 
-const emptyParticipant = (organization = "", subCity = "") => ({
+const emptyParticipant = (organization = "") => ({
+  //  subCity = ""
   name: "",
   phone: "",
   organization,
   sex: "",
-  subCity,
+  // subCity,
 });
 
 const ALPHABETIC_REGEX = /^[A-Za-z\u1200-\u137F\s]*$/;
@@ -41,7 +42,7 @@ export default function BookingForm() {
     organization: "",
     phone: "",
     sex: "",
-    subCity: "",
+    // subCity: "",
     participants: "",
   });
   const [additionalParticipants, setAdditionalParticipants] = useState([]);
@@ -70,15 +71,16 @@ export default function BookingForm() {
 
     setAdditionalParticipants((prev) =>
       Array.from({ length: extraCount }, (_, idx) => ({
-        ...(prev[idx] || emptyParticipant(form.organization, form.subCity)),
+        ...(prev[idx] || emptyParticipant(form.organization)),
+        // form.subCity)),
         organization:
           normalizeSpaces(prev[idx]?.organization) ||
           normalizeSpaces(form.organization),
-        subCity:
-          normalizeSpaces(prev[idx]?.subCity) || normalizeSpaces(form.subCity),
+        // subCity:
+        //   normalizeSpaces(prev[idx]?.subCity) || normalizeSpaces(form.subCity),
       })),
     );
-  }, [participantCount, form.organization, form.subCity]);
+  }, [participantCount, form.organization]); //, form.subCity]);
 
   const setFormField = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -106,28 +108,28 @@ export default function BookingForm() {
     return digits;
   };
 
-  const handleExtraChange = (index, field, value) => {
-    setAdditionalParticipants((prev) =>
-      prev.map((participant, idx) => {
-        if (idx !== index) return participant;
+  // const handleExtraChange = (index, field, value) => {
+  //   setAdditionalParticipants((prev) =>
+  //     prev.map((participant, idx) => {
+  //       if (idx !== index) return participant;
 
-        if (field === "name") {
-          const nextValue = handleNameInput(value, `የተሳታፊ ${index + 2} ስም`);
-          if (nextValue === null) return participant;
-          return { ...participant, [field]: nextValue };
-        }
+  //       // if (field === "name") {
+  //       //   const nextValue = handleNameInput(value, `የተሳታፊ ${index + 2} ስም`);
+  //       //   if (nextValue === null) return participant;
+  //       //   return { ...participant, [field]: nextValue };
+  //       // }
 
-        if (field === "phone") {
-          return {
-            ...participant,
-            [field]: handlePhoneInput(value, `የተሳታፊ ${index + 2} ስልክ ቁጥር`),
-          };
-        }
+  //       // if (field === "phone") {
+  //       //   return {
+  //       //     ...participant,
+  //       //     [field]: handlePhoneInput(value, `የተሳታፊ ${index + 2} ስልክ ቁጥር`),
+  //       //   };
+  //       // }
 
-        return { ...participant, [field]: value };
-      }),
-    );
-  };
+  //       return { ...participant, [field]: value };
+  //     }),
+  //   );
+  // };
 
   const validate = () => {
     if (!isAlphabeticText(form.name)) return "እባክዎ ሙሉ ስምዎትን ያስገቡ።";
@@ -137,24 +139,24 @@ export default function BookingForm() {
       return "እባክዎ ስልክ ቁጥርን በ09 የሚጀምር 10 ዲጂት መሆን አለበት።";
     }
     if (!normalizeSpaces(form.sex)) return "እባክዎ ፆታዎን ይምረጡ።";
-    if (!normalizeSpaces(form.subCity)) return "እባክዎ አሁን ያሉበትን ክ/ከተማ ይምረጡ።";
-    if (!form.participants || Number(form.participants) <= 0) {
-      return "ተሳታፊ ብዛት ከ 0 በላይ ያስገቡ።";
-    }
-    if (!file) return "የማረጋገጫ ምስል ያስገቡ።";
+    // if (!normalizeSpaces(form.subCity)) return "እባክዎ አሁን ያሉበትን ክ/ከተማ ይምረጡ።";
+    // if (!form.participants || Number(form.participants) <= 0) {
+    //   return "ተሳታፊ ብዛት ከ 0 በላይ ያስገቡ።";
+    // }
+    // if (!file) return "የማረጋገጫ ምስል ያስገቡ።";
 
-    for (let i = 0; i < additionalParticipants.length; i += 1) {
-      const participant = additionalParticipants[i];
-      if (!isAlphabeticText(participant.name))
-        return `እባክዎ የተሳታፊ ${i + 2} ስምን ያስገቡ።`;
-      if (!PHONE_REGEX.test(normalizeSpaces(participant.phone))) {
-        return `እባክዎ የተሳታፊ ${i + 2} ስልክ ቁጥርን በ09 የሚጀምር 10 ዲጂት መሆን አለበት።`;
-      }
-      if (!normalizeSpaces(participant.organization))
-        return `እባክዎ የተሳታፊ ${i + 2} ድርጅትን ያስገቡ።`;
-      if (!normalizeSpaces(participant.sex))
-        return `እባክዎ የተሳታፊ ${i + 2} ፆታን ያስገቡ።`;
-    }
+    // for (let i = 0; i < additionalParticipants.length; i += 1) {
+    //   const participant = additionalParticipants[i];
+    //   if (!isAlphabeticText(participant.name))
+    //     return `እባክዎ የተሳታፊ ${i + 2} ስምን ያስገቡ።`;
+    // if (!PHONE_REGEX.test(normalizeSpaces(participants.phone))) {
+    //   return `እባክዎ የተሳታፊ ${i + 2} ስልክ ቁጥርን በ09 የሚጀምር 10 ዲጂት መሆን አለበት።`;
+    // }
+    // if (!normalizeSpaces(participant.organization))
+    //   return `እባክዎ የተሳታፊ ${i + 2} ድርጅትን ያስገቡ።`;
+    // if (!normalizeSpaces(participant.sex))
+    //   return `እባክዎ የተሳታፊ ${i + 2} ፆታን ያስገቡ።`;
+    // }
 
     return "";
   };
@@ -177,7 +179,7 @@ export default function BookingForm() {
       data.append("organization", normalizeSpaces(form.organization));
       data.append("phone", normalizeSpaces(form.phone));
       data.append("sex", normalizeSpaces(form.sex));
-      data.append("subCity", normalizeSpaces(form.subCity));
+      // data.append("subCity", normalizeSpaces(form.subCity));
       data.append("participants", String(form.participants).trim());
       showModal(
         "ይጠብቁ",
@@ -193,13 +195,13 @@ export default function BookingForm() {
             phone: normalizeSpaces(participant.phone),
             organization: normalizeSpaces(participant.organization),
             sex: normalizeSpaces(participant.sex),
-            subCity:
-              normalizeSpaces(participant.subCity) ||
-              normalizeSpaces(form.subCity),
+            // subCity:
+            //   normalizeSpaces(participant.subCity) ||
+            //   normalizeSpaces(form.subCity),
           })),
         ),
       );
-      data.append("paymentProof", file);
+      // data.append("paymentProof", file);
 
       const res = await api.post("/bookings", data, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -209,7 +211,7 @@ export default function BookingForm() {
       upsertTrackedBooking({
         bookingId: booking._id,
         name: booking.name,
-        status: booking.status || "Pending",
+        // status: booking.status || "Pending",
         message:
           "Your official registration details have been received. Waiting for coordinator review.",
         updatedAt:
@@ -250,11 +252,12 @@ export default function BookingForm() {
           className="bg-white p-6 md:p-8 rounded-3xl shadow-xl"
         >
           <h2 className="text-2xl md:text-3xl font-extrabold mb-4 text-center text-emerald-700">
-            ኦፊሴላዊ የምዝገባ ማረጋገጫ ቅጽ
+            ለጉባኤ ቤተሰብ ለብስራት ተሳትፎ የምዝገባ ቅጽ
           </h2>
 
           <p className="text-center text-gray-500 mb-6">
-            እባክዎ የተሳታፊ መረጃዎትን በትክክል ይሙሉ እና የኦፊሴላዊ የደረሰኝ ምስሉን ያስገቡ።
+            እባክዎ መረጃዎትን በትክክል ይሙሉ፣ ለጉባኤው የተሳካ መሆን ቅድመ ዝግጅት ቁጥራዊ መረጃ ለመሰብሰብ ብቻ
+            የተዘጋጀ ነው።
           </p>
 
           <input
@@ -305,7 +308,7 @@ export default function BookingForm() {
             </select>
           </div>
 
-          <select
+          {/* <select
             className="border p-3 mb-3 w-full rounded-xl bg-white"
             value={form.subCity}
             onChange={(e) => setFormField("subCity", e.target.value)}
@@ -404,7 +407,7 @@ export default function BookingForm() {
               className="block w-full overflow-x-auto"
               onChange={(e) => setFile(e.target.files?.[0] || null)}
             />
-          </div>
+          </div> */}
 
           <button
             disabled={submitting}

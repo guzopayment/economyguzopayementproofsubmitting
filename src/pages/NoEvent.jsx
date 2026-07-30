@@ -9,7 +9,7 @@ export default function NoEvent() {
           <img
             src={closedZK}
             alt="Click On "
-            srcset=""
+            srcSet=""
             className="w-24 h-18 mx-6 rounded-full"
           />
           ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | By a Coffee for the Developer
