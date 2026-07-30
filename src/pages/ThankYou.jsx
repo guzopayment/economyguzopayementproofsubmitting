@@ -105,71 +105,92 @@ export default function NoEvent() {
       <div className="bg-white p-8 rounded-2xl shadow-lg w-96 text-center">
         {/* <img src={closedZK} alt="Closed Event" className="mx-auto mb-4" /> */}
         <h3 className="font-extrabold text-yellow-800 text-lg mb-3">
-          <img
+          {/* <img
             src={closedZK}
             alt="Click On "
-            srcset=""
+            srcSet=""
             className="p-2 w-24 h-18 mx-6 rounded-full"
-          />
+          /> 
           ቲኬት ሽያጭ አብቅቷል። ስለተሳተፍ እናመሰግናለን | Ticket sales are closed. Thank you
-          for your participation.
+          for your participation.*/}
         </h3>
         <h2 className="text-2xl font-extrabold mb-6 bg-emerald-900 text-white py-3 rounded">
-          ይቅርታ!|Sorry!
+          እናመሰግናለን!|Thank you!
+          {/* ይቅርታ!|Sorry! */}
         </h2>
-        <div className="text-lg text-gray-700 mb-4">
+        <div className="text-lg text-gray-700 mb-4 bg-slate-50 rounded-2xl shadow">
           <p>
             {" "}
-            ውድ የኢኮኖሚ ቤተሰብ ለጊዜው ምንም አይነት የክፍያ ደረሰኝ የሚጠይቅ ኩነት የልለም።{" "}
-            <sm>
-              {" "}
-              Dear economy family, there is no any verification image required
-              event.
-            </sm>
+            <strong>
+              ውድ የኢኮኖሚ ቤተሰብ የተሳትፎ ቅጹን በአግባቡ ስለሞሉ ከልብ እናመሰግናለን! በእለቱ ደግሞ እንደ
+              እግዚአብሔር ፍቃድ በቦታው በሰዓቱ በመገኘት እንደሚሳተፉ ተስፋ እናደርጋለን።{" "}
+              {/* ውድ የኢኮኖሚ ቤተሰብ ለጊዜው ምንም አይነት የክፍያ ደረሰኝ የሚጠይቅ ኩነት የልለም።{" "} */}
+            </strong>
+            <small>
+              <small>
+                {" "}
+                <br></br>
+                Dear economy family, you submit the form successfuly. <br></br>
+                Thank you.
+              </small>
+            </small>
           </p>
-          <h2 className="text-lg text-red-700 mb-4">
+          <hr />
+          <br />
+          <hr />
+          {/* <h2 className="text-lg text-red-700 mb-4">
             <strong>
               ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም የትኬት ሽያጭ አብቅቷል። ስለተሳተፍ እናመሰግናለን
             </strong>
-          </h2>
-
-          <h3 className="font-extrabold text-yellow-800 text-lg mb-3">
-            <img
-              src={buyMeCoffee}
-              alt="Click On "
-              srcset=""
-              className="w-24 h-18 mx-6 rounded-full"
-            />
-            ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | By a Coffee for the Developer
-          </h3>
-          <p className="text-sm text-gray-700 leading-relaxed">
-            ፈቃደኛ ከሆኑ ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | If you are volunteer Buy a
-            Coffee for this system developer.
-          </p>
-
-          <div className="mt-4 space-y-2 text-sm md:text-base">
-            <p>
-              <span className="font-bold">CBE Account Number:</span>{" "}
-              <strong>{DEVELOPER_ACCOUNT_NUMBER}</strong>
+          </h2> */}
+          <div className="rounded-2xl bg-emerald-50 ">
+            <h3 className="font-extrabold text-yellow-800 text-lg mb-3">
+              <img
+                src={buyMeCoffee}
+                alt="Click On "
+                srcSet=""
+                className="w-20 h-16 mx-6 rounded-full items-center"
+              />{" "}
+              <small>
+                ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | By a Coffee for the Developer
+              </small>
+            </h3>
+            <p className="text-sm text-gray-700 leading-relaxed">
+              <small>
+                ፈቃደኛ ከሆኑ ይህን ሲስተም የሰራውን ሰው ቡና ይጋብዙት | If you are volunteer Buy a
+                Coffee for this system developer.
+              </small>
             </p>
-            <p>
-              <span className="font-bold">Telebirr phone number:</span>{" "}
-              <strong>{TELEBIRR_PHONE_NUMBER}</strong>
-            </p>
-            <p>
-              <span className="font-bold">Account Name:</span>{" "}
+
+            <div className="mt-4 space-y-2 text-sm md:text-base">
+              <p>
+                <small>
+                  <span className="font-bold">CBE Account Number:</span>{" "}
+                  <strong>{DEVELOPER_ACCOUNT_NUMBER}</strong>
+                </small>
+              </p>
+              <p>
+                <small>
+                  <span className="font-bold">Telebirr phone number:</span>{" "}
+                  <strong>{TELEBIRR_PHONE_NUMBER}</strong>
+                </small>
+              </p>
+              <p>
+                <small>
+                  <span className="font-bold">Account Name:</span>{" "}
+                  {DEVELOPER_ACCOUNT_NAME}
+                </small>
+              </p>
+            </div>
+          </div>
+        </div>
+me:</span>{" "}
               {DEVELOPER_ACCOUNT_NAME}
             </p>
           </div>
         </div>
 
-        <div>
-          <button
-            className="bg-emerald-500 text-white w-full py-3 rounded-lg mt-6"
-            onClick={() => (window.location.href = "/")}
-          >
-            <img src={back} alt="back" className="w-5 h-5 inline mr-2" />
-            Back to Home
+ck to Home
           </button>
         </div>
       </div>

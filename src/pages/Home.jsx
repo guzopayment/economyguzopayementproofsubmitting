@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import bgImage from "../assets/qineeSocialDeputs.jpg";
-// import clickOn from "../assets/clickOn.gif";
-import handThank from "../assets/handThank.gif";
+import clickOn from "../assets/clickOn.gif";
+// import handThank from "../assets/handThank.gif";
 import cautionImage from "../assets/caution.jpg";
 import api from "../services/api";
 import socket from "../socket";
@@ -160,30 +160,35 @@ export default function Home() {
       className="min-h-screen bg-cover bg-center flex flex-col justify-center overflow-x-hidden"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="min-h-screen bg-emerald-50/90 backdrop-blur-sm p-4 md:p-6 flex items-center justify-center overflow-x-hidden">
+      <div className="min-h-screen bg-emerald-50/90 backdrop-blur-sm p-4 md:p-6 flex items-center justify-center overflow-x-hidden font-extra-bold">
         <div className="w-full max-w-5xl mx-auto text-center">
           <div className="backdrop-blur-xl shadow-xl py-5 px-3 md:px-5 mb-7 rounded-3xl bg-white/50">
-            <h1 className="text-xl md:text-4xl font-bold text-emerald-700 tracking-wide leading-tight">
+            <h1 className="text-xl md:text-4xl font-extrabold text-emerald-700 tracking-wide leading-tight">
               <strong>
-                የዝክረ ቅዱሳን ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!! ኦፊሴላዊ የምዝገባ እና
-                የማረጋገጫ ገጽ
+                <strong>
+                  {/* የዝክረ ቅዱሳን ጉዞ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!! ኦፊሴላዊ የምዝገባ እና
+                የማረጋገጫ ገጽ */}
+                  ጉባኤ ቤተሰብ ለብሥራት
+                </strong>
               </strong>
             </h1>
             <p className="mt-4 text-lg md:text-2xl text-emerald-700 font-semibold">
-              Official registration and confirmation page for the Zikre Kidusan
-              trip to Menagesha Garaw Medhanealem Unity Monastery.
+              {/* Official registration and confirmation page for the Zikre Kidusan
+              trip to Menagesha Garaw Medhanealem Unity Monastery. */}
+              <em> ቤተሰባዊ አንድነት የሚጠነክርበት ታላቅ ቀን!!!</em>
             </p>
             <p className="mt-3 text-sm md:text-base text-gray-600 leading-relaxed">
-              ይህ ገጽ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!! ተሳታፊዎች የምዝገባ መረጃ ለማስገባትና ሁኔታ
+              {/* ይህ ገጽ ወደ መናገሻ ጋራው መድኃኔዓለም አንድነት ገዳም!! ተሳታፊዎች የምዝገባ መረጃ ለማስገባትና ሁኔታ
               ለመከታተል የተዘጋጀ ኦፊሴላዊ ገጽ ነው። This page is used only for official
-              participant registration details and status follow-up.
+              participant registration details and status follow-up. */}
             </p>
           </div>
 
           <div className="flex justify-center items-center mb-8">
             <div className="w-full max-w-3xl">
               <h2 className="text-emerald-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
-                ውድ ቤተሰባችን እንኳን ደኅና መጡ፤ ይህ ገጽ ለኦፊሴላዊ ምዝገባ እና ማረጋገጫ ብቻ ይጠቅማል።
+                ውድ ቤተሰባችን እንኳን ደኅና መጡ፤ ይህ ገጽ ለ ለጉባኤ ቤተሰብ ለብስራት ቤተሰባዊ አንድነት
+                የሚጠነክርበት ታላቅ ቀን የሚሳተፉ አባላትን መረጃ ለመሰብሰብ ብቻ ይጠቅማል።
               </h2>
               <div
                 className="text-yellow-800 text-base md:text-lg px-4 py-5 rounded-[30px] font-medium leading-relaxed border border-emerald-100"
@@ -191,63 +196,77 @@ export default function Home() {
               >
                 <p className="font-bold mb-3">
                   {/* የጉዞ ተሳትፎ ዋጋ በአንድ ሰው 800 ብር ነው። በአስተባባሪዎች ከተነገራችሁ ከሚከተሉት ኦፊሴላዊ
-                  የምዝገባ ማስረጃ ሂሳቦች አንዱን ይጠቀሙና ያከናውኑ። ከዚያም ፦ */}
-                  ጉዞው ዛሬ ሰኔ ሃያ ስምንት እንደ እግዚአብሔር ፍቃድ ይከናወናል። ስለሆነም፦
+                  የምዝገባ ማስረጃ ሂሳቦች አንዱን ይጠቀሙና ያከናውኑ። ከዚያም ፦ 
+                  ጉዞው ዛሬ ሰኔ ሃያ ስምንት እንደ እግዚአብሔር ፍቃድ ይከናወናል። ስለሆነም፦*/}
                 </p>
                 <h3 className="font-extrabold text-yellow-800 text-lg mb-3">
-                  <img
+                  {/* <img
                     src={cautionImage}
                     alt="Click On "
-                    srcset=""
+                    srcSet=""
                     className=" w-240 h-180 mx-6 rounded-s-md "
                   />
                   ቲኬት ሽያጭ አብቅቷል። ስለተሳተፍ እናመሰግናለን | Ticket sales are closed.
-                  Thank you for your participation.
+                  Thank you for your participation. */}
                 </h3>
-                <p className="mt-3">
-                  Official account holder name:{" "}
-                  <strong>Tewodros Sahile and Elsa Fantahun</strong>
-                </p>
-                <p className="mt-3 text-extra-sm  md:text-base text-gray-700">
-                  ይህ ገጽ የይለፍ ቃል፣ የካርድ ቁጥር፣ ፒን ወይም የመተግበሪያ ማውረጃ አይጠይቅም። This site
-                  never asks for passwords, card numbers, PIN codes, or software
-                  downloads.
+                <h2 className="mt-3">
+                  <strong>
+                    {" "}
+                    {/* በመሆኑም እርስዎ ለዚህ ታላቅ ጉቤ የሚገኙ መሆንዎን ከታች ያለውን የምዝገባ ቅጽ ይሙሉ የሚለውን */}
+                  </strong>
+                  {/* Official account holder name:{" "} */}
+                  {/* <strong>Tewodros Sahile and Elsa Fantahun</strong> */}
+                </h2>
+                <p className="mt-3 text-extra-sm  md:text-extra-sm text-gray-700">
+                  <em>
+                    {" "}
+                    <small>
+                      <small>
+                        {" "}
+                        ይህ ገጽ የይለፍ ቃል፣ የካርድ ቁጥር፣ ፒን ወይም የመተግበሪያ ማውረጃ አይጠይቅም።
+                        This site never asks for passwords, card numbers, PIN
+                        codes, or software downloads.{" "}
+                      </small>
+                    </small>
+                  </em>
                 </p>
               </div>
               <h2 className="text-emerald-700 text-xl md:text-2xl px-3 py-4 rounded-[30px] font-bold">
-                {/* በመቀጠልም የጉዞ ምዝገባ ቅጽ ለመሙላት ከታች ያለውን */}
+                በመሆኑም እርስዎ ለዚህ ታላቅ ጉቤ የሚገኙ መሆንዎን ከታች ያለውን የተሳትፎ ምዝገባ ቅጽ ይሙሉ
+                የሚለውን በመንካት ተሳታፊነትዎን ያሳውቁ፦
               </h2>
 
               <h5 className="text-green-700 font-bold place-items-center mb-4">
-                የምዝገባ ቅጽ መሙላት አብቅቷል። ስለተሳተፍ እናመሰግናለን / Registration Form
-                submission is closed. Thank you for your participation.
+                {/* የምዝገባ ቅጽ መሙላት አብቅቷል። ስለተሳተፍ እናመሰግናለን / Registration Form
+                submission is closed. Thank you for your participation. */}
                 <img
-                  // src={clickOn}
-                  src={handThank}
+                  src={clickOn}
+                  // src={handThank}
                   alt="Open registration form"
                   className="w-20 h-20 md:w-24 md:h-24 mx-auto"
                 />
               </h5>
               <button
-                // onClick={() => navigate("/submit")}
-                onClick={() => navigate("/thank-you ")}
+                onClick={() => navigate("/submit")}
+                // onClick={() => navigate("/thank-you ")}
                 // onClick={() => navigate("/no-event")}
                 className="bg-gradient-to-r from-emerald-700 to-green-600 text-white text-lg md:text-3xl px-8 md:px-16 py-5 md:py-7 rounded-[30px] shadow-lg hover:scale-105 hover:from-emerald-800 hover:to-green-700 transition duration-300 border border-white/30 w-full"
               >
-                የምዝገባ ቅጽ ዝግ ነው / Registration Form is Closed
+                {/* የምዝገባ ቅጽ ዝግ ነው / Registration Form is Closed */}
+                የተሳትፎ ምዝገባ ቅጽ ይሙሉ
               </button>
 
               <div className="mt-6 text-center text-extra-bold">
                 {" "}
-                <p className="mt-4 text-bold md:text-base text-blue-900 leading-relaxed">
+                {/* <p className="mt-4 text-bold md:text-base text-blue-900 leading-relaxed">
                   <strong>ለበለጠ መረጃ </strong> <br></br> 📞 0994181826 <br></br>{" "}
                   📞 0913446530 <br></br> 📞 0911282341
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
 
-          <div className="w-full max-w-4xl mx-auto bg-white/80 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
+          {/* <div className="w-full max-w-4xl mx-auto bg-white/80 rounded-3xl shadow-xl p-5 md:p-6 mb-8 text-left">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
               <h3 className="text-xl font-bold text-emerald-700">
                 የምዝገባ ሁኔታ ይፈትሹ | Check Registration Status
@@ -348,9 +367,8 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          )}
-
-          <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 text-left">
+          )} 
+             <div className="w-full max-w-4xl mx-auto bg-white/85 rounded-3xl shadow-xl p-5 md:p-6 text-left">
             <h3 className="text-2xl font-bold text-emerald-700 mb-4">
               በቅርብ ጊዜ የተዘመኑ የምዝገባ ሁኔታዎች | Recent Registration Updates
             </h3>
@@ -393,17 +411,5 @@ export default function Home() {
                 )}
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <MessageModal
-        open={modal.open}
-        title={modal.title}
-        message={modal.message}
-        type={modal.type}
-        onClose={() => setModal((prev) => ({ ...prev, open: false }))}
-      />
-    </div>
-  );
-}
+          </div> */}
+>
