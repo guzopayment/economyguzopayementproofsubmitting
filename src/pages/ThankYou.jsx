@@ -118,7 +118,7 @@ export default function NoEvent() {
           እናመሰግናለን!|Thank you!
           {/* ይቅርታ!|Sorry! */}
         </h2>
-        <div className="text-lg text-gray-700 mb-4 bg-slate-50 rounded-2xl shadow">
+        <div className="text-lg text-gray-700 mb-4 bg-slate-50 rounded-2xl shadow-emerald-800">
           <p>
             {" "}
             <strong>
@@ -184,13 +184,13 @@ export default function NoEvent() {
             </div>
           </div>
         </div>
-me:</span>{" "}
-              {DEVELOPER_ACCOUNT_NAME}
-            </p>
-          </div>
-        </div>
-
-ck to Home
+        <div>
+          <button
+            className="bg-emerald-500 text-white w-full py-3 rounded-lg mt-6"
+            onClick={() => (window.location.href = "/")}
+          >
+            <img src={back} alt="back" className="w-5 h-5 inline mr-2" />
+            Back to Home
           </button>
         </div>
       </div>

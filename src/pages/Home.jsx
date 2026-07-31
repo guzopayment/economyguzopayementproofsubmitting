@@ -412,4 +412,16 @@ export default function Home() {
               </div>
             </div>
           </div> */}
->
+        </div>
+      </div>
+
+      <MessageModal
+        open={modal.open}
+        title={modal.title}
+        message={modal.message}
+        type={modal.type}
+        onClose={() => setModal((prev) => ({ ...prev, open: false }))}
+      />
+    </div>
+  );
+}
